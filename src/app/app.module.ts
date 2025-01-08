@@ -5,15 +5,17 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Components/login/login.component';
 
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-
+    LoginComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
