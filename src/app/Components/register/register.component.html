@@ -1,9 +1,9 @@
 <div class="login-container">
     <div class="login-box" [@fadeInOut]> 
       <div class="form-section">
-        <h1 class="title w-full text-center" [@slideInFromLeft]>Iniciar Sesion</h1>
-        <h2 class="subtitle text-center" [@slideInFromRight]>¡Bienvenido de nuevo a Aqutest!</h2>
-        <form (ngSubmit)="onLogin()" #Loginform="ngForm">
+        <h1 class="title text-center" [@slideInFromLeft]>Registrate</h1>
+        <h2 class="subtitle text-center" [@slideInFromRight]>¡Conoce nustra plataforma!</h2>
+        <form (ngSubmit)="onRegister()" #Loginform="ngForm">
           <div class="input-group" [@slideInFromLeft]>
             <label for="email">Correo Electrónico</label>
             <input type="email" id="email" name="email" [(ngModel)]="email" required>
@@ -16,17 +16,17 @@
           </div>
           <div class="w-full flex justify-center items-center">
           <button type="submit" [@pulseAnimation] class="">
-            Iniciar Sesión
+            Registrarse
           </button>
         </div>
         </form>
         <div class="additional-options w-full flex flex-col justify-center items-center">
-          <a class="" href="#" [@fadeInOut]>¿Olvidaste tu contraseña?</a>
-          <a  class="cursor-pointer" (click)="goToRegister()">Registrarse</a>
+          <a class="textoPrimario" href="#" [@fadeInOut]>¿Olvidaste tu contraseña?</a>
+          <a  class="cursor-pointer textoPrimario" (click)="goToLogin()">Iniciar Sesion</a>
         </div>
       </div>
       <div class="image-section" [@zoomIn]>
-        <img src="https://mfiles.alphacoders.com/101/thumb-1920-1011551.png" alt="Login background">
+        <img src="https://images7.alphacoders.com/411/thumb-1920-411820.jpg" alt="Login background">
       </div>
     </div>
   </div>

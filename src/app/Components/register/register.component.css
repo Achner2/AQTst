@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #fbfcff 0%, #bf95e9 100%);
+  background: linear-gradient(135deg, #c1c8dd 0%, #e6ccff 100%);
   padding: 2rem;
 }
 
@@ -33,16 +33,24 @@
 }
 
 .title {
-  font-size: 2.3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #333;
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
-  font-size: 0.9.5rem;
-  color: #6f18d39d;
+  font-size: 1rem;
+  color: #cf84d1;
   margin-bottom: 2rem;
+}
+
+.textoPrimario{
+  color: #cf84d1 !important;
+}
+
+.textoPrimario:hover{
+  color: #333 !important;
 }
 
 .input-group {
@@ -89,7 +97,7 @@ input {
 }
 
 button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #857b8b 0%, #f9a0fc 100%);
   color: white;
   border: none;
   padding: 0.8rem;

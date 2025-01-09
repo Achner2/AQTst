@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormsModule } from '@angular/forms';
+import { AuthServiceService } from '../../Services/auth-service.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -49,10 +51,31 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  errorMessage: string = '';
 
-  onSubmit() {
-    if (this.email && this.password) {
-      console.log('Login submitted', this.email, this.password);
-    }
+  constructor(private authService: AuthServiceService, private router: Router ){}
+
+
+  onLogin(): void {
+    const credentials = {
+      email: this.email,
+      password: this.password
+    };
+  
+    this.authService.login(credentials).subscribe({
+      next: (response) => {
+        localStorage.setItem('authToken', response.token);
+
+        window.location.href = 'https://www.google.com';
+        //this.router.navigate(['/dashboard']); reedirige dento de la app
+      },
+      error: (err) => {
+        this.errorMessage = 'Error de autenticación. Verifique sus credenciales.';
+      }
+    });
+  }
+
+  goToRegister(){
+    this.router.navigate(['/register'])
   }
 }
