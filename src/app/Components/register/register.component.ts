@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { RegisterService } from '../../Services/register.service';
 import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -49,7 +51,7 @@ export class RegisterComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private router : Router, private registerService: RegisterService){}
+  constructor(private readonly router : Router, private readonly registerService: RegisterService){}
 
   onRegister(){
     const credentials = {
@@ -60,11 +62,23 @@ export class RegisterComponent {
     this.registerService.register(credentials).subscribe({
       next: (response) => {
         console.log("Usuario Registrado con exito" + response)
-        alert("Te haz registrado satisfactoriamente")
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Registro relizado con exito",
+          showConfirmButton: false,
+          timer: 2000
+        });
         this.router.navigate(["/login"])
       },
       error: (err) =>{
-        console.log("Error en sus credenciales")
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "Credenciales Incorrectas o no disponibles",
+          showConfirmButton: false,
+          timer: 2000
+        });
       }
     })
   }

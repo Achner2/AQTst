@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #c1c8dd 0%, #e6ccff 100%);
+  background: linear-gradient(135deg, #dfe2ee 0%, #000000 100%);
   padding: 2rem;
 }
 
@@ -41,7 +41,7 @@
 
 .subtitle {
   font-size: 1rem;
-  color: #cf84d1;
+  color: #312831;
   margin-bottom: 2rem;
 }
 
@@ -78,7 +78,7 @@ input {
   transition: all 0.3s ease;
 
   &:focus {
-    border-color: #667eea;
+    border-color: #22242b;
     box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.25);
     outline: none;
 
@@ -97,7 +97,7 @@ input {
 }
 
 button {
-  background: linear-gradient(135deg, #857b8b 0%, #f9a0fc 100%);
+  background: linear-gradient(135deg, #111011 0%, #747274 100%);
   color: white;
   border: none;
   padding: 0.8rem;
@@ -126,13 +126,13 @@ button {
   margin-top: 2rem;
 
   a {
-    color: #667eea;
+    color: #10121a;
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.3s ease;
 
     &:hover {
-      color: #764ba2;
+      color: #504f52;
     }
   }
 }

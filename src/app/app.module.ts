@@ -6,10 +6,14 @@ import { LoginComponent } from './Components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './Components/register/register.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
     
   ],
   imports: [
@@ -19,6 +23,8 @@ import { RegisterComponent } from './Components/register/register.component';
     BrowserAnimationsModule,
     HttpClientModule, 
     RegisterComponent,
+    SweetAlert2Module.forRoot() // Configuración principal de SweetAlert2
+
   ],
   providers: [],
   bootstrap: [AppComponent],

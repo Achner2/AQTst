@@ -3,6 +3,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { FormsModule } from '@angular/forms';
 import { AuthServiceService } from '../../Services/auth-service.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -49,11 +51,14 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent {
+
+  loginImage = "https://mfiles.alphacoders.com/101/thumb-1920-1013324.png"
+
   email: string = '';
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private authService: AuthServiceService, private router: Router ){}
+  constructor(private readonly authService: AuthServiceService, private readonly router: Router ){}
 
 
   onLogin(): void {
@@ -65,12 +70,24 @@ export class LoginComponent {
     this.authService.login(credentials).subscribe({
       next: (response) => {
         localStorage.setItem('authToken', response.token);
-
-        window.location.href = 'https://www.google.com';
-        //this.router.navigate(['/dashboard']); reedirige dento de la app
+        Swal.fire({
+          title: "Credenciales Correctas",
+          icon: "success",
+          draggable: true,
+          timer: 2000
+        });
+        setTimeout(() => {
+          this.router.navigate(['/dashboard']);
+        }, 1000);
       },
       error: (err) => {
         this.errorMessage = 'Error de autenticación. Verifique sus credenciales.';
+        Swal.fire({
+          title: "Credenciales incorrectas",
+          icon: "error",
+          draggable: true,
+          timer: 2000
+        });
       }
     });
   }
