@@ -8,6 +8,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './Components/register/register.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
     BrowserAnimationsModule,
     HttpClientModule, 
     RegisterComponent,
-    SweetAlert2Module.forRoot() // Configuración principal de SweetAlert2
+    SweetAlert2Module.forRoot(),
+    CommonModule,
+    FormsModule,
+    HighchartsChartModule
 
   ],
   providers: [],
