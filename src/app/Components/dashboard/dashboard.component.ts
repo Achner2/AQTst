@@ -28,7 +28,7 @@ export class DashboardComponent {
     series: [
       {
         name: 'Ventas',
-        data: [100, 200, 150, 300, 250] // Datos del gráfico
+        data: [100, 200, 150, 300, 250]
       }
     ] as Highcharts.SeriesOptionsType[]
   };

@@ -1,28 +1,62 @@
 <div class="w-full h-screen bg-slate-300 flex flex-col sm:flex-row">
-    <!-- Sidebar -->
     <div class="w-full sm:w-1/6 h-auto sm:h-full">
-      <div class="w-full h-full bg-white">
-        <div class="w-full h-20 sm:h-1/5 flex justify-center items-center flex-col">
-          <div class="w-12 h-12 sm:w-1/5 sm:h-1/2">
-            <img class="w-full h-full object-contain" src="https://cdn.worldvectorlogo.com/logos/spring-3.svg" alt="Logo">
-          </div>
-          <h1 class="text-lg font-semibold mt-2">Aqutest</h1>
-        </div>
-        <div class="w-full h-auto sm:h-4/5 pt-4 sm:pt-10">
-          <div class="w-full">
-            <ul class="w-full flex sm:flex-col justify-around sm:justify-start">
-              <button class="w-full h-12 sm:h-14 shadow-sm hover:bg-gray-100 transition-colors">Inicio</button>
-              <button class="w-full h-12 sm:h-14 shadow-sm hover:bg-gray-100 transition-colors">Nosotros</button>
-              <button class="w-full h-12 sm:h-14 shadow-sm hover:bg-gray-100 transition-colors">Servicios</button>
-              <button class="w-full h-12 sm:h-14 shadow-sm hover:bg-gray-100 transition-colors">Alertas</button>
-              <button class="w-full h-12 sm:h-14 shadow-sm hover:bg-gray-100 transition-colors">Metricas</button>
+      <div class="min-h-screen bg-gradient-to-br bg-white to-indigo-100">
+        <div class="container mx-auto px-4 py-8">
+          <header class="mb-8 text-center">
+            <div class="inline-block p-4 bg-white rounded-full mb-4">
+              <img class="w-16 h-16 object-contain" src="https://cdn.worldvectorlogo.com/logos/spring-3.svg" alt="Aqutest Logo">
+            </div>
+            <h1 class="text-3xl font-bold text-slate-700">Aqutest</h1>
+          </header>
+          <nav class="bg-white rounded-lg shadow-md overflow-hidden">
+            <ul class="sm:flex-row">
+              <li class="flex-1">
+                <button class="w-full py-4 px-6 text-left hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset transition-colors duration-200 ease-in-out group">
+                  <span class="flex items-center text-slate-900 group-hover:text-indigo-800">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    Inicio
+                  </span>
+                </button>
+              </li>
+              <li class="flex-1">
+                <button class="w-full py-4 px-6 text-left hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset transition-colors duration-200 ease-in-out group">
+                  <span class="flex items-center text-slate-900 group-hover:text-indigo-800">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+                    Herramientas
+                  </span>
+                </button>
+              </li>
+              <li class="flex-1">
+                <button class="w-full py-4 px-6 text-left hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset transition-colors duration-200 ease-in-out group">
+                  <span class="flex items-center text-slate-900 group-hover:text-indigo-800">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Servicios
+                  </span>
+                </button>
+              </li>
+              <li class="flex-1">
+                <button class="w-full py-4 px-6 text-left hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset transition-colors duration-200 ease-in-out group">
+                  <span class="flex items-center text-slate-900 group-hover:text-indigo-800">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                    Alertas
+                  </span>
+                </button>
+              </li>
+              <li class="flex-1">
+                <button class="w-full py-4 px-6 text-left hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset transition-colors duration-200 ease-in-out group">
+                  <span class="flex items-center text-slate-900 group-hover:text-indigo-800">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Metricas
+                  </span>
+                </button>
+              </li>
             </ul>
-          </div>
-        </div>    
-      </div>
+          </nav>
+        </div>
+      </div>      
     </div>
       <div class="w-full h-full bg-white flex flex-col">
-      <div class="header-nav shadow-md p-4">
+      <div class="header-nav p-4 shadow-sm">
         <div class="box-icon flex justify-center items-center">
           <div class="box-log w-32 sm:w-40">
             <img class="img-box w-full h-auto" src="https://excelec.com/wp-content/uploads/2021/06/cropped-excelec_logo.png" alt="Excelec Logo">
@@ -34,9 +68,9 @@
           </button>
         </div>
       </div>   
-      <div class="w-full flex-grow overflow-auto">
-        <div class="bg-blue-400/10 w-full h-full p-3 flex flex-col lg:flex-row gap-2">
-          <div class="w-full lg:w-1/3 h-64 lg:h-1/2 bg-slate-50">
+      <div class="w-full flex-grow overflow-auto bg-slate-50">
+        <div class="bg-blue-400/10 flex-wrap w-full h-full p-5 flex flex-col lg:flex-row gap-1 justify-center">
+          <div class="w-full lg:w-[32%] h-64 lg:h-1/2 bg-slate-50">
             <div style="width: 100%; height: 100%; margin: 0 auto;">
               <highcharts-chart
                 [Highcharts]="Highcharts"
@@ -45,7 +79,7 @@
               </highcharts-chart>
             </div>
           </div>
-          <div class="w-full lg:w-1/3 h-64 lg:h-1/2 bg-slate-50">
+          <div class="w-full lg:w-[32%] h-64 lg:h-1/2 bg-slate-50">
             <div style="width: 100%; height: 100%; margin: 0 auto;">
               <highcharts-chart
                 [Highcharts]="Highcharts"
@@ -54,7 +88,7 @@
               </highcharts-chart>
             </div>
           </div>
-          <div class="w-full lg:w-1/3 h-64 lg:h-1/2 bg-slate-50">
+          <div class="w-full lg:w-[32%] h-64 lg:h-1/2 bg-slate-50">
             <div style="width: 100%; height: 100%; margin: 0 auto;">
               <highcharts-chart
                 [Highcharts]="Highcharts"
@@ -63,7 +97,34 @@
               </highcharts-chart>
             </div>
           </div>
-        </div>
+          <div class="w-full lg:w-[32%] h-64 lg:h-1/2 bg-slate-50">
+            <div style="width: 100%; height: 100%; margin: 0 auto;">
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [options]="chartOptions3"
+                style="width: 100%; height: 100%; display: block;">
+              </highcharts-chart>
+            </div>
+          </div>
+          <div class="w-full lg:w-[32%] h-64 lg:h-1/2 bg-slate-50">
+            <div style="width: 100%; height: 100%; margin: 0 auto;">
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [options]="chartOptions3"
+                style="width: 100%; height: 100%; display: block;">
+              </highcharts-chart>
+            </div>
+          </div>
+          <div class="w-full lg:w-[32%] h-64 lg:h-1/2 bg-slate-50">
+            <div style="width: 100%; height: 100%; margin: 0 auto;">
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [options]="chartOptions3"
+                style="width: 100%; height: 100%; display: block;">
+              </highcharts-chart>
+            </div>
+          </div>
+         </div>    
       </div>   
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class RegisterService {
 
-  private apiUrl = 'https://localhost:7050/api/UserCredentials/Register'
+  private readonly apiUrl = 'https://localhost:7050/api/UserCredentials/Register'
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   register(credentials: {email: string, password: string}):Observable<any>{
     return this.http.post(this.apiUrl, credentials)
