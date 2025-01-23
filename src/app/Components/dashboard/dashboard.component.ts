@@ -8,6 +8,14 @@ import * as Highcharts from 'highcharts';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+
+  isSidebarOpen: boolean = false;
+
+  toggleSidebar() {
+
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
   
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: Highcharts.Options = {
@@ -121,5 +129,27 @@ export class DashboardComponent {
       }
     ]
   };  
+
+  chartOptions4: Highcharts.Options = {
+    chart: {
+      type: 'line'
+    },
+    title: {
+      text: 'Mi primer gráfico de Highcharts'
+    },
+    xAxis: {
+      categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio']
+    },
+    yAxis: {
+      title: {
+        text: 'Número de visitas'
+      }
+    },
+    series: [{
+      name: 'Visitas',
+      type: 'line',
+      data: [29, 71, 106, 129, 144, 176, 135]
+    }]
+  };
 
 }

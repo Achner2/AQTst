@@ -20,6 +20,7 @@
     "@angular/router": "^17.3.0",
     "@ionic/angular-toolkit": "^12.1.1",
     "@sweetalert2/ngx-sweetalert2": "^12.4.0",
+    "@swimlane/ngx-charts": "^21.1.2",
     "angular-highcharts": "^17.0.1",
     "highcharts": "^12.1.2",
     "highcharts-angular": "^4.0.1",

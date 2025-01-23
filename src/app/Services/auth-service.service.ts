@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthServiceService {
-  private readonly apiUrl = 'https://localhost:7050/api/UserCredentials/login';
+  private readonly apiUrl = 'https://localhost:7051/api/UserCredentials/login';
   constructor(private readonly http: HttpClient) { }
 
   login(credentials: {email: string, password: string}): Observable<any> {

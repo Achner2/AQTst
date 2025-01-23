@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule} from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,7 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HighchartsChartModule } from 'highcharts-angular';
+
 
 
 @NgModule({
@@ -29,9 +30,10 @@ import { HighchartsChartModule } from 'highcharts-angular';
     SweetAlert2Module.forRoot(),
     CommonModule,
     FormsModule,
-    HighchartsChartModule
+    HighchartsChartModule,
 
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent],
 
