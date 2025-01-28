@@ -10,8 +10,9 @@ body {
   }
   
   .header {
-    background-color: #ffffff;
-    box-shadow: 0 3px 3px 0 rgba(126, 125, 125, 0.1);
+    background-color: #fcfcfc;
+    box-shadow: 0 3px 3px -0 rgba(146, 146, 146, 0.527);
+
     position: fixed;
     top: 0;
     left: 0;
@@ -22,7 +23,7 @@ body {
   .header-container {
     max-width: 100%;
     margin: 0 auto;
-    padding: 0.75rem 1rem;
+    padding: 0.30rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,6 +32,9 @@ body {
   .header-left, .header-right {
     display: flex;
     align-items: center;
+  }
+  .contentDs{
+    background-color: #5dc2f19d ;
   }
   
   .menu-button {
@@ -51,25 +55,29 @@ body {
   }
   
   .logo {
-    height: 2rem;
+    height: 3.0rem;
     width: auto;
+  }
+
+  .logo2{
+    height: 2rem;
   }
   
   .app-title {
     font-size: 1.25rem;
     font-weight: bold;
-    color: #1f2937;
+    color: #434546;
     margin-left: 0.5rem;
   }
   
   .sidebar {
     position: fixed;
-    top: 0;
+    top: 10px;
     left: 0;
     bottom: 0;
     width: 16rem;
-    background-color: #ffff;
-    box-shadow: 4px 0 6px -1px rgba(126, 125, 125, 0.1);
+    background-color: #fcfcfc;
+    box-shadow: 4px 0 6px -1px rgba(128, 128, 128, 0.527);
 
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
@@ -102,8 +110,8 @@ body {
   }
   
   .nav-item:hover {
-    background-color: #eef2ff;
-    color: #1fad56;
+    background-color: #5dc2f19d ;
+    color: #ffffff;
   }
   
   .nav-icon {
@@ -111,7 +119,7 @@ body {
     height: 1.25rem;
     margin-right: 0.75rem;
   }
-  
+   
   .main-content {
     padding-top: 4rem;
     padding-left: 1rem;
@@ -120,9 +128,10 @@ body {
   }
   
   .content-container {
-    max-width: 1200px;
+    max-width: 1500px;
+    height: 100px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 1rem 0rem;
   }
   
   .chart-grid {
@@ -132,20 +141,16 @@ body {
   }
   
   .chart-card {
-    background-color: #ffffff;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(230,245,255,1) 35%, rgba(233,251,255,1) 100%);
+    border-radius: 0.2rem;
+    box-shadow: 0 1px 3px 0 rgba(245, 243, 243, 0.1);
     overflow: hidden;
     transition: all 0.3s ease-in-out;
   }
   
   .chart-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
-  
-  .chart-content {
-    padding: 1rem;
   }
   
   .chart-title {

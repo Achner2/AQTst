@@ -4,7 +4,11 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'merlo': ['"Merlo Neue Round Medium"', 'sans-serif'], // Nombre correcto de la fuente
+      },
+    },
   },
   plugins: [],
 }
