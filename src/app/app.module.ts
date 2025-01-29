@@ -15,8 +15,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { ForescastCharComponent } from './Components/metrics/forescast-char/forescast-char.component';
 import { PieChartComponent } from './Components/metrics/pie-chart/pie-chart.component';
 import { StatusComponent } from './Components/metrics/status/status.component';
-
-
+//fusioncharts
 import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
 import Widgets from 'fusioncharts/fusioncharts.widgets';
@@ -26,6 +25,9 @@ import { PhComponent } from './Components/metrics/ph/ph.component';
 import { CylinderComponent } from './Components/metrics/cylinder/cylinder.component';
 import { FuelLevelComponent } from './Components/metrics/fuel-level/fuel-level.component';
 import { ServerCpuComponent } from './Components/metrics/server-cpu/server-cpu.component';
+
+//3d threejs
+import { AqumodelComponent } from './Components/aquModels/aqumodel/aqumodel.component';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
@@ -40,7 +42,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
     PhComponent,
     CylinderComponent,
     FuelLevelComponent,
-    ServerCpuComponent    
+    ServerCpuComponent,
+    AqumodelComponent    
     
    ],
   imports: [

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-ph',
@@ -6,12 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './ph.component.css'
 })
 export class PhComponent implements OnInit{
-  width = '250';
+  width = '200';
   height = '400';
   type = 'thermometer';
   dataFormat = 'json';
   dataSource: any;
   ngOnInit() {
+    this.setChartSize(); // Ajustar tamaño inicial
+
     this.dataSource = {
       chart: {
         caption: "Temperatura Actual",
@@ -21,7 +23,7 @@ export class PhComponent implements OnInit{
         numberSuffix: "°C",
         showhovereffect: "1",
         thmFillColor: "#008EE4",
-        thmOriginX: "100",
+        thmOriginX: "50%", // Centramos el termómetro
         chartBottomMargin: "20",
         showGaugeBorder: "1",
         gaugeBorderColor: "#008EE4",
@@ -35,7 +37,20 @@ export class PhComponent implements OnInit{
         bgColor: "#fcfcfc",
         theme: "fusion"
       },
-      value: "65" // Valor actual del termómetro
+      value: "65"
     };
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.setChartSize(); // Ajustar tamaño en cambio de ventana
+  }
+
+  setChartSize() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < 600) {
+      this.height = '300'; // Reduce la altura en móviles
+    } else {
+      this.height = '400'; // Mantiene la altura en pantallas grandes
+    }
   }
 }

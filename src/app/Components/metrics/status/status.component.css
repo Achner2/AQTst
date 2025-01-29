@@ -56,9 +56,9 @@
   }
   
   .warning-icon { background-image: linear-gradient(to top right, #ff0000, #eec1c1); }
-  .users-icon { background-image: linear-gradient(to top right, #db2777, #f472b6); }
-  .clients-icon { background-image: linear-gradient(to top right, #16a34a, #4ade80); }
-  .sales-icon { background-image: linear-gradient(to top right, #ea580c, #fb923c); }
+  .users-icon { background-image: linear-gradient(to top right, #1f2ead, #aaa6eb); }
+  .clients-icon { background-image: linear-gradient(to top right, #16a34a, #8eecb1); }
+  .sales-icon { background-image: linear-gradient(to top right, #14867d, #9fdbe6); }
   
   .stat-content {
     margin-top: 0;
@@ -66,7 +66,7 @@
   }
   
   .stat-title {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: var(--text-secondary);
     margin-bottom: 0.25rem;
     opacity: 0;
@@ -75,7 +75,7 @@
   }
   
   .stat-value {
-    font-size: 1.25rem;
+    font-size: 1.24rem;
     font-weight: 600;
     color: var(--text-primary);
     margin: 0;
@@ -146,6 +146,10 @@
   
     .stat-value {
       font-size: 1.5rem;
+    }
+    .stat-content {
+      padding: 10px;
+      border-bottom: 1px solid #61677033;
     }
   }
   

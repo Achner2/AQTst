@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #fbfffc 0%, #0b200f 100%);
+  background: linear-gradient(135deg, #fdffff 0%, #0d8086 100%);
   padding: 2rem;
 }
 
@@ -41,7 +41,7 @@
 
 .subtitle {
   font-size: 0.9.5rem;
-  color: #1d5325;
+  color: #74b3b7;
   margin-bottom: 2rem;
 }
 
@@ -70,12 +70,12 @@ input {
   transition: all 0.3s ease;
 
   &:focus {
-    border-color: #1d5325;
+    border-color: #74b3b7 ;
     box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.25);
     outline: none;
 
     & + label {
-      color: #1d5325;
+      color: #74b3b7 ;
     }
   }
 }
@@ -89,7 +89,7 @@ input {
 }
 
 button {
-  background: linear-gradient(135deg, #64d372 0%, #113516 100%);
+  background: linear-gradient(135deg, #80d8df  0%, #314849 100%);
   color: white;
   border: none;
   padding: 0.8rem;

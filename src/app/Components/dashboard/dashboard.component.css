@@ -34,7 +34,7 @@ body {
     align-items: center;
   }
   .contentDs{
-    background-color: #5dc2f19d ;
+    background-color: #e9ebf5;
   }
   
   .menu-button {
@@ -55,7 +55,7 @@ body {
   }
   
   .logo {
-    height: 3.0rem;
+    height: 3.5rem;
     width: auto;
   }
 
@@ -76,7 +76,7 @@ body {
     left: 0;
     bottom: 0;
     width: 16rem;
-    background-color: #fcfcfc;
+    background-color: #3193cb;
     box-shadow: 4px 0 6px -1px rgba(128, 128, 128, 0.527);
 
     transform: translateX(-100%);
@@ -103,15 +103,15 @@ body {
     display: flex;
     align-items: center;
     padding: 0.75rem 1rem;
-    color: #4b5563;
+    color: #ffffff;
     text-decoration: none;
     border-radius: 0.5rem;
     transition: background-color 0.2s, color 0.2s;
   }
   
   .nav-item:hover {
-    background-color: #5dc2f19d ;
-    color: #ffffff;
+    background-color: #eff1f3;
+    color: #1a1414;
   }
   
   .nav-icon {
@@ -139,6 +139,10 @@ body {
     grid-template-columns: repeat(1, 1fr);
     gap: 1.5rem;
   }
+
+
+  .charts-background { background-color: #fcfcfc98; }
+
   
   .chart-card {
     background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(230,245,255,1) 35%, rgba(233,251,255,1) 100%);

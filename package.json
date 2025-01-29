@@ -24,6 +24,7 @@
     "@sweetalert2/ngx-sweetalert2": "^12.4.0",
     "@swimlane/ngx-charts": "^21.1.2",
     "@types/fusioncharts": "^3.12.2",
+    "@types/three": "^0.172.0",
     "angular-fusioncharts": "^4.1.2",
     "angular-highcharts": "^17.0.1",
     "apexcharts": "^3.41.0",
@@ -38,6 +39,7 @@
     "react-icons": "^5.4.0",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.15.10",
+    "three": "^0.172.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
