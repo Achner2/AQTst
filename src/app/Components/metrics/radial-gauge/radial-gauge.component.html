@@ -1,0 +1,33 @@
+<div class="card shadow-lg rounded-lg">
+  <div class="card-header bg-secondary text-white rounded-t-lg">
+    <h5 class="card-title mb-0 text-center">Medidor de Temperatura</h5>
+  </div>
+  <div class="card-body text-center p-4">
+    <div style="height: 300px; display: flex; justify-content: center; align-items: center;">
+      <igx-radial-gauge
+        #temperatureGauge
+        [height]="'300px'"
+        [width]="'300px'"
+        [value]="temperatureSettings.value"
+        [minimumValue]="temperatureSettings.minimumValue"
+        [maximumValue]="temperatureSettings.maximumValue"
+        [scaleBrush]="temperatureSettings.scaleBrush"
+        [needleShape]="temperatureSettings.needleShape"
+        [needleBrush]="temperatureSettings.needleBrush"
+        [scaleStartAngle]="135"
+        [scaleEndAngle]="45"
+        [animationDuration]="2000"  
+        [animationEasing]="'ease-out'">
+      </igx-radial-gauge>
+    </div>
+
+    <div class="mt-4">
+      <p class="mb-1"><strong>Temperatura Actual:</strong> {{ temperatureSettings.value }} °C</p>
+      <p class="mb-0"><strong>Estado:</strong>
+        <span [ngClass]="getTemperatureClass(temperatureSettings.value)">
+          {{ getTemperatureStatus(temperatureSettings.value) }}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>

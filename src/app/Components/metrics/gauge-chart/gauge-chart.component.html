@@ -1,0 +1,18 @@
+<div class="card shadow-lg rounded-lg">
+  <div class="card-header bg-secondary text-white rounded-t-lg">
+    <h5 class="card-title mb-0 text-center">Medición de Temperatura</h5>
+  </div>
+  <div class="card-body bg-white rounded-md">
+    <!-- Contenedor del gráfico responsivo -->
+    <div class="d-flex justify-content-center" style="width: 100%; height: 100%;">
+      <div id="main" style="width: 100%; height: 300px;"></div>
+    </div>
+
+    <!-- Información de la medición -->
+    <div class="mt-2 text-center">
+      <p class="mb-1"><strong>Valor actual:</strong> {{ currentValue }} °C</p>
+      <p class="mb-1"><strong>Estado:</strong> {{ status }}</p>
+      <p class="mb-0"><strong>Última actualización:</strong> {{ lastUpdate }}</p>
+    </div>
+  </div>
+</div>

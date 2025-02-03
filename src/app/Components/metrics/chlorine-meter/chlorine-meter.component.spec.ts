@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FuelLevelComponent } from './fuel-level.component';
+import { ChlorineMeterComponent } from './chlorine-meter.component';
 
-describe('FuelLevelComponent', () => {
-  let component: FuelLevelComponent;
-  let fixture: ComponentFixture<FuelLevelComponent>;
+describe('ChlorineMeterComponent', () => {
+  let component: ChlorineMeterComponent;
+  let fixture: ComponentFixture<ChlorineMeterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FuelLevelComponent]
+      declarations: [ChlorineMeterComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(FuelLevelComponent);
+    fixture = TestBed.createComponent(ChlorineMeterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CylinderComponent } from './cylinder.component';
+import { CaudalSensorComponent } from './caudal-sensor.component';
 
-describe('CylinderComponent', () => {
-  let component: CylinderComponent;
-  let fixture: ComponentFixture<CylinderComponent>;
+describe('CaudalSensorComponent', () => {
+  let component: CaudalSensorComponent;
+  let fixture: ComponentFixture<CaudalSensorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CylinderComponent]
+      declarations: [CaudalSensorComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(CylinderComponent);
+    fixture = TestBed.createComponent(CaudalSensorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

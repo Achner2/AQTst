@@ -22,13 +22,31 @@ import Widgets from 'fusioncharts/fusioncharts.widgets';
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import { FusionChartsModule } from 'angular-fusioncharts';
 import { PhComponent } from './Components/metrics/ph/ph.component';
-import { CylinderComponent } from './Components/metrics/cylinder/cylinder.component';
-import { FuelLevelComponent } from './Components/metrics/fuel-level/fuel-level.component';
 import { ServerCpuComponent } from './Components/metrics/server-cpu/server-cpu.component';
-
 //3d threejs
 import { AqumodelComponent } from './Components/aquModels/aqumodel/aqumodel.component';
-
+import { ModalsComponent } from './Components/modals/modals.component';
+import { LinearGaugeModule as SyncfusionLinearGaugeModule } from '@syncfusion/ej2-angular-lineargauge';
+import { ThermometerComponent } from './Components/metrics/thermometer/thermometer.component';
+//Echarts
+import { NgxEchartsModule } from 'ngx-echarts';
+import { GaugeChartComponent } from './Components/metrics/gauge-chart/gauge-chart.component'; // Importa el módulo de ECharts
+//Ignite UI
+import { IgxLinearGaugeModule } from "igniteui-angular-gauges";
+import { IgxButtonModule } from "igniteui-angular";
+import { LinearMeterComponent } from './Components/metrics/linear-meter/linear-meter.component';
+import { ChlorineMeterComponent } from './Components/metrics/chlorine-meter/chlorine-meter.component';
+import { IgxRadialGaugeModule } from "igniteui-angular-gauges";
+import { RadialGaugeComponent } from './Components/metrics/radial-gauge/radial-gauge.component';
+import { CylinderChartComponent } from './Components/metrics/cylinder-chart/cylinder-chart.component';
+import { ColorSensorComponent } from './Components/metrics/color-sensor/color-sensor.component';
+import { CaudalSensorComponent } from './Components/metrics/caudal-sensor/caudal-sensor.component';
+import { 
+	IgxIconModule,
+	IgxCardModule,
+	IgxRippleModule
+  
+ } from "igniteui-angular";
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
 
@@ -40,10 +58,17 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
     PieChartComponent,
     StatusComponent,
     PhComponent,
-    CylinderComponent,
-    FuelLevelComponent,
     ServerCpuComponent,
-    AqumodelComponent    
+    AqumodelComponent,
+    ModalsComponent,
+    ThermometerComponent,
+    GaugeChartComponent,
+    LinearMeterComponent,
+    ChlorineMeterComponent,
+    RadialGaugeComponent,
+    CylinderChartComponent,
+    ColorSensorComponent,
+    CaudalSensorComponent
     
    ],
   imports: [
@@ -58,8 +83,17 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
     FormsModule,
     HighchartsChartModule,
     NgxChartsModule,
-    NgApexchartsModule
-    
+    NgApexchartsModule,
+    SyncfusionLinearGaugeModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
+    IgxLinearGaugeModule,
+    IgxButtonModule,
+    IgxRadialGaugeModule,
+    IgxIconModule,
+	  IgxCardModule,
+	  IgxRippleModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

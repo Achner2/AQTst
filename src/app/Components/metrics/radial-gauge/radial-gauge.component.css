@@ -1,0 +1,19 @@
+.text-cold {
+  color: #2196F3; /* Azul */
+  font-weight: bold;
+}
+
+.text-warm {
+  color: #FFEB3B; /* Amarillo */
+  font-weight: bold;
+}
+
+.text-optimal {
+  color: #4CAF50; /* Verde */
+  font-weight: bold;
+}
+
+.text-hot {
+  color: #FF5722; /* Rojo */
+  font-weight: bold;
+}

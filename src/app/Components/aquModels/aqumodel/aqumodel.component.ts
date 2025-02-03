@@ -15,8 +15,8 @@ import { TextureLoader, MeshStandardMaterial } from 'three';
   `,
   styles: [`
     .viewer-container {
-      width: 400px;
-      height: 280px;
+      width: 300px;
+      height: 200px;
       overflow: hidden;
       position: relative;
     
@@ -69,6 +69,8 @@ export class AqumodelComponent implements OnInit {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.05;
+    this.controls.maxPolarAngle = Math.PI / 2; // Limita la rotación vertical a 90 grados (hacia arriba)
+    this.controls.minPolarAngle = Math.PI / 2; // Limita la rotación vertical hacia abajo (no puede pasar de la horizontal)
     this.controls.screenSpacePanning = true;
     this.controls.minDistance = 1;
     this.controls.maxDistance = 10;
@@ -103,7 +105,7 @@ export class AqumodelComponent implements OnInit {
         }
       });
 
-      object.scale.set(1.6, 1.6, 1.6);
+      object.scale.set(1.8, 1.8, 1.8);
 
       // Centrar modelo en la escena
       const box = new THREE.Box3().setFromObject(object);

@@ -12,7 +12,7 @@ export class PhComponent implements OnInit{
   dataFormat = 'json';
   dataSource: any;
   ngOnInit() {
-    this.setChartSize(); // Ajustar tamaño inicial
+    this.setChartSize();
 
     this.dataSource = {
       chart: {
@@ -23,7 +23,7 @@ export class PhComponent implements OnInit{
         numberSuffix: "°C",
         showhovereffect: "1",
         thmFillColor: "#008EE4",
-        thmOriginX: "50%", // Centramos el termómetro
+        thmOriginX: "50%",
         chartBottomMargin: "20",
         showGaugeBorder: "1",
         gaugeBorderColor: "#008EE4",
@@ -42,15 +42,15 @@ export class PhComponent implements OnInit{
   }
   @HostListener('window:resize', ['$event'])
   onResize() {
-    this.setChartSize(); // Ajustar tamaño en cambio de ventana
+    this.setChartSize();
   }
 
   setChartSize() {
     const screenWidth = window.innerWidth;
     if (screenWidth < 600) {
-      this.height = '300'; // Reduce la altura en móviles
+      this.height = '300';
     } else {
-      this.height = '400'; // Mantiene la altura en pantallas grandes
+      this.height = '400';
     }
   }
 }

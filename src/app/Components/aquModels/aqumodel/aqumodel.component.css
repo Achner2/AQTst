@@ -1,0 +1,15 @@
+app-aqumodel {
+    width: 100%;
+    height: 180px; /* Ajusta la altura de la sección donde se muestra el modelo 3D */
+  }
+  
+  .card-wrapper {
+    max-width: 320px;
+    min-width: 220px;
+  }
+  
+  igx-card {
+    width: 100%;
+    height: auto;
+  }
+  

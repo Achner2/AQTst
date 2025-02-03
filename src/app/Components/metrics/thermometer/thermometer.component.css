@@ -1,0 +1,39 @@
+.control-section {
+    display: flex;
+    padding: 20px;
+  }
+  
+  .property-panel-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  .property-panel-header {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+  
+  .property-panel-content {
+    padding: 10px 0;
+  }
+  
+  .property-panel-table {
+    width: 100%;
+  }
+  
+  .property-panel-table td {
+    padding: 8px;
+  }
+  
+  .property-label {
+    font-size: 14px;
+  }
+  
+  .form-control {
+    width: 90%;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }

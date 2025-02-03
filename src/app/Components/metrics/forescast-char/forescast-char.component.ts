@@ -21,7 +21,7 @@ export type ChartOptions = {
 @Component({
   selector: 'app-forescast-char',
   templateUrl: './forescast-char.component.html',
-  styleUrls: ['./forescast-char.component.css'] // Corregido el nombre de la propiedad
+  styleUrls: ['./forescast-char.component.css']
 })
 export class ForescastCharComponent {
   public chartOptions: ChartOptions;
