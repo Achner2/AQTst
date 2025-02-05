@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { RegisterComponent } from './Components/register/register.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -45,6 +44,7 @@ import { NivelSensorComponent } from './Components/linearSensors/nivel-sensor/ni
 import { FlujoSensorComponent } from './Components/linearSensors/flujo-sensor/flujo-sensor.component';
 import { ColorsSensorComponent } from './Components/linearSensors/colors-sensor/colors-sensor.component';
 import { CaudSensorComponent } from './Components/linearSensors/caud-sensor/caud-sensor.component';
+import { InformesComponent } from './Components/pages/informes/informes.component';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
@@ -69,7 +69,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
     NivelSensorComponent,
     FlujoSensorComponent,
     ColorsSensorComponent,
-    CaudSensorComponent
+    CaudSensorComponent,
+    InformesComponent
   ],
   imports: [
     BrowserModule,

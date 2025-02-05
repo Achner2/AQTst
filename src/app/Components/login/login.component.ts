@@ -52,7 +52,7 @@ import Swal from 'sweetalert2';
 
 export class LoginComponent {
 
-  loginImage = "/assets/imagenes/aqua.jpg";
+  loginImage = "/assets/imagenes/olas.jpg";
 
   email: string = '';
   password: string = '';

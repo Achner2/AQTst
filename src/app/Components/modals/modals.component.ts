@@ -1,5 +1,5 @@
-import { string } from '@amcharts/amcharts4/core';
 import { Component } from '@angular/core';
+import { LatestMeasurement } from '../../interfaces/measurement';
 
 @Component({
   selector: 'app-modals',
@@ -10,6 +10,8 @@ export class ModalsComponent {
   showEquipmentInfo: boolean = false;
   isModalOpen = false;
   lastLecture: string = this.getCurrentTime();
+  serialNumber: string = '08000015';
+  latestMeasurement: LatestMeasurement | null = null; 
 
   openModal() {
     this.isModalOpen = true;
@@ -28,5 +30,8 @@ export class ModalsComponent {
     const now = new Date();
     return now.toLocaleString();
   }
+
+
+
   
 }

@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #fdffff 0%, #0d8086 100%);
+  background: linear-gradient(135deg, #fdffff 0%, #b0ccce 100%);
   padding: 2rem;
 }
 
@@ -21,6 +21,7 @@
   border-radius: 20px;
   overflow: hidden;
   display: flex;
+  flex-wrap: wrap;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -40,7 +41,7 @@
 }
 
 .subtitle {
-  font-size: 0.9.5rem;
+  font-size: 0.95rem;
   color: #74b3b7;
   margin-bottom: 2rem;
 }
@@ -68,16 +69,16 @@ input {
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
+}
 
-  &:focus {
-    border-color: #74b3b7 ;
-    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.25);
-    outline: none;
+input:focus {
+  border-color: #74b3b7;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.25);
+  outline: none;
+}
 
-    & + label {
-      color: #74b3b7 ;
-    }
-  }
+input:focus + label {
+  color: #74b3b7;
 }
 
 .input-group i {
@@ -100,60 +101,86 @@ button {
   transition: all 0.3s ease;
   margin-top: 1rem;
   width: 200px;
+}
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
 
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .additional-options {
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
+}
 
-  a {
-    color: #15361a;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
+.additional-options a {
+  color: #15361a;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
 
-    &:hover {
-      color: #131114;
-    }
-  }
+.additional-options a:hover {
+  color: #131114;
 }
 
 .image-section {
   flex: 1;
   overflow: hidden;
+}
 
-  img {
-    width: 100%;
-    height: 100%;
-    transition: transform 0.3s ease;
+.image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
 
-    &:hover {
-      transform: scale(1.05);
-    }
+.image-section img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+  .login-box {
+    max-width: 80%;
+  }
+  .form-section {
+    padding: 2rem;
   }
 }
 
 @media (max-width: 768px) {
   .login-box {
     flex-direction: column;
+    max-width: 90%;
   }
-
   .form-section {
     padding: 2rem;
   }
-
   .image-section {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+  .title {
+    font-size: 1.8rem;
+  }
+  .form-section {
+    padding: 1rem;
+  }
+  button {
+    width: 100%;
   }
 }

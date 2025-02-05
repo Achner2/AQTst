@@ -34,7 +34,7 @@ body {
     align-items: center;
   }
   .contentDs{
-    background: linear-gradient(to bottom, #f8f6f6, #d8e0eb);
+    background: linear-gradient(to bottom, #f8f6f6, #dee6f1);
   }
   
   .menu-button {
@@ -169,8 +169,9 @@ body {
   }
 
   .cardsModal{
-    background-color: #999b9c5d;
+    background-color: #bac4c95d;
   }
+
   
   @media (min-width: 768px) {
     .chart-grid {
