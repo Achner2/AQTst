@@ -34,7 +34,7 @@ body {
     align-items: center;
   }
   .contentDs{
-    background-color: #e9ebf5;
+    background: linear-gradient(to bottom, #f8f6f6, #d8e0eb);
   }
   
   .menu-button {
@@ -76,7 +76,7 @@ body {
     left: 0;
     bottom: 0;
     width: 16rem;
-    background-color: #3193cb;
+    background-color: #008dca;
     box-shadow: 4px 0 6px -1px rgba(128, 128, 128, 0.527);
 
     transform: translateX(-100%);
@@ -166,6 +166,10 @@ body {
   
   .chart-container {
     height: 16rem;
+  }
+
+  .cardsModal{
+    background-color: #999b9c5d;
   }
   
   @media (min-width: 768px) {

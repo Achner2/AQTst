@@ -1,0 +1,19 @@
+/* Estilos para el contenedor del gráfico */
+.gauge-container {
+    width: 100%; /* Ocupa el 100% del ancho de su contenedor */
+    height: 200px; /* Altura fija o relativa */
+    position: relative;
+  }
+  
+  /* Estilos para la tarjeta */
+  .card {
+    max-width: 100%; /* Asegura que la tarjeta sea responsive */
+    margin: 0 auto;
+  }
+  
+  /* Estilos adicionales para hacer el gráfico más responsive */
+  @media (max-width: 768px) {
+    .gauge-container {
+      height: 150px; /* Altura más pequeña en dispositivos móviles */
+    }
+  }

@@ -24,7 +24,7 @@ export class CaudalSensorComponent implements OnInit {
 
     // Crear instancia del gráfico
     this.chart = am4core.create("chartdiv2", am4charts.XYChart3D);
-    this.chart.titles.create().text = "Medidor de Caudal";
+    this.chart.titles.create().text = "";
 
     // Datos iniciales
     this.chart.data = [{

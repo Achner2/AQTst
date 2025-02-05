@@ -1,0 +1,16 @@
+.gauge-container {
+    width: 100%;
+    height: 200px;
+    position: relative;
+  }
+  
+  .card {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  @media (max-width: 768px) {
+    .gauge-container {
+      height: 210px;
+    }
+}

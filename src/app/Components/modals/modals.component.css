@@ -1,7 +1,9 @@
 /* Botón para abrir el modal */
 .open-modal-btn {
+  width: 50%;
+  align-items: center;
   padding: 12px 24px;
-  background: linear-gradient(45deg, #bfc5c5, #6a7280);
+  background: linear-gradient(45deg, #bbc0c0, #404349);
   color: white;
   border: none;
   border-radius: 5px;

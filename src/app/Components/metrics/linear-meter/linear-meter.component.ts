@@ -56,7 +56,7 @@ export class LinearMeterComponent implements AfterViewInit {
 
     // Colores de la escala
     this.linearGauge.scaleBrush = "#bababa"; // Gris claro
-    this.linearGauge.scaleOutline = "#B0B0B0"; // Gris oscuro
+    this.linearGauge.scaleOutline = "#676868"; // Gris oscuro
     this.linearGauge.scaleInnerExtent = 0.075;
     this.linearGauge.scaleOuterExtent = 0.85;
     this.linearGauge.scaleStartExtent = 0.05;
@@ -64,7 +64,7 @@ export class LinearMeterComponent implements AfterViewInit {
 
     // Colores de fondo: lo que vamos a modificar
     this.linearGauge.backingBrush = "#FFFFFF"; // Blanco para el fondo
-    this.linearGauge.backingOutline = "#D1D1D1"; // Gris claro
+    this.linearGauge.backingOutline = "#676868"; // Gris claro
     this.linearGauge.backingStrokeThickness = 0;
   }
 
@@ -73,12 +73,12 @@ export class LinearMeterComponent implements AfterViewInit {
      const acidicRange = new IgxLinearGraphRangeComponent();
      acidicRange.startValue = 0;
      acidicRange.endValue = 30;
-     acidicRange.brush = "#db4a56"; // Rojo para el rango ácido
+     acidicRange.brush = "#b0555d"; // Rojo para el rango ácido
  
      const neutralRange = new IgxLinearGraphRangeComponent();
      neutralRange.startValue = 30;
      neutralRange.endValue = 35;
-     neutralRange.brush = "#41ebe3"; // Verde claro para el rango neutro
+     neutralRange.brush = "#73be6e"; // Verde claro para el rango neutro
  
      const alkalineRange = new IgxLinearGraphRangeComponent();
      alkalineRange.startValue = 35;

@@ -24,7 +24,7 @@ export class CylinderChartComponent implements OnInit, OnDestroy {
 
     // Crear instancia del gráfico
     this.chart = am4core.create("chartdiv", am4charts.XYChart3D);
-    this.chart.titles.create().text = "Medidor de Nivel";
+    this.chart.titles.create().text = "";
 
     // Datos iniciales
     this.chart.data = [{

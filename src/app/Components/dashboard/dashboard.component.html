@@ -7,7 +7,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <img class="logo" src="../../../assets/LogoAquTestLupaDEF.png" alt="Aqutest Logo">
+        <img class="logo" src="../../../assets/AqtestLogofinal.png" alt="Aqutest Logo">
       </div>
       <div class="header-right">
         <img class="logo2" src="https://excelec.com/wp-content/uploads/2021/06/cropped-excelec_logo.png" alt="Excelec Logo">
@@ -43,76 +43,57 @@
   </aside>
 
   <main class="main-content contentDs">
+    <app-status></app-status>
     <div class="container mx-auto px-4 py-8">
-      <app-status class="w-full mb-8"></app-status>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-3 lg:gap-8 pt-5">
-        <div class="sample-column card-wrapper">
-          <igx-card elevated>
-            <igx-card-media height="180px">
-              <app-aqumodel #rendererContainer></app-aqumodel>
-            </igx-card-media>
-  
-            <igx-card-header>
-              <h3 igxCardHeaderTitle>Model 1</h3>
-              <h5 igxCardHeaderSubtitle>3D Model Description</h5>
-            </igx-card-header>
-  
-            <igx-card-content>
-              <p>Este es el primer modelo 3D cargado en la card. Es un ejemplo de cómo se puede mostrar un modelo en una interfaz.</p>
-            </igx-card-content>
-  
-            <igx-card-actions>
-              <app-modals></app-modals>
-            </igx-card-actions>
-          </igx-card>
-        </div>
-  
-        <!-- Card 2 -->
-        <div class="sample-column card-wrapper">
-          <igx-card elevated>
-            <igx-card-media height="180px">
-              <app-aqumodel #rendererContainer></app-aqumodel> <!-- Aquí va el componente 3D -->
-            </igx-card-media>
-  
-            <igx-card-header>
-              <h3 igxCardHeaderTitle>Model 2</h3>
-              <h5 igxCardHeaderSubtitle>Otro modelo 3D</h5>
-            </igx-card-header>
-  
-            <igx-card-content>
-              <p>Este es otro modelo 3D dentro de la card, demostrando cómo puedes usar múltiples modelos dentro de varias cards.</p>
-            </igx-card-content>
-  
-            <igx-card-actions>
-              <app-modals></app-modals>            
-            </igx-card-actions>
-          </igx-card>
-        </div>
-  
-        <!-- Card 3 -->
-        <div class="sample-column card-wrapper">
-          <igx-card elevated>
-            <igx-card-media height="180px">
-              <app-aqumodel #rendererContainer></app-aqumodel> <!-- Aquí va el componente 3D -->
-            </igx-card-media>
-  
-            <igx-card-header>
-              <h3 igxCardHeaderTitle>Model 3</h3>
-              <h5 igxCardHeaderSubtitle>Descripción de un tercer modelo</h5>
-            </igx-card-header>
-  
-            <igx-card-content>
-              <p>Este es un tercer modelo 3D en una card. Es perfecto para mostrar más contenido interactivo en tu página.</p>
-            </igx-card-content>
-  
-            <igx-card-actions>
-              <app-modals></app-modals>
-            </igx-card-actions>
-          </igx-card>
-        </div>
-  
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-white rounded-xl overflow-hidden transition-shadow duration-300 shadow-md">
+      <div class="h-48 flex items-center justify-center cardsModal">
+        <app-aqumodel></app-aqumodel>
+      </div>
+      <div class="p-6">
+        <h2 class="font-bold text-xl mb-2 text-gray-800">Aqutest</h2>
+        <p class="text-gray-600 text-sm">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, consequuntur.
+        </p>
+      </div>
+      <div class="px-2 py-4 bg-white ">
+        <app-modals></app-modals>
       </div>
     </div>
+
+    <div class="bg-white rounded-xl overflow-hidden transition-shadow duration-300 shadow-md">
+      <div class="h-48 flex items-center justify-center cardsModal">
+        <app-aqumodel></app-aqumodel>
+      </div>
+      
+      <div class="p-6">
+        <h2 class="font-bold text-xl mb-2 text-gray-800">Aqutest</h2>
+        <p class="text-gray-600 text-sm">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, consequuntur.
+        </p>
+      </div>
+      
+      <div class="px-2 py-4 bg-white">
+        <app-modals></app-modals>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden transition-shadow duration-300 shadow-md">
+      <div class="h-48 flex items-center justify-center cardsModal">
+        <app-aqumodel></app-aqumodel>
+      </div>
+      <div class="p-6">
+        <h2 class="font-bold text-xl mb-2 text-gray-800">Aqutest</h2>
+        <p class="text-gray-600 text-sm">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, consequuntur.
+        </p>
+      </div>
+      <div class="px-2 py-4 bg-white">
+        <app-modals></app-modals>
+      </div>
+    </div>
+  </div>
+</div>
   </main>
   
 </div>
