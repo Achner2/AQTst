@@ -10,8 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
-import { NgApexchartsModule } from "ng-apexcharts";
-import { StatusComponent } from './Components/metrics/status/status.component';
 //fusioncharts
 import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
@@ -24,18 +22,7 @@ import { ModalsComponent } from './Components/modals/modals.component';
 import { LinearGaugeModule as SyncfusionLinearGaugeModule } from '@syncfusion/ej2-angular-lineargauge';
 //Echarts
 import { NgxEchartsModule } from 'ngx-echarts';
-//Ignite UI
-import { IgxLinearGaugeModule } from "igniteui-angular-gauges";
-import { IgxButtonModule } from "igniteui-angular";
-import { LinearMeterComponent } from './Components/metrics/linear-meter/linear-meter.component';
-import { ChlorineMeterComponent } from './Components/metrics/chlorine-meter/chlorine-meter.component';
-import { IgxRadialGaugeModule } from "igniteui-angular-gauges";
-import { RadialGaugeComponent } from './Components/metrics/radial-gauge/radial-gauge.component';
-import { CylinderChartComponent } from './Components/metrics/cylinder-chart/cylinder-chart.component';
-import { ColorSensorComponent } from './Components/metrics/color-sensor/color-sensor.component';
-import { CaudalSensorComponent } from './Components/metrics/caudal-sensor/caudal-sensor.component';
-import { IgxIconModule, IgxCardModule, IgxRippleModule } from "igniteui-angular";
-import { UniversalMeterComponent } from './Components/metrics/universal-meter/universal-meter.component';
+
 import { PhSensorComponent } from './Components/linearSensors/ph-sensor/ph-sensor.component';
 import { CloroSensorComponent } from './Components/linearSensors/cloro-sensor/cloro-sensor.component';
 import { TemperaturaSensorComponent } from './Components/linearSensors/temperatura-sensor/temperatura-sensor.component';
@@ -48,19 +35,12 @@ import { InformesComponent } from './Components/pages/informes/informes.componen
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         AppComponent,
         DashboardComponent,
-        StatusComponent,
         AqumodelComponent,
         ModalsComponent,
-        LinearMeterComponent,
-        ChlorineMeterComponent,
-        RadialGaugeComponent,
-        CylinderChartComponent,
-        ColorSensorComponent,
-        CaudalSensorComponent,
-        UniversalMeterComponent,
         PhSensorComponent,
         CloroSensorComponent,
         TemperaturaSensorComponent,
@@ -72,7 +52,9 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
         InformesComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
         AppRoutingModule,
         FusionChartsModule,
         BrowserAnimationsModule,
@@ -81,15 +63,11 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
         FormsModule,
         HighchartsChartModule,
         NgxChartsModule,
-        NgApexchartsModule,
         SyncfusionLinearGaugeModule,
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts')
-        }),
-        IgxLinearGaugeModule,
-        IgxButtonModule,
-        IgxRadialGaugeModule,
-        IgxIconModule,
-        IgxCardModule,
-        IgxRippleModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        })
+    ],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule { }
