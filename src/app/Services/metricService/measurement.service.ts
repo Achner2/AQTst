@@ -1,24 +1,46 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { LatestMeasurement } from '../../interfaces/measurement';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { Measurement, ApiResponse } from '../../interfaces/measurement';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeasurementService {
-  private readonly API_URL = "http://localhost:5051/Api/v1/Measurements/LatestBySerial"
-  constructor(private http: HttpClient) { }
+  private readonly API_URL = 'http://localhost:5051/Api/v1/Measurements';
 
-  getLatestMeasurement(serialNumber: string): Observable<LatestMeasurement> {
-    return this.http.get<LatestMeasurement>(`${this.API_URL}?serial=${serialNumber}`);
+  constructor(private http: HttpClient) {}
+
+  getLatestMeasurement(serialNumber: string): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.API_URL}/LatestBySerial`, {
+      params: { serial: serialNumber }
+    }).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
   }
 
- /* getMeasurementHistory(serialNumber: string, startDate: string, endDate: string): Observable<MeasurementHistory> {
-    return this.http.get<MeasurementHistory>(`${this.API_URL}/history`, {
-      params: { serialNumber, startDate, endDate }
-    });
+  getMeasurementHistory(serialNumber: string, startDate: string, endDate: string): Observable<Measurement> {
+    return this.http.get<Measurement>(`${this.API_URL}/history`, {
+      params: {
+        serial: serialNumber,
+        startDate,
+        endDate
+      }
+    }).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
   }
-    */
 
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An error occurred';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(() => new Error(errorMessage));
+  }
 }

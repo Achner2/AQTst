@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-nivel-sensor',
   templateUrl: './nivel-sensor.component.html',
-  styleUrl: './nivel-sensor.component.css'
+  styleUrls: ['./nivel-sensor.component.css']
 })
-export class NivelSensorComponent {
+export class NivelSensorComponent implements OnChanges {
+  @Input() data: any[] = [];
+
   dataSource = {
     chart: {
       theme: 'fusion',
-      caption: '            ',
+      caption: 'Sensor de Nivel',
       lowerLimit: '0',
       upperLimit: '30',
       numberSuffix: ' cm',
@@ -20,7 +22,7 @@ export class NivelSensorComponent {
       chartRightMargin: '20',
       chartTopMargin: '20',
       animationDuration: '1',
-      responsive: '1', // Habilita la responsividad del gráfico
+      responsive: '1', 
     },
     colorRange: {
       color: [
@@ -44,55 +46,29 @@ export class NivelSensorComponent {
   };
 
   currentLevel: number = 15;
-  status: string = 'Normal';
+  status: string = ''; 
   lastUpdate: string = this.getCurrentTime();
 
-  constructor() {
-    let targetValue = this.currentLevel;
-    setInterval(() => {
-      targetValue = parseFloat((Math.random() * (25 - 5) + 5).toFixed(2));
-      this.smoothTransition(this.currentLevel, targetValue.toString());
-    }, 3000);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && this.data.length > 0) {
+      const latestMeasurement = this.data[0]; // Tomamos la última medición recibida
+      this.updatePointerValue(latestMeasurement.measurementValue.toString());
+      this.status = latestMeasurement.measurementTypeName;
+      this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);
+    }
   }
 
-  smoothTransition(currentValue: number, targetValue: string) {
-    let step = (parseFloat(targetValue) - currentValue) / 10;
-    let counter = 0;
-    let interval = setInterval(() => {
-      currentValue += step;
-      this.updatePointerValue(currentValue.toFixed(2));
-      this.updateStatus(currentValue);
-      this.lastUpdate = this.getCurrentTime();
+  getCurrentTime(): string {
+    return new Date().toLocaleString('es-CO', { timeZone: 'UTC' });
+  }
 
-      if (Math.abs(parseFloat(targetValue) - currentValue) < 0.05) {
-        clearInterval(interval);
-        this.updatePointerValue(targetValue);
-        this.updateStatus(parseFloat(targetValue));
-      }
-    }, 100);
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleString('es-CO', { timeZone: 'UTC' });
   }
 
   updatePointerValue(value: string) {
     this.currentLevel = parseFloat(value);
     this.dataSource.pointers.pointer[0].value = value;
-  }
-
-  updateStatus(value: number) {
-    if (value >= 0 && value <= 5) {
-      this.status = 'Muy Bajo';
-    } else if (value > 5 && value <= 10) {
-      this.status = 'Bajo';
-    } else if (value > 10 && value <= 20) {
-      this.status = 'Normal';
-    } else if (value > 20 && value <= 25) {
-      this.status = 'Alto';
-    } else {
-      this.status = 'Muy Alto';
-    }
-  }
-
-  getCurrentTime() {
-    const now = new Date();
-    return now.toLocaleString();
   }
 }

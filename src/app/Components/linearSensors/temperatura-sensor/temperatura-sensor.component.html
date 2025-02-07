@@ -3,17 +3,17 @@
     <h5 class="card-title mb-0 text-center">Sensor de Temperatura</h5>
   </div>
   <div class="card-body bg-white rounded-md">
-    <div class="gauge-container">
+    <div class="gauge-container flex flex-col justify-center  mt-4">
       <fusioncharts
         type="hlineargauge"
         width="100%"
-        height="100%"
+        height="87%"
         [dataSource]="dataSource"
       ></fusioncharts>
     </div>
     <div class="mt-3 text-center">
       <p class="mb-1"><strong>Valor actual:</strong> {{ currentTemp.toFixed(2) }}°C</p>
-      <p class="mb-1"><strong>Estado:</strong> {{ status }}</p>
+      <p class="mb-1"><strong>Alerta:</strong> {{ alertName }}</p>
       <p class="mb-0"><strong>Última lectura:</strong> {{ lastUpdate }}</p>
     </div>
   </div>

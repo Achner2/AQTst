@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { MeasurementResponse } from '../../../interfaces/table-graphic';
 import $ from 'jquery';
 import 'datatables.net';
+
 import 'datatables.net-bs5';
 import 'datatables.net-buttons';
 import 'datatables.net-buttons-bs5';
@@ -14,248 +16,142 @@ import { saveAs } from 'file-saver';
 import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
+
 import 'datatables.net-dt';
 import 'datatables.net-responsive';
 import 'datatables.net-responsive-dt';
+
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { GraphicTableService } from '../../../Services/metricService/graphic-table.service';
+
+
 
 @Component({
   selector: 'app-informes',
   templateUrl: './informes.component.html',
   styleUrls: ['./informes.component.css']
 })
-export class InformesComponent implements OnInit {
-  
-  private chart: am5xy.XYChart | undefined; 
-  private root: am5.Root | null = null;
+export class InformesComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedDateTime: Date = new Date();
-  datosSensores: any[] = [
-    { sensor: 'PH', altoAlto: '> 9.0', alto: '> 8.5', bajo: '< 6.0', bajoBajo: '< 5.7' },
-    { sensor: 'Cloro', altoAlto: '> 3.0', alto: '> 2.8', bajo: '< 0.3', bajoBajo: '< 0.2' },
-    { sensor: 'Temperatura', altoAlto: '> 9.0', alto: '> 8.5', bajo: '< 6.0', bajoBajo: '< 5.7' },
-    { sensor: 'Nivel', altoAlto: '> 6.0', alto: '> 5.3', bajo: '< 2.0', bajoBajo: '< 1.0' },
-    { sensor: 'Color', altoAlto: '> 18.0', alto: '> 15.0', bajo: '< 1.0', bajoBajo: '< 0.0' },
-    { sensor: 'Flujo', altoAlto: '> 1.0', alto: '> 1.0', bajo: '< 0.0', bajoBajo: '< 0.0' }
-  ];
-  
+  private root: am5.Root | null = null;
+  private chart: any; 
   datosOriginales: any[] = []; 
   datosFiltrados: any[] = [];  
   selectedDay: string = ''; 
+  selectedSensor: string = 'PH';  
+  
 
-  datosSensorPH = this.datosSensores.filter(dato => dato.sensor === 'PH');
-  datosSensorTemperatura = this.datosSensores.filter(dato => dato.sensor === 'Temperatura');
-  datosSensorCloro = this.datosSensores.filter(dato => dato.sensor === 'Cloro');
-  datosSensorNivel = this.datosSensores.filter(dato => dato.sensor === 'Nivel');
-  datosSensorColor = this.datosSensores.filter(dato => dato.sensor === 'Color');
-  datosSensorFlujo = this.datosSensores.filter(dato => dato.sensor === 'Flujo');
+  sensors: { name: string, id: string, componentId: number }[] = [
+    { name: 'PH', id: 'measurementTablePH', componentId: 1 },
+    { name: 'Cloro', id: 'measurementTableCloro', componentId: 2 },
+    { name: 'Temperatura', id: 'measurementTableTemperatura', componentId: 3 },
+    { name: 'Nivel', id: 'measurementTableNivel', componentId: 4 },
+    { name: 'Flujo', id: 'measurementTableFlujo', componentId: 5 },
+    { name: 'Caudal', id: 'measurementTableCaudal', componentId: 6 },
+    { name: 'Color', id: 'measurementTableColor', componentId: 7 },
+    { name: 'Turbidez', id: 'measurementTableTurbidez', componentId: 8 }
+  ];
 
-  private renderizarGrafico(): void {
+  private renderizarGraficoConDatos(data: any[]): void {
+    // Dispose existing chart
     if (this.root) {
       this.root.dispose();
     }
-
-    this.root = am5.Root.new("sensorChartContainer");
+ 
+    this.root = am5.Root.new("chartdiv");
     this.root.setThemes([am5themes_Animated.new(this.root)]);
-
-    let chart = this.root.container.children.push(
+  
+    const chart = this.root.container.children.push(
       am5xy.XYChart.new(this.root, {
         panX: true,
         panY: true,
+        wheelX: "panX",
+        wheelY: "zoomX"
       })
     );
-
-    chart.children.unshift(
-      am5.Label.new(this.root, {
-        text: `Datos del Sensor: ${this.selectedSensor}`,
-        fontSize: 20,
-        centerX: am5.percent(50),
-        x: am5.percent(50),
-        paddingTop: 10,
-      })
-    );
-
-    let xAxis = chart.xAxes.push(
+  
+    const chartData = data.map(item => ({
+      date: new Date(item.dateMeasurementComponent).getTime(),
+      value: parseFloat(item.measurementValue)
+    }));
+  
+    const xAxis = chart.xAxes.push(
       am5xy.DateAxis.new(this.root, {
         baseInterval: { timeUnit: "day", count: 1 },
-        renderer: am5xy.AxisRendererX.new(this.root, {}),
-        tooltip: am5.Tooltip.new(this.root, {}),
+        renderer: am5xy.AxisRendererX.new(this.root, {})
       })
     );
-
-    let yAxis = chart.yAxes.push(
+  
+    const yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(this.root, {
-        renderer: am5xy.AxisRendererY.new(this.root, {}),
+        renderer: am5xy.AxisRendererY.new(this.root, {})
       })
     );
-
-    let series = chart.series.push(
+  
+    const series = chart.series.push(
       am5xy.LineSeries.new(this.root, {
-        name: this.selectedSensor,
         xAxis: xAxis,
         yAxis: yAxis,
         valueYField: "value",
         valueXField: "date",
         tooltip: am5.Tooltip.new(this.root, {
-          labelText: "{valueY}",
-        }),
+          labelText: "{valueY}"
+        })
       })
     );
-
-    const data = this.getDataForSensor(this.selectedSensor);
-    series.data.setAll(data);
-  }
-
-  getDataForSensor(sensor: string): any[] {
-    switch (sensor) {
-      case 'PH':
-        return [{ date: Date.UTC(2025, 0, 1), value: 7.5 }, { date: Date.UTC(2025, 0, 2), value: 8.0 }];
-      case 'Cloro':
-        return [{ date: Date.UTC(2025, 0, 1), value: 2.5 }, { date: Date.UTC(2025, 0, 2), value: 3.0 }];
-      case 'Temperatura':
-        return [{ date: Date.UTC(2025, 0, 1), value: 21.5 }, { date: Date.UTC(2025, 0, 2), value: 22.8 }];
-      case 'Nivel':
-        return [{ date: Date.UTC(2025, 0, 1), value: 5.0 }, { date: Date.UTC(2025, 0, 2), value: 6.2 }];
-      case 'Color':
-        return [{ date: Date.UTC(2025, 0, 1), value: 15.0 }, { date: Date.UTC(2025, 0, 2), value: 16.8 }];
-      case 'Flujo':
-        return [{ date: Date.UTC(2025, 0, 1), value: 0.5 }, { date: Date.UTC(2025, 0, 2), value: 1.1 }];
-      default:
-        return [];
-    }
+  
+    series.data.setAll(chartData);
+  
+    series.appear(1000);
+    chart.appear(1000, 100);
   }
   
-  filtrarPorSensor(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedSensor = selectElement.value;
-  
-    const datosSeleccionados = this.datosSensores.find(dato => dato.sensor === this.selectedSensor);
-  
-    if (datosSeleccionados) {
-      this.datosFiltrados = [datosSeleccionados];
-    } else {
-      this.datosFiltrados = [];
-    }
-
-    this.renderizarGrafico();
-  }
-
   submitDate(): void {
     if (this.selectedDateTime) {
-      alert(`Fecha y hora seleccionadas: ${this.selectedDateTime}`);
+      console.log(`Fecha seleccionada: ${this.selectedDateTime}`);
+      // Aquí puedes implementar la lógica para consultar datos basados en la fecha
     } else {
-      alert('Por favor selecciona una fecha y hora.');
+      console.warn('Por favor selecciona una fecha y hora.');
     }
   }
   
-  selectedSensor: string = 'PH';  
   
-  constructor() { }
-  
+  private dataTables: any = {}; 
+
+
+  constructor(private measurementService: GraphicTableService) {}
+
   ngOnInit(): void {
-    this.inicializarTablas();
-    this.configurarGraficoNuevo();
-    this.selectedSensor = 'PH'; 
+    this.loadDataPH();
+    this.loadDataCloro();
+    this.loadDataTemperatura();
+    this.loadDataNivel();
+    this.loadDataFlujo();
+    this.loadDataCaudal();
+    this.loadDataColor();
+    this.loadDataTurbidez();
+
     this.filtrarDatos();
-    this.renderizarGrafico();
+    this.selectedSensor = 'PH'; 
+    
   }
   
   filtrarDatos() {
-    this.renderizarGrafico();
-  }
-  
-  actualizarGrafico() {
-    let chartData = this.datosSensorPH.map(d => ({
-      category: d.FechaDeMedicion,
-      value: d.Valor,
-    }));
 
-    if (this.chart && this.chart.series && this.chart.series.getIndex(0)) {
-      this.chart.series.getIndex(0)!.data.setAll(chartData);
+    const tableId = this.sensors.find(s => s.name === this.selectedSensor)?.id;
+    
+    if (!tableId) {
+      console.error('No se encontró tabla para el sensor:', this.selectedSensor);
+      return;
     }
-  }
-
-  private inicializarTablas(): void {
-    const tables = [
-      { id: '#tablaSensorPH', nombre: 'Sensor PH' },
-      { id: '#tablaSensorCloro', nombre: 'Sensor Cloro' },
-      { id: '#tablaSensorTemperatura', nombre: 'Sensor Temperatura' },
-      { id: '#tablaSensorNivel', nombre: 'Sensor Nivel' },
-      { id: '#tablaSensorColor', nombre: 'Sensor Color' },
-      { id: '#tablaSensorFlujo', nombre: 'Sensor Flujo' }
-    ];
   
-    tables.forEach((tableConfig) => {
-      const table = $(tableConfig.id).DataTable({
-        paging: true,
-        searching: true,
-        ordering: true,
-        autoWidth: false,
-        info: true,
-        pageLength: 5,
-        lengthMenu: [5, 10, 25, 50],
-        order: [[0, 'asc']],
-        language: {
-          url: 'https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json',
-        },
-        dom: '<"row"<"col-md-4"l><"col-md-4 "B><"col-md-4"f>>rtip',
-        buttons: this.obtenerBotonesDeExportacion(tableConfig.nombre),
-        responsive: true, // Ahora debe ser aceptado
-      });
-    });
-  }
+    const tableData = $(`#${tableId}`).DataTable().data().toArray();
   
-  private obtenerBotonesDeExportacion(nombreTabla: string): any[] {
-    return [
-      {
-        text: '',
-        className: 'fas fa-file-excel excel', 
-        action: (e: any, dt: any) => {
-          const dataExport = dt.buttons.exportData();
-          this.exportarExcel(nombreTabla, dataExport);
-        },
-      },
-      {
-        extend: 'pdfHtml5',
-        text: '',
-        className: 'fas fa-file-pdf pdf', 
-        title: `Informe de ${nombreTabla}`,
-        customize: (doc: any) => {
-          doc.defaultStyle.fontSize = 10;
-          doc.styles.tableHeader = {
-            fontSize: 12,
-            fillColor: '#b4b4b4',
-            bold: true,
-            alignment: 'center',
-          };
-          doc.pageMargins = [20, 40, 20, 30];
-        },
-      },
-      {
-        extend: 'print',
-        text: '',
-        className: 'fas fa-print print', 
-        title: `Informe de ${nombreTabla}`,
-      },
-    ];
-  }
-
-  private exportarExcel(nombreTabla: string, data: any): void {
-    try {
-      const encabezados = data.header;
-      const cuerpo = data.body;
-  
-      const datosCompletos = [encabezados, ...cuerpo];
-  
-      const ws = XLSX.utils.aoa_to_sheet(datosCompletos);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, nombreTabla);
-  
-      ws['!cols'] = encabezados.map(() => ({ wch: 20 }));
-
-      const archivoExcel = `${nombreTabla}.xlsx`;
-      XLSX.writeFile(wb, archivoExcel);
-  
-    } catch (error) {
-      console.error('Error exportando a Excel:', error);
+    if (tableData.length > 0) {
+      this.renderizarGraficoConDatos(tableData);
+    } else {
+      console.warn(`No hay datos para el sensor ${this.selectedSensor}`);
     }
   }
   
@@ -265,11 +161,403 @@ export class InformesComponent implements OnInit {
     const fechas = [''];
     const valores = [7.5, 8.0, 6.8];
 
-    var chart = root.container.children.push(
-      am5xy.XYChart.new(root, {
-        panX: true,
-        panY: true,
+    var chart = root.container.children.push(am5xy.XYChart.new(root, {
+      panX: true,
+      panY: true,
+      wheelX: "panX",
+      wheelY: "zoomX",
+      pinchZoomX: true,
+      paddingLeft: 0
+    }));
+    
+    // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+    var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+    cursor.lineX.set("forceHidden", true);
+    cursor.lineY.set("forceHidden", true);
+    
+    var date = new Date();
+    date.setHours(0, 0, 0, 0);
+    
+    var value = 20;
+    function generateData() {
+      value = am5.math.round(Math.random() * 10 - 4.8 + value, 1);
+      if (value < 0) {
+        value = Math.random() * 10;
+      }
+    
+      if (value > 100) {
+        value = 100 - Math.random() * 10;
+      }
+      am5.time.add(date, "day", 1);
+      return {
+        date: date.getTime(),
+        value: value
+      };
+    }
+
+    interface DataItem {
+      date: number;
+      value: number;
+    }
+    
+    function generateDatas(count: number): DataItem[] {  
+      var data: DataItem[] = [];
+      for (var i = 0; i < count; ++i) {
+        data.push(generateData());
+      }
+      return data;
+    }
+    
+    // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+    var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+      baseInterval: {
+        timeUnit: "day",
+        count: 1
+      },
+      renderer: am5xy.AxisRendererX.new(root, {
+        minorGridEnabled: true,
+        minGridDistance: 90
       })
-    );
+    }));
+    
+    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+      renderer: am5xy.AxisRendererY.new(root, {})
+    }));
+    
+    // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+    var series = chart.series.push(am5xy.LineSeries.new(root, {
+      name: "Series",
+      xAxis: xAxis,
+      yAxis: yAxis,
+      valueYField: "value",
+      valueXField: "date",
+      tooltip: am5.Tooltip.new(root, {
+        labelText: "{valueY}"
+      })
+    }));
+    
+    series.fills.template.setAll({
+      fillOpacity: 0.2,
+      visible: true
+    });
+    
+    // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+    chart.set("scrollbarX", am5.Scrollbar.new(root, {
+      orientation: "horizontal"
+    }));
+    
+    var rangeDataItem = yAxis.makeDataItem({});
+    yAxis.createAxisRange(rangeDataItem);
+    
+    var container = am5.Container.new(root, {
+      centerY: am5.p50,
+      draggable: true,
+      layout: root.horizontalLayout
+    })
+    
+    container.adapters.add("x", function() {
+      return 0;
+    });
+    
+    container.adapters.add("y", function(y) {
+      const validY = typeof y === "number" ? y : 0;
+      
+      return Math.max(0, Math.min(chart.plotContainer.height(), validY));
+    });
+    
+container.events.on("dragged", function() {
+  var value = yAxis.positionToValue(yAxis.toAxisPosition(container.y() / chart.plotContainer.height()));
+  
+  updateLabel(value);
+}); 
+    
+    yAxis.topGridContainer.children.push(container);
+    
+    rangeDataItem.set("bullet", am5xy.AxisBullet.new(root, {
+      sprite: container
+    }));
+    
+    rangeDataItem.get("grid")?.setAll({
+      strokeOpacity: 1,
+      visible: true,
+      stroke: am5.color(0x000000),
+      strokeDasharray: [2, 2]
+    });
+    
+    var background = am5.RoundedRectangle.new(root, {
+      fill: am5.color(0xffffff),
+      fillOpacity: 1,
+      strokeOpacity: 0.5,
+      cornerRadiusTL: 0,
+      cornerRadiusBL: 0,
+      cursorOverStyle: "ns-resize",
+      stroke: am5.color(0xff0000)
+    })
+    
+    container.set("background", background);
+    
+    var label = container.children.push(am5.Label.new(root, {
+      paddingTop: 5,
+      paddingBottom: 5
+    }))
+    
+    var xButton = container.children.push(am5.Button.new(root, {
+      cursorOverStyle: "pointer",
+      paddingTop: 5,
+      paddingBottom: 5,
+      paddingLeft: 2,
+      paddingRight: 8
+    }))
+    
+    xButton.set("label", am5.Label.new(root, {
+      text: "X",
+      paddingBottom: 0,
+      paddingTop: 0,
+      paddingRight: 0,
+      paddingLeft: 0,
+      fill: am5.color(0xff0000)
+    }))
+    
+    xButton.get("background")?.setAll({
+      strokeOpacity: 0,
+      fillOpacity: 0
+    });
+    
+    xButton.events.on("click", function() {
+      yAxis.disposeDataItem(rangeDataItem);
+    })
+    
+    function updateLabel(value: number | null): void {
+      var y = container.y();
+      var position = yAxis.toAxisPosition(y / chart.plotContainer.height());
+      
+      if (value == null) {
+        value = yAxis.positionToValue(position);
+      }
+      
+      label.set("text", root.numberFormatter.format(value, "#.00") + ">Stop loss");
+      
+      rangeDataItem.set("value", value);
+    }
+    
+    series.events.on("datavalidated", () => {
+      var max = yAxis.getPrivate("max", 1);
+      var min = yAxis.getPrivate("min", 0);
+    
+      var value = min + (max - min) / 2;
+      rangeDataItem.set("value", value);
+      updateLabel(value);
+    })
+    
+    var data = generateDatas(300);
+    series.data.setAll(data);
+    xAxis.data.setAll(data);
+    
+    // https://www.amcharts.com/docs/v5/concepts/animations/
+    series.appear(1000);
+    chart.appear(1000, 100);
+    
   }
+
+  ngAfterViewInit(): void {
+   
+
+    if (document.getElementById('chartdiv')) {
+      this.configurarGraficoNuevo(); 
+    } else {
+      console.error('Chart container "chartdiv" not found');
+    }
+  }
+
+  ngOnDestroy(): void {
+    Object.keys(this.dataTables).forEach(key => {
+      if (this.dataTables[key]) {
+        this.dataTables[key].destroy(true);
+      }
+    });
+  }
+
+  loadDataPH(): void {
+    this.initializeDataTable('measurementTablePH', '08000015', 6, 1);
+  }
+  
+  loadDataCloro(): void {
+    this.initializeDataTable('measurementTableCloro', '08000015', 6, 0);
+  }
+  
+  loadDataTemperatura(): void {
+    this.initializeDataTable('measurementTableTemperatura', '08000015', 6, 2);
+  }
+  
+  loadDataNivel(): void {
+    this.initializeDataTable('measurementTableNivel', '08000015', 1, 0);
+  }
+  
+  loadDataFlujo(): void {
+    this.initializeDataTable('measurementTableFlujo', '08000015', 3, 0);
+  }
+  
+  loadDataCaudal(): void {
+    this.initializeDataTable('measurementTableCaudal', '08000015', 2, 0);
+  }
+  
+  loadDataColor(): void {
+    this.initializeDataTable('measurementTableColor', '08000015', 4, 0);
+  }
+  
+  loadDataTurbidez(): void {
+    this.initializeDataTable('measurementTableTurbidez', '08000015', 8, 1);
+  }
+  
+  
+  initializeDataTable(tableId: string, serial: string, componentType: number, parameter: number): void {
+    if ($.fn.dataTable.isDataTable(`#${tableId}`)) {
+      $(`#${tableId}`).DataTable().clear().destroy();
+    }
+  
+    this.dataTables[tableId] = $(`#${tableId}`).DataTable({
+      paging: true,
+      pageLength: 10,
+      searching: true,
+      ordering: true,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTablesParameters: any, callback) => {
+        const page = dataTablesParameters.start / dataTablesParameters.length;
+        const size = dataTablesParameters.length;
+        const searchTerm = dataTablesParameters.search.value;
+  
+        this.measurementService.getTableHistoryBySerialAndComponent(serial, componentType, parameter, page, size)
+          .subscribe((response: MeasurementResponse) => {
+            callback({
+              recordsTotal: response.data.totalElements,
+              recordsFiltered: response.data.totalElements,
+              data: response.data.content
+            });
+          });
+      },
+      language: {
+        paginate: {
+          next: 'Siguiente',
+          previous: 'Anterior',
+        },
+        search: 'Buscar:',
+        emptyTable: 'No hay datos disponibles en la tabla',
+      },
+      columns: [
+        { data: 'serialEquipment' },
+        { data: 'componentName' },
+        { data: 'variableName' },
+        { data: 'variableUnits' },
+        { data: 'dateReception' },
+        { data: 'dateMeasurementComponent' },
+        { data: 'measurementValue' },
+        { data: 'alertName' },
+        { data: 'measurementTypeName' }
+      ]
+    });
+  }
+  
+
+  exportarExcel(tableId: string): void {
+    const tableElement = document.getElementById(tableId);
+    if (!tableElement) {
+      console.error(`La tabla con ID ${tableId} no existe`);
+      return;
+    }
+  
+    const worksheet = XLSX.utils.table_to_sheet(tableElement);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
+    XLSX.writeFile(workbook, `Datos_${tableId}.xlsx`);
+  }
+  
+  exportarPDF(tableId: string): void {
+    const table = document.getElementById(tableId);
+    if (!table) {
+      console.error(`La tabla con ID ${tableId} no existe`);
+      return;
+    }
+  
+    const doc = new jsPDF();
+    autoTable(doc, {
+      html: `#${tableId}`,
+      theme: 'grid',
+      headStyles: { fillColor: [22, 160, 133] },
+      margin: { top: 10 }
+    });
+  
+    doc.save(`Datos_${tableId}.pdf`);
+  }
+  
+  imprimirTabla(tableId: string): void {
+    const table = document.getElementById(tableId);
+    if (!table) {
+      console.error(`La tabla con ID ${tableId} no existe`);
+      return;
+    }
+  
+    const newWindow = window.open('', '_blank');
+    if (newWindow) {
+      const styles = `
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+          }
+          h1 {
+            text-align: center;
+            font-size: 24px;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+          }
+          th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+          }
+          th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+          }
+          tr:nth-child(even) {
+            background-color: #f9f9f9;
+          }
+          @media print {
+            body {
+              font-size: 12pt;
+            }
+            table {
+              page-break-inside: avoid;
+            }
+            th {
+              background-color: #ddd !important;
+              -webkit-print-color-adjust: exact;
+            }
+          }
+        </style>
+      `;
+  
+      newWindow.document.write(`
+        <html>
+          <head>
+            <title>Impresión de Informe</title>
+            ${styles}
+          </head>
+          <body>
+            <h1>Reporte de Datos</h1>
+            ${table.outerHTML}
+          </body>
+        </html>
+      `);
+  
+      newWindow.document.close();
+      newWindow.print();
+    }
+  }
+  
+  
 }

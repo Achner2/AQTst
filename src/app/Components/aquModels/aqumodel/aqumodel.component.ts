@@ -56,12 +56,12 @@ export class AqumodelComponent implements OnInit {
 
   private initScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = null; // Fondo transparente
+    this.scene.background = null; 
     
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.z = 3;
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // Habilitar transparencia
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
@@ -69,8 +69,8 @@ export class AqumodelComponent implements OnInit {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.05;
-    this.controls.maxPolarAngle = Math.PI / 2; // Limita la rotación vertical a 90 grados (hacia arriba)
-    this.controls.minPolarAngle = Math.PI / 2; // Limita la rotación vertical hacia abajo (no puede pasar de la horizontal)
+    this.controls.maxPolarAngle = Math.PI / 2; 
+    this.controls.minPolarAngle = Math.PI / 2; 
     this.controls.screenSpacePanning = true;
     this.controls.minDistance = 1;
     this.controls.maxDistance = 10;
@@ -95,7 +95,7 @@ export class AqumodelComponent implements OnInit {
   private loadModel() {
     this.loading = true;
     const textureLoader = new TextureLoader();
-    const texture = textureLoader.load('assets/3D/shaded.png'); // Ajusta la ruta de la textura
+    const texture = textureLoader.load('assets/3D/shaded.png');
 
     const objLoader = new OBJLoader();
     objLoader.load('assets/3D/base.obj', (object) => {

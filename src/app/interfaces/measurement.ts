@@ -1,10 +1,10 @@
-export interface LatestMeasurement {
+export interface ApiResponse {
   success: boolean;
   message: string;
-  data: MeasurementData[];
+  data: Measurement[];
 }
 
-export interface MeasurementData {
+export interface Measurement {
   serialEquipment: string;
   directionComponent: number;
   channelComponent: number;

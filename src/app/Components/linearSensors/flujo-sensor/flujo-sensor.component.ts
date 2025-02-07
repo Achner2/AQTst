@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-flujo-sensor',
   templateUrl: './flujo-sensor.component.html',
-  styleUrl: './flujo-sensor.component.css'
+  styleUrls: ['./flujo-sensor.component.css']
 })
-export class FlujoSensorComponent {
+export class FlujoSensorComponent implements OnChanges {
+  @Input() data: any[] = []; // Recibimos los datos desde el componente padre
+
   dataSource = {
     chart: {
       theme: 'fusion',
-      caption: '              ',
+      caption: '               ',
       lowerLimit: '0',
       upperLimit: '1',
       numberSuffix: '',
@@ -20,30 +22,32 @@ export class FlujoSensorComponent {
       chartRightMargin: '20',
       chartTopMargin: '20',
       animationDuration: '1',
-      showValue: '1', // Mostrar el valor numérico en el gráfico
-      responsive: '1', // Habilita la responsividad del gráfico
+      showValue: '1', 
+      responsive: '1',
+      valueFontColor: "#e9f0f7"
     },
     colorRange: {
       color: [
-        { minValue: '0', maxValue: '0.5', label: 'Sin Flujo', code: '#FF4C4C' }, // Rojo
-        { minValue: '0.5', maxValue: '1', label: 'Con Flujo', code: '#A1D99B' }  // Verde
+        { minValue: '0', maxValue: '0.5', label: 'Sin Flujo', code: '#D6EBFF' },  // Azul muy claro
+        { minValue: '0.5', maxValue: '1', label: 'Con Flujo', code: '#99CCFF' } 
       ],
     },
     pointers: {
-      pointer: [{ value: '0' }], // Valor inicial: 0 (sin flujo)
+      pointer: [{ value: '0' }],
     },
   };
 
-  currentFlow: number = 0; // 0: Sin flujo, 1: Con flujo
+  currentFlow: number = 0;
   status: string = 'Sin Flujo';
   lastUpdate: string = this.getCurrentTime();
 
-  constructor() {
-    // Simula un cambio aleatorio entre 0 y 1 cada 3 segundos
-    setInterval(() => {
-      const targetValue = Math.round(Math.random());
-      this.updateFlow(targetValue);
-    }, 3000);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && this.data.length > 0) {
+      const latestMeasurement = this.data[0]; // Tomamos la última medición recibida
+      this.updateFlow(latestMeasurement.measurementValue);
+      this.status = latestMeasurement.alertName;
+      this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);
+    }
   }
 
   updateFlow(value: number) {
@@ -54,11 +58,20 @@ export class FlujoSensorComponent {
   }
 
   updateStatus(value: number) {
-    this.status = value === 0 ? 'Sin Flujo' : 'Con Flujo';
+    if (value === 0) {
+      this.status = 'Sin Flujo';
+    } else {
+      this.status = 'Con Flujo';
+    }
   }
 
-  getCurrentTime() {
+  getCurrentTime(): string {
     const now = new Date();
-    return now.toLocaleString();
+    return now.toLocaleString('es-CO', { timeZone: 'UTC' });
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleString('es-CO', { timeZone: 'UTC' });
   }
 }

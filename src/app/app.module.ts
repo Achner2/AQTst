@@ -32,6 +32,8 @@ import { FlujoSensorComponent } from './Components/linearSensors/flujo-sensor/fl
 import { ColorsSensorComponent } from './Components/linearSensors/colors-sensor/colors-sensor.component';
 import { CaudSensorComponent } from './Components/linearSensors/caud-sensor/caud-sensor.component';
 import { InformesComponent } from './Components/pages/informes/informes.component';
+import { StatusComponent } from './Components/status/status.component';
+import { GraphicComponent } from './Components/pages/graphic/graphic.component';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
@@ -49,7 +51,9 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
         FlujoSensorComponent,
         ColorsSensorComponent,
         CaudSensorComponent,
-        InformesComponent
+        InformesComponent,
+        StatusComponent,
+        GraphicComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     bootstrap: [AppComponent],

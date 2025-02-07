@@ -1,97 +1,68 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-ph-sensor',
   templateUrl: './ph-sensor.component.html',
   styleUrls: ['./ph-sensor.component.css']
 })
-export class PhSensorComponent {
+export class PhSensorComponent implements OnChanges {
+  @Input() data: any[] = [];
+
   dataSource = {
     chart: {
-      theme: 'fusion',
-      caption: '                  ',
-      lowerLimit: '1',
-      upperLimit: '14',
-      numberSuffix: '',
-      chartBottomMargin: '50',
-      valueFontSize: '11',
-      valueFontBold: '0',
-      chartLeftMargin: '20',
-      chartRightMargin: '20',
-      chartTopMargin: '20',
-      animationDuration: '1',
-      responsive: '1', // Habilita la responsividad del gráfico
+        theme: 'fusion',
+        caption: '               ',
+        lowerLimit: '1',
+        upperLimit: '14',
+        numberSuffix: '',
+        chartBottomMargin: '50',
+        valueFontSize: '11',
+        valueFontBold: '0',
+        chartLeftMargin: '20',
+        chartRightMargin: '20',
+        chartTopMargin: '20',
+        animationDuration: '1',
+        responsive: '1',
     },
     colorRange: {
-      color: [
-        { minValue: '1', maxValue: '3', label: 'Muy Ácido', code: '#FF4C4C' },   
-        { minValue: '4', maxValue: '6', label: 'Ácido', code: '#FF9966' },      
-        { minValue: '7', maxValue: '7.5', label: 'Neutro', code: '#A1D99B' },    
-        { minValue: '8', maxValue: '10', label: 'Básico', code: '#66B3FF' },     
-        { minValue: '11', maxValue: '14', label: 'Muy Básico', code: '#3399FF' }
-      ],
+        color: [
+            { minValue: '1', maxValue: '3', label: 'Muy Ácido', code: '#D6EBFF' },  // Azul muy claro
+            { minValue: '4', maxValue: '5.7', label: 'Ácido', code: '#BFE1FF' },    // Azul más claro
+            { minValue: '5.7', maxValue: '6.0', label: 'Bajo', code: '#99CCFF' },   // Azul medio claro
+            { minValue: '6.0', maxValue: '8.5', label: 'Normal', code: '#80BBFF' }, // Azul intermedio claro
+            { minValue: '8.5', maxValue: '9.0', label: 'Alto', code: '#66AAFF' },   // Azul más intenso
+            { minValue: '9.0', maxValue: '14', label: 'Muy Básico', code: '#338FFF' } // Azul más profundo
+        ],
     },
     pointers: {
-      pointer: [{ value: '7' }],
+        pointer: [{ value: '7' }]  // Valor inicial del sensor de pH
     },
     trendPoints: {
-      point: [
-        { startValue: '6.5', displayValue: '', dashed: '1', showValues: '0' },
-        { startValue: '7.5', displayValue: '', dashed: '1', showValues: '0' },
-        { startValue: '6.5', endValue: '7.5', displayValue: '', alpha: '40' },
-      ],
     },
-  };
+};
+
+
 
   currentPh: number = 7;
-  status: string = 'Neutro'; 
-  lastUpdate: string = this.getCurrentTime(); 
+  measurementType: string = 'Lectura normal';
+  lastUpdate: string = this.formatDate(new Date().toISOString());
 
-  constructor() {
-    let targetValue = this.currentPh;
-    setInterval(() => {
-      targetValue = parseFloat((Math.random() * (8 - 6) + 6).toFixed(2));
-      this.smoothTransition(this.currentPh, targetValue.toString());
-    }, 3000);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && this.data.length > 0) {
+      const latestMeasurement = this.data[0]; // Tomamos la medición más reciente
+      this.updatePointerValue(latestMeasurement.measurementValue.toString());
+      this.measurementType = latestMeasurement.alertName;
+      this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);
+    }
   }
-  smoothTransition(currentValue: number, targetValue: string) {
-    let step = (parseFloat(targetValue) - currentValue) / 10;
-    let counter = 0;
-    let interval = setInterval(() => {
-      currentValue += step;
-      this.updatePointerValue(currentValue.toFixed(2));
-      this.updateStatus(currentValue);
-      this.lastUpdate = this.getCurrentTime();
 
-      if (Math.abs(parseFloat(targetValue) - currentValue) < 0.05) {
-        clearInterval(interval);
-        this.updatePointerValue(targetValue); 
-        this.updateStatus(parseFloat(targetValue)); 
-      }
-    }, 100);
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleString('es-CO', { timeZone: 'UTC' });
   }
 
   updatePointerValue(value: string) {
     this.currentPh = parseFloat(value);
     this.dataSource.pointers.pointer[0].value = value;
-  }
-
-  updateStatus(value: number) {
-    if (value >= 1 && value <= 3) {
-      this.status = 'Muy Ácido';
-    } else if (value >= 4 && value <= 6) {
-      this.status = 'Ácido';
-    } else if (value >= 7 && value <= 7.5) {
-      this.status = 'Neutro';
-    } else if (value >= 8 && value <= 10) {
-      this.status = 'Básico';
-    } else {
-      this.status = 'Muy Básico';
-    }
-  }
-
-  getCurrentTime() {
-    const now = new Date();
-    return now.toLocaleString();
   }
 }

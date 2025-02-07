@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-turbidez-sensor',
   templateUrl: './turbidez-sensor.component.html',
   styleUrls: ['./turbidez-sensor.component.css']
 })
-export class TurbidezSensorComponent {
+export class TurbidezSensorComponent implements OnChanges {
+  @Input() data: any[] = [];
+
   dataSource = {
     chart: {
       theme: 'fusion',
-      caption: '                    ',
+      caption: '            ',
       lowerLimit: '0',
       upperLimit: '40',
-      numberSuffix: ' NTU',
       chartBottomMargin: '50',
       valueFontSize: '11',
       valueFontBold: '0',
@@ -20,76 +21,48 @@ export class TurbidezSensorComponent {
       chartRightMargin: '20',
       chartTopMargin: '20',
       animationDuration: '1',
-      responsive: '1', // Habilita la responsividad del gráfico
-
+      responsive: '1',
     },
     colorRange: {
       color: [
-        { minValue: '0', maxValue: '5', label: 'Excelente', code: '#A1D99B' },
-        { minValue: '5', maxValue: '10', label: 'Buena', code: '#66B3FF' },
-        { minValue: '10', maxValue: '20', label: 'Regular', code: '#FF9966' },
-        { minValue: '20', maxValue: '40', label: 'Mala', code: '#FF4C4C' }
+        { minValue: '0', maxValue: '5', label: 'Excelente', code: '#D6EBFF' },  // Azul muy claro
+  { minValue: '5', maxValue: '10', label: 'Buena', code: '#BFE1FF' },     // Azul más claro
+  { minValue: '10', maxValue: '20', label: 'Regular', code: '#99CCFF' },  // Azul medio claro
+  { minValue: '20', maxValue: '40', label: 'Mala', code: '#80BBFF' }   // Azul intermedio
       ],
     },
     pointers: {
       pointer: [{ value: '5' }],
     },
     trendPoints: {
-      point: [
-        { startValue: '0', displayValue: '', dashed: '1', showValues: '0' },
-        { startValue: '10', displayValue: '', dashed: '1', showValues: '0' },
-        { startValue: '0', endValue: '10', displayValue: '', alpha: '40' },
-      ],
     },
   };
 
-  currentTurbidity: number = 5;
-  status: string = 'Excelente';
+  currentTurbidity: number = 0;
+  status: string = '';
   lastUpdate: string = this.getCurrentTime();
 
-  constructor() {
-    let targetValue = this.currentTurbidity;
-    setInterval(() => {
-      targetValue = parseFloat((Math.random() * (15 - 2) + 2).toFixed(2));
-      this.smoothTransition(this.currentTurbidity, targetValue.toString());
-    }, 3000);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && this.data.length > 0) {
+      const latestMeasurement = this.data[0]; // Tomamos la medición más reciente
+      this.updatePointerValue(latestMeasurement.measurementValue.toString());
+      this.status = latestMeasurement.alertName;
+      this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);
+    }
   }
 
-  smoothTransition(currentValue: number, targetValue: string) {
-    let step = (parseFloat(targetValue) - currentValue) / 10;
-    let interval = setInterval(() => {
-      currentValue += step;
-      this.updatePointerValue(currentValue.toFixed(2));
-      this.updateStatus(currentValue);
-      this.lastUpdate = this.getCurrentTime();
+  getCurrentTime(): string {
+    const now = new Date();
+    return now.toLocaleString('es-CO', { timeZone: 'UTC' });
+  }
 
-      if (Math.abs(parseFloat(targetValue) - currentValue) < 0.05) {
-        clearInterval(interval);
-        this.updatePointerValue(targetValue);
-        this.updateStatus(parseFloat(targetValue));
-      }
-    }, 100);
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleString('es-CO', { timeZone: 'UTC' });
   }
 
   updatePointerValue(value: string) {
     this.currentTurbidity = parseFloat(value);
     this.dataSource.pointers.pointer[0].value = value;
-  }
-
-  updateStatus(value: number) {
-    if (value >= 0 && value <= 5) {
-      this.status = 'Excelente';
-    } else if (value > 5 && value <= 10) {
-      this.status = 'Buena';
-    } else if (value > 10 && value <= 20) {
-      this.status = 'Regular';
-    } else {
-      this.status = 'Mala';
-    }
-  }
-
-  getCurrentTime() {
-    const now = new Date();
-    return now.toLocaleString();
   }
 }

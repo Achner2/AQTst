@@ -46,29 +46,24 @@
 
     <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div class="rounded-lg shadow-inner">
-        <app-ph-sensor></app-ph-sensor>
+        <app-ph-sensor [data]="phMeasurements"></app-ph-sensor>
       </div>
-      <div class=" rounded-lg shadow-inner">
-        <app-temperatura-sensor></app-temperatura-sensor>
+      <div class="rounded-lg shadow-inner">
+        <app-temperatura-sensor [data]="temperaturaMeasurements"></app-temperatura-sensor>
       </div>
-      <div class=" rounded-lg shadow-inner">
-        <app-cloro-sensor></app-cloro-sensor>
+      <div class="rounded-lg shadow-inner">
+        <app-cloro-sensor [data]="cloroMeasurements"></app-cloro-sensor>
       </div>
-      <div class=" rounded-lg shadow-inner">
-        <app-turbidez-sensor></app-turbidez-sensor>
+      <div class="rounded-lg shadow-inner">
+        <app-turbidez-sensor [data]="turbidezMeasurements"></app-turbidez-sensor>
       </div>
-      <div class=" rounded-lg shadow-inner">
-        <app-nivel-sensor></app-nivel-sensor>
+      <div class="rounded-lg shadow-inner">
+        <app-colors-sensor [data]="colorMeasurements"></app-colors-sensor>
       </div>
-      <div class=" rounded-lg shadow-inner">
-        <app-colors-sensor></app-colors-sensor>
-      </div>
-      <div class=" rounded-lg shadow-inner">
-        <app-caud-sensor></app-caud-sensor>
-      </div>
-      <div class=" rounded-lg shadow-inner">
-        <app-flujo-sensor></app-flujo-sensor>
+      <div class="rounded-lg shadow-inner">
+        <app-flujo-sensor [data]="flujoMeasurements"></app-flujo-sensor>
       </div>
     </div>
+    
   </div>
 </div>

@@ -3,7 +3,6 @@
     <h5 class="card-title mb-0 text-center">Sensor de Caudal</h5>
   </div>
   <div class="card-body bg-white rounded-md">
-    <!-- Contenedor del gráfico -->
     <div class="gauge-container">
       <fusioncharts
         type="hlineargauge"
@@ -13,10 +12,9 @@
       ></fusioncharts>
     </div>
 
-    <!-- Información del estado -->
     <div class="mt-3 text-center">
       <p class="mb-1"><strong>Valor actual:</strong> {{ currentFlow.toFixed(2) }} lts</p>
-      <p class="mb-1"><strong>Estado:</strong> {{ status }}</p>
+      <p class="mb-1"><strong>Alerta:</strong> {{ status }}</p>
       <p class="mb-0"><strong>Última lectura:</strong> {{ lastUpdate }}</p>
     </div>
   </div>

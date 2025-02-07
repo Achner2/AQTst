@@ -20,13 +20,13 @@ export class CaudSensorComponent {
       chartRightMargin: '20',
       chartTopMargin: '20',
       animationDuration: '1',
-      responsive: '1', // Habilita la responsividad del gráfico
+      responsive: '1',
     },
     colorRange: {
       color: [
-        { minValue: '0.1', maxValue: '10', label: 'Bajo', code: '#66B3FF' },   
-        { minValue: '10', maxValue: '20', label: 'Medio', code: '#A1D99B' },      
-        { minValue: '20', maxValue: '30', label: 'Alto', code: '#FF9966' }
+        { minValue: '0.1', maxValue: '10', label: 'Bajo', code: '#66B3FF' }, 
+        { minValue: '10', maxValue: '20', label: 'Medio', code: '#A1D99B' }, 
+        { minValue: '20', maxValue: '30', label: 'Alto', code: '#FF9966' } 
       ],
     },
     pointers: {
