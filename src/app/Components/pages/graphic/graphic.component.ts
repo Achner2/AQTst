@@ -14,12 +14,12 @@ export class GraphicComponent implements OnInit, OnDestroy {
   selectedSensor: string = '';
   selectedDateTime: string = '';
   sensors = [
-    { name: 'pH' },
-    { name: 'Cloro' },
-    { name: 'Temperatura' },
-    { name: 'Turbidez' },
-    { name: 'Flujo' },
-    { name: 'Color' }
+    { name: 'pH', componentType: 6, parameter: 1 },
+    { name: 'Cloro', componentType: 6, parameter: 0 },
+    { name: 'Temperatura', componentType: 6, parameter: 2 },
+    { name: 'Turbidez', componentType: 8, parameter: 1 },
+    { name: 'Flujo', componentType: 3, parameter: 0 },
+    { name: 'Color', componentType: 4, parameter: 0 }
   ];
 
   private root?: am5.Root;
@@ -83,22 +83,23 @@ export class GraphicComponent implements OnInit, OnDestroy {
   }
 
   filtrarDatos(): void {
-    if (!this.selectedSensor) return;
-  
+    const selectedSensorObj = this.sensors.find(sensor => sensor.name === this.selectedSensor);
+    if (!selectedSensorObj) return;
+
     console.log('Filtrando datos para:', this.selectedSensor);
-  
+
     this.graphicService
-      .getMeasurementHistory('08000015', 1, 6, 0, 10) // Usamos los valores de prueba
+      .getMeasurementHistory('08000015', selectedSensorObj.componentType, selectedSensorObj.parameter, 0, 10) 
       .subscribe(
         (response: MeasurementResponse) => {
-          console.log('Respuesta de la API:', response); // Para depuración
-  
+          console.log('Respuesta de la API:', response); 
+
           if (response?.success && response.data?.measurementHistoryGraphic?.length) {
             const datos = response.data.measurementHistoryGraphic.map((item) => ({
               date: new Date(item.dateMeasurementComponent).getTime(),
               value: item.measurementValue
             }));
-  
+
             this.series?.data.setAll(datos);
             this.series?.appear(1000);
           } else {
