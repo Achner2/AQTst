@@ -13,7 +13,7 @@ export class TurbidezSensorComponent implements OnChanges {
       theme: 'fusion',
       caption: '            ',
       lowerLimit: '0',
-      upperLimit: '40',
+      upperLimit: '5',
       chartBottomMargin: '50',
       valueFontSize: '11',
       valueFontBold: '0',
@@ -25,12 +25,13 @@ export class TurbidezSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-        { minValue: '0', maxValue: '5', label: 'Excelente', code: '#D6EBFF' },  // Azul muy claro
-  { minValue: '5', maxValue: '10', label: 'Buena', code: '#BFE1FF' },     // Azul más claro
-  { minValue: '10', maxValue: '20', label: 'Regular', code: '#99CCFF' },  // Azul medio claro
-  { minValue: '20', maxValue: '40', label: 'Mala', code: '#80BBFF' }   // Azul intermedio
-      ],
-    },
+        { minValue: '-1', maxValue: '0', label: 'Muy Bajo', code: '#DAFAB6' },   // Verde blanquecino muy suave  
+        { minValue: '0', maxValue: '0.1', label: 'Bajo', code: '#BEE78D' },      // Verde pastel claro  
+        { minValue: '0.1', maxValue: '1.3', label: 'Normal', code: '#B3DC82' },  // Verde pastel más intenso  
+        { minValue: '1.3', maxValue: '1.79', label: 'Alto', code: '#95C65A' },   // Verde natural más notorio  
+        { minValue: '1.79', maxValue: '2.00', label: 'Muy Alto', code: '#85BB43' } // Verde de referencia sólido  
+         
+    ]},
     pointers: {
       pointer: [{ value: '5' }],
     },
@@ -44,7 +45,7 @@ export class TurbidezSensorComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && this.data.length > 0) {
-      const latestMeasurement = this.data[0]; // Tomamos la medición más reciente
+      const latestMeasurement = this.data[0];
       this.updatePointerValue(latestMeasurement.measurementValue.toString());
       this.status = latestMeasurement.alertName;
       this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);

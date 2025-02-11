@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
-  styleUrl: './status.component.css'
+  styleUrls: ['./status.component.css']
 })
-export class StatusComponent {
+export class StatusComponent implements OnInit {
+  localdata: string = "";
 
+  ngOnInit() {
+    this.getLocalDate();
+  }
+
+  getLocalDate() {
+    const now = new Date();
+    this.localdata = now.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
+  }
 }

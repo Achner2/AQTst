@@ -8,7 +8,6 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HighchartsChartModule } from 'highcharts-angular';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 //fusioncharts
 import FusionCharts from 'fusioncharts';
@@ -20,9 +19,6 @@ import { FusionChartsModule } from 'angular-fusioncharts';
 import { AqumodelComponent } from './Components/aquModels/aqumodel/aqumodel.component';
 import { ModalsComponent } from './Components/modals/modals.component';
 import { LinearGaugeModule as SyncfusionLinearGaugeModule } from '@syncfusion/ej2-angular-lineargauge';
-//Echarts
-import { NgxEchartsModule } from 'ngx-echarts';
-
 import { PhSensorComponent } from './Components/linearSensors/ph-sensor/ph-sensor.component';
 import { CloroSensorComponent } from './Components/linearSensors/cloro-sensor/cloro-sensor.component';
 import { TemperaturaSensorComponent } from './Components/linearSensors/temperatura-sensor/temperatura-sensor.component';
@@ -34,6 +30,7 @@ import { CaudSensorComponent } from './Components/linearSensors/caud-sensor/caud
 import { InformesComponent } from './Components/pages/informes/informes.component';
 import { StatusComponent } from './Components/status/status.component';
 import { GraphicComponent } from './Components/pages/graphic/graphic.component';
+import { DsComponent } from './Components/pages/ds/ds.component';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
@@ -53,7 +50,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
         CaudSensorComponent,
         InformesComponent,
         StatusComponent,
-        GraphicComponent
+        GraphicComponent,
+        DsComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     bootstrap: [AppComponent],
@@ -66,11 +64,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
         CommonModule,
         FormsModule,
         HighchartsChartModule,
-        NgxChartsModule,
         SyncfusionLinearGaugeModule,
-        NgxEchartsModule.forRoot({
-            echarts: () => import('echarts')
-        })
     ],
     providers: [provideHttpClient(withInterceptorsFromDi())]
 })

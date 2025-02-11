@@ -6,7 +6,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ['./cloro-sensor.component.css']
 })
 export class CloroSensorComponent implements OnChanges {
-  @Input() data: any[] = []; // Recibimos los datos desde el componente padre
+  @Input() data: any[] = []; 
 
   dataSource = {
     chart: {
@@ -25,13 +25,15 @@ export class CloroSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-        { minValue: '0', maxValue: '0.2', label: 'Muy Bajo', code: '#D6EBFF' },  // Azul muy claro
-            { minValue: '0.2', maxValue: '0.3', label: 'Bajo', code: '#BFE1FF' },   // Azul más claro
-            { minValue: '0.3', maxValue: '2.8', label: 'Óptimo', code: '#99CCFF' }, // Azul medio claro
-            { minValue: '2.8', maxValue: '3.0', label: 'Alto', code: '#80BBFF' },   // Azul intermedio claro
-            { minValue: '3.0', maxValue: '5', label: 'Muy Alto', code: '#66AAFF' } 
-      ],
+        { minValue: '0', maxValue: '0.2', label: 'Muy Bajo', code: '#DAFAB6' },  // Verde blanquecino muy suave  
+        { minValue: '0.2', maxValue: '0.3', label: 'Bajo', code: '#BEE78D' },    // Verde pastel claro  
+        { minValue: '0.3', maxValue: '2.8', label: 'Normal', code: '#B3DC82' },  // Verde pastel más intenso  
+        { minValue: '2.8', maxValue: '3.0', label: 'Alto', code: '#95C65A' },    // Verde natural más notorio  
+        { minValue: '3.0', maxValue: '5', label: 'Muy Alto', code: '#85BB43' }   // Verde de referencia sólido  
+        
+      ],      
     },
+    
     pointers: {
       pointer: [{ value: '1.5' }],
     },
@@ -45,7 +47,7 @@ export class CloroSensorComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && this.data.length > 0) {
-      const latestMeasurement = this.data[0]; // Tomamos la última medición recibida
+      const latestMeasurement = this.data[0]; 
       this.updatePointerValue(latestMeasurement.measurementValue.toString());
       this.status = latestMeasurement.alertName;
       this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);

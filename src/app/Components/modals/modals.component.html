@@ -10,7 +10,7 @@
   <div class="modal-content relative p-4 bg-white rounded-lg shadow-lg w-full sm:w-11/12 md:w-9/12 lg:w-6/12">
     <div class="bg-gray-50 p-4 rounded-lg w-full mb-3">
       <div class="flex items-center justify-between">
-        <span class="text-gray-700 font-medium">Información del Equipo</span>
+        <span class="text-gray-700 font-medium text-3xl flex escritura">Medicion de calidad del Agua</span>
         <div class="flex items-center gap-4">
           <button (click)="toggleEquipmentInfo()"
             class="relative inline-flex items-center h-8 rounded-full w-14 transition-colors duration-300 ease-in-out focus:outline-none"
@@ -37,14 +37,14 @@
           <ul class="space-y-2 text-gray-600">
             <li><span class="font-medium">Modelo:</span> Aqutest<li>
             <li><span class="font-medium">Número de Serie:</span> SP-2025</li>
-            <li><span class="font-medium">Fecha de Instalación:</span>{{lastLecture}}</li>
-            <li><span class="font-medium">Estado:</span> <span class="text-green-500">Operativo</span></li>
+            <li><span class="font-medium">Fecha de Instalación:</span> {{lastLecture}}</li>
+            <li><span class="font-medium">Estado:</span> <span class="text-green-500"> Operativo</span></li>
           </ul>
         </div>
       </div>
     </div>
 
-    <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2">
       <div class="rounded-lg shadow-inner">
         <app-ph-sensor [data]="phMeasurements"></app-ph-sensor>
       </div>

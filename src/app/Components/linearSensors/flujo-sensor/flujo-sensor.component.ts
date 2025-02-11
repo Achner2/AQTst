@@ -28,8 +28,9 @@ export class FlujoSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-        { minValue: '0', maxValue: '0.5', label: 'Sin Flujo', code: '#D6EBFF' },  // Azul muy claro
-        { minValue: '0.5', maxValue: '1', label: 'Con Flujo', code: '#99CCFF' } 
+        { minValue: '0', maxValue: '0.5', label: 'Sin Flujo', code: '#DAFAB6' },   // Verde blanquecino muy suave  
+        { minValue: '0.5', maxValue: '1', label: 'Con Flujo', code: '#95C65A' }    // Verde natural más notorio  
+         
       ],
     },
     pointers: {

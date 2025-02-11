@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
-import { authGuard } from './Services/authguard.service';
 import { InformesComponent } from './Components/pages/informes/informes.component';
+import { DsComponent } from './Components/pages/ds/ds.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'informes', component: InformesComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard]},
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login', pathMatch: 'full' }
+  { path: 'dashboard', component: DashboardComponent},
+  { path: 'metrics', component: DsComponent },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({

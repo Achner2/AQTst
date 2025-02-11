@@ -83,7 +83,7 @@ export class ModalsComponent implements OnInit, OnDestroy {
       // Visual indication of successful connection
       Swal.fire({
         icon: 'success',
-        title: 'Conexión WebSocket Establecida',
+        title: 'Conexión con Aqutest Establecida',
         text: 'Escuchando actualizaciones en tiempo real',
         toast: true,
         position: 'top-end',
@@ -108,7 +108,7 @@ export class ModalsComponent implements OnInit, OnDestroy {
       Swal.fire({
         icon: 'error',
         title: 'Error de Conexión',
-        text: 'No se pudo establecer conexión WebSocket',
+        text: 'No se pudo establecer conexión con Aqutest',
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
@@ -127,7 +127,7 @@ export class ModalsComponent implements OnInit, OnDestroy {
       Swal.fire({
         icon: 'info',
         title: 'Conexión Cerrada',
-        text: 'WebSocket desconectado',
+        text: 'Aqutest desconectado',
         toast: true,
         position: 'top-end',
         showConfirmButton: false,

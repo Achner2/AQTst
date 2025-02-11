@@ -30,7 +30,7 @@ export class NivelSensorComponent implements OnChanges {
         { minValue: '5', maxValue: '10', label: 'Bajo', code: '#FF9966' },
         { minValue: '10', maxValue: '20', label: 'Normal', code: '#A1D99B' },
         { minValue: '20', maxValue: '25', label: 'Alto', code: '#66B3FF' },
-        { minValue: '25', maxValue: '30', label: 'Muy Alto', code: '#3399FF' }
+        { minValue: '25', maxValue: '30', label: 'Muy Alto', code: '#FF6666' }
       ],
     },
     pointers: {

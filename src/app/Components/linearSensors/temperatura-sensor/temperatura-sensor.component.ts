@@ -24,11 +24,13 @@ export class TemperaturaSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-        { minValue: '0', maxValue: '10', label: 'Muy Frío', code: '#D6EBFF' },   // Azul muy claro
-        { minValue: '10', maxValue: '20', label: 'Frío', code: '#BFE1FF' },      // Azul más claro
-        { minValue: '20', maxValue: '25', label: 'Normal', code: '#99CCFF' },    // Azul medio claro
-        { minValue: '25', maxValue: '35', label: 'Caliente', code: '#80BBFF' },  // Azul intermedio claro
-        { minValue: '35', maxValue: '100', label: 'Muy Caliente', code: '#66AAFF' }
+        { minValue: '0', maxValue: '10', label: 'Muy Frío', code: '#DAFAB6' },   // Verde blanquecino muy suave  
+        { minValue: '10', maxValue: '20', label: 'Frío', code: '#BEE78D' },      // Verde pastel claro  
+        { minValue: '20', maxValue: '25', label: 'Normal', code: '#B3DC82' },    // Verde pastel más intenso  
+        { minValue: '25', maxValue: '35', label: 'Caliente', code: '#95C65A' },  // Verde natural más notorio  
+        { minValue: '35', maxValue: '100', label: 'Muy Caliente', code: '#85BB43' } // Verde de referencia sólido  
+        
+        
       ],
     },
     pointers: {

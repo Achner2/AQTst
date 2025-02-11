@@ -26,40 +26,51 @@
             "outputPath": "dist/login-api",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": [
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-"styles": [
-  "src/styles.css",
-  "node_modules/bootstrap/dist/css/bootstrap.min.css"
-],
-"scripts": [
-  "node_modules/jszip/dist/jszip.min.js",
-  "node_modules/pdfmake/build/pdfmake.min.js",
-  "node_modules/pdfmake/build/vfs_fonts.js"
-]
-
+            "scripts": [
+              "node_modules/jszip/dist/jszip.min.js",
+              "node_modules/pdfmake/build/pdfmake.min.js",
+              "node_modules/pdfmake/build/vfs_fonts.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "canvg",
+              "raf",
+              "rgbcolor",
+              "core-js",
+              "fusioncharts",
+              "sweetalert2",
+              "highcharts",
+              "jquery",
+              "datatables.net-buttons",
+              "jszip",
+              "pdfmake",
+              "jspdf-autotable",
+              "html2canvas",
+              "dompurify"
+            ]
           },
           "configurations": {
             "production": {
+              "optimization": true,
+              "outputHashing": "all",
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "12mb",
+                  "maximumError": "15mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "20kb",
+                  "maximumError": "30kb"
                 }
-              ],
-              "outputHashing": "all"
+              ]
             },
             "development": {
               "optimization": false,
@@ -90,18 +101,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         }

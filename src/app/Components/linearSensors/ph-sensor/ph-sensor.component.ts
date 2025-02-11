@@ -25,17 +25,20 @@ export class PhSensorComponent implements OnChanges {
         responsive: '1',
     },
     colorRange: {
-        color: [
-            { minValue: '1', maxValue: '3', label: 'Muy Ácido', code: '#D6EBFF' },  // Azul muy claro
-            { minValue: '4', maxValue: '5.7', label: 'Ácido', code: '#BFE1FF' },    // Azul más claro
-            { minValue: '5.7', maxValue: '6.0', label: 'Bajo', code: '#99CCFF' },   // Azul medio claro
-            { minValue: '6.0', maxValue: '8.5', label: 'Normal', code: '#80BBFF' }, // Azul intermedio claro
-            { minValue: '8.5', maxValue: '9.0', label: 'Alto', code: '#66AAFF' },   // Azul más intenso
-            { minValue: '9.0', maxValue: '14', label: 'Muy Básico', code: '#338FFF' } // Azul más profundo
-        ],
+      color: [
+{ minValue: '1', maxValue: '5.7', label: 'Muy Bajo', code: '#dafab6' },  // Verde blanquecino muy suave  
+{ minValue: '5.7', maxValue: '6.0', label: 'Bajo', code: '#bee78d' },    // Verde pastel claro  
+{ minValue: '6.0', maxValue: '8.5', label: 'Normal', code: '#b3dc82' },  // Verde pastel más intenso  
+{ minValue: '8.5', maxValue: '9.0', label: 'Alto', code: '#95c65a' },    // Verde natural más notorio  
+{ minValue: '9.0', maxValue: '14', label: 'Muy Alto', code: '#85BB43' }  // Verde de referencia sólido  
+
+        
+        
+      ]
     },
+    
     pointers: {
-        pointer: [{ value: '7' }]  // Valor inicial del sensor de pH
+        pointer: [{ value: '7' }] 
     },
     trendPoints: {
     },

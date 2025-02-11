@@ -13,7 +13,7 @@ export class ColorsSensorComponent implements OnChanges {
       theme: 'fusion',
       caption: '            ',
       lowerLimit: '0',
-      upperLimit: '800',
+      upperLimit: '30',
       chartBottomMargin: '50',
       valueFontSize: '11',
       valueFontBold: '0',
@@ -25,11 +25,14 @@ export class ColorsSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-        { minValue: '0', maxValue: '200', label: 'Bajo', code: '#D6EBFF' },      // Azul muy claro
-  { minValue: '201', maxValue: '400', label: 'Moderado', code: '#BFE1FF' }, // Azul más claro
-  { minValue: '401', maxValue: '600', label: 'Alto', code: '#99CCFF' },    // Azul medio claro
-  { minValue: '601', maxValue: '800', label: 'Muy Alto', code: '#80BBFF' }
+        { minValue: '-1', maxValue: '0', label: 'Muy Bajo', code: '#DAFAB6' },  // Verde blanquecino muy suave  
+        { minValue: '0', maxValue: '1', label: 'Bajo', code: '#BEE78D' },       // Verde pastel claro  
+        { minValue: '1', maxValue: '15', label: 'Normal', code: '#B3DC82' },    // Verde pastel más intenso  
+        { minValue: '15', maxValue: '18', label: 'Alto', code: '#95C65A' },     // Verde natural más notorio  
+        { minValue: '18', maxValue: '20', label: 'Muy Alto', code: '#85BB43' }  // Verde de referencia sólido  
+         
       ],
+      
     },
     pointers: {
       pointer: [{ value: '0' }],

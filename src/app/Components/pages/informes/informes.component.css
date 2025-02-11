@@ -1,5 +1,5 @@
 .title-container {
-  background-color: #4e74a0;
+  background-color: #008dca;
   color: white;
   text-align: center;
   padding: 15px;
@@ -534,7 +534,7 @@ width: 100%;
 }
 
 .table thead th {
-background-color: #7091bd;
+background-color: #008dcad5;
 color: rgb(226, 226, 226);
 text-align: center;
 }
