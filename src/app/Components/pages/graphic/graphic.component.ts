@@ -8,6 +8,7 @@ import { MeasurementResponse } from '../../../interfaces/graphic';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 interface SensorRange {
@@ -26,6 +27,8 @@ interface SensorConfig {
 }
 
 
+
+
 @Component({
   selector: 'app-graphic',
   templateUrl: './graphic.component.html',
@@ -41,12 +44,14 @@ export class GraphicComponent implements OnInit, OnDestroy {
   private rangeDataSeries: am5xy.LineSeries[] = [];
 
   private readonly COLORS = {
-    HIGH_HIGH: am5.color("rgba(255, 0, 0, 0.2)"),
-    HIGH: am5.color("rgba(255, 165, 0, 0.2)"),
-    NORMAL: am5.color("rgba(0, 255, 0, 0.2)"),
-    LOW: am5.color("rgba(255, 255, 0, 0.2)"),
-    LOW_LOW: am5.color("rgba(139, 0, 0, 0.2)")
+    HIGH_HIGH: am5.color("#ff0000"),  // Eliminé la opacidad
+    HIGH: am5.color("#ffa500"),
+    NORMAL: am5.color("#00ff00"),
+    LOW: am5.color("#ffff00"),
+    LOW_LOW: am5.color("#8b0000")
   };
+  
+  
 
   private readonly sensorConfigs: { [key: string]: SensorConfig } = {
     'pH': {
@@ -55,11 +60,11 @@ export class GraphicComponent implements OnInit, OnDestroy {
       parameter: 1,
       unit: 'pH',
       ranges: [
-        { from: 9.0, to: 14.0, color: '#ff0000', label: 'Alto-Alto' },
-        { from: 8.5, to: 9.0, color: '#ffa500', label: 'Alto' },
-        { from: 6.0, to: 8.5, color: '#00ff00', label: 'Normal' },
-        { from: 5.7, to: 6.0, color: '#ffff00', label: 'Bajo' },
-        { from: 0, to: 5.7, color: '#8b0000', label: 'Bajo-Bajo' }
+        { "from": 9.0, "to": 14.0, "color": "#ff4500", "label": "Alto-Alto" },
+      { "from": 8.5, "to": 9.0, "color": "#ffa500", "label": "Alto" },
+      { "from": 6.0, "to": 8.5, "color": "#32cd32", "label": "Normal" },
+      { "from": 5.7, "to": 6.0, "color": "#87ceeb", "label": "Bajo" },
+      { "from": 0, "to": 5.7, "color": "#0000ff", "label": "Bajo-Bajo" }
       ]
     },
     'Cloro': {
@@ -68,11 +73,11 @@ export class GraphicComponent implements OnInit, OnDestroy {
       parameter: 0,
       unit: 'mg/L',
       ranges: [
-        { from: 3.0, to: 5.0, color: '#ff0000', label: 'Alto-Alto' },
-        { from: 2.8, to: 3.0, color: '#ffa500', label: 'Alto' },
-        { from: 0.3, to: 2.8, color: '#00ff00', label: 'Normal' },
-        { from: 0.2, to: 0.3, color: '#ffff00', label: 'Bajo' },
-        { from: 0, to: 0.2, color: '#8b0000', label: 'Bajo-Bajo' }
+        { "from": 3.0, "to": 5.0, "color": "#ff0000", "label": "Alto-Alto" },
+      { "from": 2.8, "to": 3.0, "color": "#ffd700", "label": "Alto" },
+      { "from": 0.3, "to": 2.8, "color": "#00bfff", "label": "Normal" },
+      { "from": 0.2, "to": 0.3, "color": "#32cd32", "label": "Bajo" },
+      { "from": 0, "to": 0.2, "color": "#8b0000", "label": "Bajo-Bajo" }
       ]
     },
     'Temperatura': {
@@ -81,11 +86,11 @@ export class GraphicComponent implements OnInit, OnDestroy {
       parameter: 2,
       unit: '°C',
       ranges: [
-        { from: 35.0, to: 100.0, color: '#ff0000', label: 'Alto-Alto' },
-        { from: 30.0, to: 35.0, color: '#ffa500', label: 'Alto' },
-        { from: 1.0, to: 30.0, color: '#00ff00', label: 'Normal' },
-        { from: 0.0, to: 1.0, color: '#ffff00', label: 'Bajo' },
-        { from: -50.0, to: 0.0, color: '#8b0000', label: 'Bajo-Bajo' }
+        { "from": 35.0, "to": 100.0, "color": "#ff4500", "label": "Alto-Alto" },
+      { "from": 30.0, "to": 35.0, "color": "#ffa500", "label": "Alto" },
+      { "from": 1.0, "to": 30.0, "color": "#32cd32", "label": "Normal" },
+      { "from": 0.0, "to": 1.0, "color": "#87ceeb", "label": "Bajo" },
+      { "from": -50.0, "to": 0.0, "color": "#00008b", "label": "Bajo-Bajo" }
       ]
     },
     'Nivel': {
@@ -94,11 +99,11 @@ export class GraphicComponent implements OnInit, OnDestroy {
       parameter: 0,
       unit: 'm',
       ranges: [
-        { from: 6.0, to: 10.0, color: '#ff0000', label: 'Alto-Alto' },
-        { from: 5.3, to: 6.0, color: '#ffa500', label: 'Alto' },
-        { from: 2.0, to: 5.3, color: '#00ff00', label: 'Normal' },
-        { from: 1.0, to: 2.0, color: '#ffff00', label: 'Bajo' },
-        { from: 0.0, to: 1.0, color: '#8b0000', label: 'Bajo-Bajo' }
+        { "from": 6.0, "to": 10.0, "color": "#ff0000", "label": "Alto-Alto" },
+        { "from": 5.3, "to": 6.0, "color": "#ff4500", "label": "Alto" },
+        { "from": 2.0, "to": 5.3, "color": "#32cd32", "label": "Normal" },
+        { "from": 1.0, "to": 2.0, "color": "#87ceeb", "label": "Bajo" },
+        { "from": 0.0, "to": 1.0, "color": "#0000ff", "label": "Bajo-Bajo" }
       ]
     },
     'Flujo': {
@@ -107,8 +112,8 @@ export class GraphicComponent implements OnInit, OnDestroy {
       parameter: 0,
       unit: 'm³/s',
       ranges: [
-        { from: 1.0, to: 2.0, color: '#ff0000', label: 'Alto-Alto' },
-        { from: 0.0, to: 0.0, color: '#8b0000', label: 'Bajo-Bajo' }
+        { "from": 1.0, "to": 2.0, "color": "#ff4500", "label": "Alto-Alto" },
+      { "from": 0.0, "to": 0.0, "color": "#8b0000", "label": "Bajo-Bajo" }
       ]
     },
     'Caudal': {
@@ -117,11 +122,11 @@ export class GraphicComponent implements OnInit, OnDestroy {
       parameter: 0,
       unit: 'L/s',
       ranges: [
-        { from: 75.0, to: 100.0, color: '#ff0000', label: 'Alto-Alto' },
-        { from: 60.0, to: 75.0, color: '#ffa500', label: 'Alto' },
-        { from: 20.0, to: 60.0, color: '#00ff00', label: 'Normal' },
-        { from: 0.1, to: 20.0, color: '#ffff00', label: 'Bajo' },
-        { from: 0.0, to: 0.1, color: '#8b0000', label: 'Bajo-Bajo' }
+        { "from": 75.0, "to": 100.0, "color": "#ff0000", "label": "Alto-Alto" },
+      { "from": 60.0, "to": 75.0, "color": "#ff4500", "label": "Alto" },
+      { "from": 20.0, "to": 60.0, "color": "#32cd32", "label": "Normal" },
+      { "from": 0.1, "to": 20.0, "color": "#87ceeb", "label": "Bajo" },
+      { "from": 0.0, "to": 0.1, "color": "#0000ff", "label": "Bajo-Bajo" }
       ]
     },
     'Color': {
@@ -130,11 +135,11 @@ export class GraphicComponent implements OnInit, OnDestroy {
       parameter: 0,
       unit: 'UPC',
       ranges: [
-        { from: 18.0, to: 30.0, color: '#ff0000', label: 'Alto-Alto' },
-        { from: 15.0, to: 18.0, color: '#ffa500', label: 'Alto' },
-        { from: 1.0, to: 15.0, color: '#00ff00', label: 'Normal' },
-        { from: 0.1, to: 1.0, color: '#ffff00', label: 'Bajo' },
-        { from: 0.0, to: 0.1, color: '#8b0000', label: 'Bajo-Bajo' }
+        { "from": 18.0, "to": 30.0, "color": "#8b4513", "label": "Alto-Alto" },
+      { "from": 15.0, "to": 18.0, "color": "#ff4500", "label": "Alto" },
+      { "from": 1.0, "to": 15.0, "color": "#32cd32", "label": "Normal" },
+      { "from": 0.1, "to": 1.0, "color": "#87ceeb", "label": "Bajo" },
+      { "from": 0.0, "to": 0.1, "color": "#0000ff", "label": "Bajo-Bajo" }
       ]
     },
     'Turbidez': {
@@ -143,11 +148,11 @@ export class GraphicComponent implements OnInit, OnDestroy {
       parameter: 1,
       unit: 'NTU',
       ranges: [
-        { from: 1.79, to: 5.0, color: '#ff0000', label: 'Alto-Alto' },
-        { from: 1.3, to: 1.79, color: '#ffa500', label: 'Alto' },
-        { from: 0.1, to: 1.3, color: '#00ff00', label: 'Normal' },
-        { from: 0.01, to: 0.1, color: '#ffff00', label: 'Bajo' },
-        { from: 0.0, to: 0.01, color: '#8b0000', label: 'Bajo-Bajo' }
+        { "from": 1.79, "to": 5.0, "color": "#8b4513", "label": "Alto-Alto" },
+      { "from": 1.3, "to": 1.79, "color": "#ff8c00", "label": "Alto" },
+      { "from": 0.1, "to": 1.3, "color": "#32cd32", "label": "Normal" },
+      { "from": 0.01, "to": 0.1, "color": "#87ceeb", "label": "Bajo" },
+      { "from": 0.0, "to": 0.01, "color": "#0000ff", "label": "Bajo-Bajo" }
       ]
     }
 };
@@ -164,8 +169,28 @@ export class GraphicComponent implements OnInit, OnDestroy {
   
   API_URL = 'https://api.tu-servidor.com/endpoint';
 
+  correctTimezone(date: Date): Date {
+    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+                    date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+  }
+  
+  formatDateToUTC(date: any): string {
+    if (typeof date === "string") {
+      date = new Date(date); 
+    }
+  
+    if (isNaN(date.getTime())) {
+      console.error("Error: Fecha inválida", date);
+      return "";
+    }
+  
+    return date.toISOString().split(".")[0] + "Z"; 
+  }
+  
 
   constructor(private graphicService: GraphicService, private http: HttpClient) {}
+
+  
 
   getMeasurementHistory(
     serial: string,
@@ -176,23 +201,31 @@ export class GraphicComponent implements OnInit, OnDestroy {
     selectedDate: Date | null,
     
   ): Observable<MeasurementResponse> {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('serial', serial)
       .set('direction', direction.toString())
       .set('channel', channel.toString())
       .set('page', page.toString())
       .set('pageSize', pageSize.toString())
-      .set('timestamp', Date.now().toString()); 
+      .set('timestamp', Date.now().toString()); // Evita caché
 
-    if (selectedDate) {
-      const isoDate = selectedDate.toISOString();
-      params = params.set('dateFilter', isoDate);
-    }
-
-    console.log('Llamando API con:', params.toString()); 
-
-    return this.http.get<MeasurementResponse>(this.API_URL, { params });
+    return this.http.get<MeasurementResponse>(this.API_URL, { params }).pipe(
+      map((response: MeasurementResponse) => {
+        // Normalizamos las fechas antes de devolver la data
+        response.data.measurementHistoryGraphic = response.data.measurementHistoryGraphic.map((item: any) => ({
+          ...item,
+          dateMeasurementComponent: this.normalizeDate(item.dateMeasurementComponent)
+        }));
+        return response;
+      })
+    );
   }
+
+  private normalizeDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toISOString(); // Normaliza a formato UTC
+  }
+
 
   ngOnInit(): void {
     this.createChart();
@@ -254,6 +287,32 @@ export class GraphicComponent implements OnInit, OnDestroy {
         })
       })
     );
+    
+
+const dateAxis = this.chart.xAxes.push(
+  am5xy.DateAxis.new(this.root, {
+    maxDeviation: 0.2,
+    baseInterval: { timeUnit: 'minute', count: 1 },
+    renderer: am5xy.AxisRendererX.new(this.root, {
+      minGridDistance: 80,
+      cellStartLocation: 0.1,
+      cellEndLocation: 0.9
+    }),
+    tooltip: am5.Tooltip.new(this.root, {
+      themeTags: ["axis"],
+      animationDuration: 200
+    })
+  })
+);
+dateAxis.get("renderer").labels.template.setAll({
+  fontSize: 12,
+  fontWeight: "500"
+});
+dateAxis.get("renderer").grid.template.setAll({
+  location: 0
+});
+
+
 
     xAxis.get("renderer").labels.template.setAll({
       fontSize: 12,
@@ -281,7 +340,7 @@ export class GraphicComponent implements OnInit, OnDestroy {
         yAxis: yAxis,
         valueYField: "value",
         valueXField: "date",
-        tooltip: am5.Tooltip.new(this.root, {
+         tooltip: am5.Tooltip.new(this.root, {
           labelText: "{valueY}",
           pointerOrientation: "horizontal",
           background: am5.Rectangle.new(this.root, {
@@ -293,18 +352,17 @@ export class GraphicComponent implements OnInit, OnDestroy {
         })
       })
     );
-
-    // Improve series styling
+    
     this.series.strokes.template.setAll({
-      strokeWidth: 3,
-      strokeOpacity: 0.8,
-      stroke: am5.color(0x0077cc)
+      strokeWidth: 2,
+      strokeDasharray: [],
+      // Nivel de curvatura para suavizar las líneas
     });
-
+    
     this.series.fills.template.setAll({
-      fillOpacity: 0.3,
-      visible: true
+      visible: false // Quitar el sombreado del área
     });
+    
 
     // Add scrollbar
     this.chart.set("scrollbarX", am5.Scrollbar.new(this.root, {
@@ -327,18 +385,7 @@ export class GraphicComponent implements OnInit, OnDestroy {
       fontWeight: "500"
     });
 
-    legend.data.setAll(this.chart.series.values);
-
-    // Add cursor
-    this.chart.set("cursor", am5xy.XYCursor.new(this.root, {
-      behavior: "none",
-      xAxis: xAxis,
-      yAxis: yAxis
-    }));
-
-    // Apply animations
-    this.series.appear(1000);
-    this.chart.appear(1000, 100);
+    legend.data.setAll(this.chart.series.values);   
   }
 
   private updateRanges(): void {
@@ -401,6 +448,7 @@ export class GraphicComponent implements OnInit, OnDestroy {
   
       this.rangeDataSeries.push(rangeSeries);
     });
+    
   }
   
   
@@ -409,34 +457,36 @@ export class GraphicComponent implements OnInit, OnDestroy {
       console.warn('Sensor no válido seleccionado');
       return;
     }
-
+  
     const sensorConfig = this.sensorConfigs[this.selectedSensor];
-    
+  
     this.graphicService
       .getMeasurementHistory('08000015', sensorConfig.componentType, sensorConfig.parameter, 0, 10)
       .subscribe({
         next: (response: MeasurementResponse) => {
           if (response?.success && response.data?.measurementHistoryGraphic?.length > 0) {
             this.allDataGraphic = response.data.measurementHistoryGraphic.map(item => ({
-              date: new Date(item.dateMeasurementComponent).getTime(),
+              date: this.correctTimezone(new Date(item.dateMeasurementComponent)).getTime(), // 🔹 Corregimos la hora y convertimos a timestamp
               value: item.measurementValue
             }));
-
+  
             let filteredData = this.allDataGraphic;
-
+  
             if (this.selectedDateTime) {
-              const selectedDate = new Date(this.selectedDateTime);
-              const tolerance = 5 * 60 * 1000;
-
+              const selectedDateUTC = new Date(this.selectedDateTime).getTime(); // 🔹 Convertimos la fecha a timestamp UTC
+            
+              const tolerance = 5 * 60 * 1000; // 5 minutos
+            
               filteredData = this.allDataGraphic.filter(item => {
-                const itemDate = new Date(item.date).getTime();
-                return Math.abs(itemDate - selectedDate.getTime()) <= tolerance;
+                const itemDateUTC = new Date(item.date).getTime(); // 🔹 Asegurar que la fecha del gráfico también esté en UTC
+                return Math.abs(itemDateUTC - selectedDateUTC) <= tolerance;
               });
             }
-
+            
+  
             this.series.data.setAll(filteredData);
             this.updateRanges();
-            
+  
             // Update chart title with units
             this.chart.setAll({
               tooltipText: `${sensorConfig.name} (${sensorConfig.unit})`
@@ -451,11 +501,19 @@ export class GraphicComponent implements OnInit, OnDestroy {
         }
       });
   }
+  
   submitDate(): void {
     if (!this.selectedSensor || !this.selectedDateTime) {
       alert("Por favor seleccione un sensor y una fecha válida.");
       return;
     }
+  
+    // 🔹 Convertir y formatear la fecha al formato UTC correcto
+    this.selectedDateTime = this.formatDateToUTC(this.selectedDateTime);
+  
+    console.log("Fecha seleccionada formateada:", this.selectedDateTime);
+  
     this.filtrarDatos(); // Ejecutar la función principal para el filtrado
   }
+  
 }

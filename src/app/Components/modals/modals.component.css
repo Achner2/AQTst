@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Todhri&family=Poetsen+One&display=swap');
+
+
 .open-modal-btn {
   width: 50%;
   align-items: center;
@@ -36,6 +39,13 @@
   color: black;
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(59, 63, 70, 0.4);
+}
+
+
+.fontGood{
+  font-family: "Poetsen One", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /* Overlay del modal */
@@ -83,17 +93,19 @@
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
-  animation: typing 4s linear infinite alternate;
+  animation: typing 4s ease-in-out infinite alternate;
 }
 
 @keyframes typing {
   from {
-    width: 0;
+    max-width: 0;
   }
   to {
-    width: 100%;
+    max-width: 90%;
   }
 }
+
+
 
 
 

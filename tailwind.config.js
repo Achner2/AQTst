@@ -6,8 +6,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'merlo': ['"Merlo Neue Round Medium"', 'sans-serif'], // Nombre correcto de la fuente
-      },
+        poetsen: ['"Poetsen One"', 'serif'],
+        todhri: ['"Noto Serif Todhri"', 'serif'],
+      }
     },
   },
   plugins: [],

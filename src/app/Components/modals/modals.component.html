@@ -9,26 +9,29 @@
   class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
   <div class="modal-content relative p-4 bg-white rounded-lg shadow-lg w-full sm:w-11/12 md:w-9/12 lg:w-6/12">
     <div class="bg-gray-50 p-4 rounded-lg w-full mb-3">
-      <div class="flex items-center justify-between">
-        <span class="text-gray-700 font-medium text-3xl flex escritura">Medicion de calidad del Agua</span>
-        <div class="flex items-center gap-4">
+      <div class="flex flex-wrap items-center justify-between gap-4 xl:justify-center">
+        <span class="text-gray-700 font-medium text-lg sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl flex fontGood uppercase flex-grow text-center xl:w-auto escritura">
+          Medición de calidad del Agua
+        </span>
+        <div class="flex items-center gap-2 sm:gap-4 xl:absolute xl:right-4">
           <button (click)="toggleEquipmentInfo()"
-            class="relative inline-flex items-center h-8 rounded-full w-14 transition-colors duration-300 ease-in-out focus:outline-none"
+            class="relative inline-flex items-center h-6 sm:h-8 rounded-full w-12 sm:w-14 transition-colors duration-300 ease-in-out focus:outline-none"
             [ngClass]="{'bg-blue-600': showEquipmentInfo, 'bg-gray-300': !showEquipmentInfo}">
             <span class="sr-only">Alternar información del equipo</span>
             <span
-              class="inline-block w-6 h-6 transform transition-transform duration-300 ease-in-out bg-white rounded-full shadow-md"
-              [ngClass]="{'translate-x-7': showEquipmentInfo, 'translate-x-1': !showEquipmentInfo}"></span>
+              class="inline-block w-4 sm:w-6 h-4 sm:h-6 transform transition-transform duration-300 ease-in-out bg-white rounded-full shadow-md"
+              [ngClass]="{'translate-x-6 sm:translate-x-7': showEquipmentInfo, 'translate-x-1': !showEquipmentInfo}"></span>
           </button>
           <button (click)="closeModal()" type="button"
-            class="p-2 bg-white hover:bg-gray-100 rounded-full text-gray-500 hover:text-gray-700 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+            class="p-1 sm:p-2 bg-white hover:bg-gray-100 rounded-full text-gray-500 hover:text-gray-700 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24"
               stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
       </div>
+      
 
       <div class="overflow-hidden transition-all duration-300 ease-in-out"
         [ngClass]="{'max-h-0 opacity-0': !showEquipmentInfo, 'max-h-[500px] opacity-100': showEquipmentInfo}">
@@ -36,7 +39,7 @@
           <h3 class="text-lg font-semibold text-gray-800 mb-2">Detalles del Equipo</h3>
           <ul class="space-y-2 text-gray-600">
             <li><span class="font-medium">Modelo:</span> Aqutest<li>
-            <li><span class="font-medium">Número de Serie:</span> SP-2025</li>
+            <li><span class="font-medium">Número de Serie:</span> 08000015</li>
             <li><span class="font-medium">Fecha de Instalación:</span> {{lastLecture}}</li>
             <li><span class="font-medium">Estado:</span> <span class="text-green-500"> Operativo</span></li>
           </ul>

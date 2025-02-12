@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Todhri&family=Poetsen+One&display=swap');
+
+.fontGood{
+  font-family: "Poetsen One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 .title-container {
   background-color: #008dca;
   color: white;
