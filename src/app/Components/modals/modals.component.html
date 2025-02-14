@@ -5,15 +5,23 @@
     Métricas
   </button>
 </div>
+
 <div *ngIf="isModalOpen"
   class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-  <div class="modal-content relative p-4 bg-white rounded-lg shadow-lg w-full sm:w-11/12 md:w-9/12 lg:w-6/12">
-    <div class="bg-gray-50 p-4 rounded-lg w-full mb-3">
-      <div class="flex flex-wrap items-center justify-between gap-4 xl:justify-center">
-        <span class="text-gray-700 font-medium text-lg sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl flex fontGood uppercase flex-grow text-center xl:w-auto escritura">
+  <div class="modal-content relative bg-white rounded-lg shadow-lg w-full max-w-4xl overflow-y-auto max-h-[90vh]">
+    <div class="bg-gray-50 p-4 rounded-lg w-full">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <span class="text-gray-700 font-medium text-lg sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl flex fontGood pl-96 uppercase flex-grow escritura">
           Medición de calidad del Agua
         </span>
-        <div class="flex items-center gap-2 sm:gap-4 xl:absolute xl:right-4">
+        
+        <div class="flex items-center gap-2 sm:gap-4">
+          <button
+          (click)="toggleGraphs()"
+          class="p-2 text-sm font-medium  bg-lime-400 rounded-md hover:bg-slate-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+        >
+          {{ showAlternateGraphs ? 'gráficos principales' : 'gráficos alternativos' }}
+        </button>
           <button (click)="toggleEquipmentInfo()"
             class="relative inline-flex items-center h-6 sm:h-8 rounded-full w-12 sm:w-14 transition-colors duration-300 ease-in-out focus:outline-none"
             [ngClass]="{'bg-blue-600': showEquipmentInfo, 'bg-gray-300': !showEquipmentInfo}">
@@ -29,16 +37,16 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
+          
         </div>
       </div>
-      
 
       <div class="overflow-hidden transition-all duration-300 ease-in-out"
         [ngClass]="{'max-h-0 opacity-0': !showEquipmentInfo, 'max-h-[500px] opacity-100': showEquipmentInfo}">
-        <div class="bg-white p-6 rounded-lg shadow-md mt-4 w-full">
+        <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md mt-4 w-full">
           <h3 class="text-lg font-semibold text-gray-800 mb-2">Detalles del Equipo</h3>
           <ul class="space-y-2 text-gray-600">
-            <li><span class="font-medium">Modelo:</span> Aqutest<li>
+            <li><span class="font-medium">Modelo:</span> Aqutest</li>
             <li><span class="font-medium">Número de Serie:</span> 08000015</li>
             <li><span class="font-medium">Fecha de Instalación:</span> {{lastLecture}}</li>
             <li><span class="font-medium">Estado:</span> <span class="text-green-500"> Operativo</span></li>
@@ -47,26 +55,36 @@
       </div>
     </div>
 
-    <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2">
-      <div class="rounded-lg shadow-inner">
-        <app-ph-sensor [data]="phMeasurements"></app-ph-sensor>
-      </div>
-      <div class="rounded-lg shadow-inner">
-        <app-temperatura-sensor [data]="temperaturaMeasurements"></app-temperatura-sensor>
-      </div>
-      <div class="rounded-lg shadow-inner">
-        <app-cloro-sensor [data]="cloroMeasurements"></app-cloro-sensor>
-      </div>
-      <div class="rounded-lg shadow-inner">
-        <app-turbidez-sensor [data]="turbidezMeasurements"></app-turbidez-sensor>
-      </div>
-      <div class="rounded-lg shadow-inner">
-        <app-colors-sensor [data]="colorMeasurements"></app-colors-sensor>
-      </div>
-      <div class="rounded-lg shadow-inner">
-        <app-flujo-sensor [data]="flujoMeasurements"></app-flujo-sensor>
+    <div class="p-4">
+      
+      <div class="relative overflow-hidden">
+        <div
+          class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-500 ease-in-out"
+          [ngClass]="{
+            'translate-x-0 opacity-100': !isTransitioning,
+            'translate-x-full opacity-0': isTransitioning && !showAlternateGraphs,
+            '-translate-x-full opacity-0': isTransitioning && showAlternateGraphs
+          }"
+        >
+          <ng-container *ngFor="let graph of currentGraphs; let i = index">
+            <div class="h-auto" [ngClass]="{'opacity-0 translate-y-4': isTransitioning,'opacity-100 translate-y-0': !isTransitioning}"
+              [style.transition-delay]="i * 50 + 'ms'">
+              <ng-container [ngSwitch]="graph">
+                <app-ph-sensor *ngSwitchCase="'ph'" [data]="phMeasurements"></app-ph-sensor>
+                <app-temperatura-sensor *ngSwitchCase="'temperatura'" [data]="temperaturaMeasurements"></app-temperatura-sensor>
+                <app-cloro-sensor *ngSwitchCase="'cloro'" [data]="cloroMeasurements"></app-cloro-sensor>
+                <app-turbidez-sensor *ngSwitchCase="'turbidez'" [data]="turbidezMeasurements"></app-turbidez-sensor>
+                <app-colors-sensor *ngSwitchCase="'color'" [data]="colorMeasurements"></app-colors-sensor>
+                <app-flujo-sensor *ngSwitchCase="'flujo'" [data]="flujoMeasurements"></app-flujo-sensor>
+                <app-cylinder-chart *ngSwitchCase="'cylinder'"></app-cylinder-chart>
+                <app-caudal-sensor *ngSwitchCase="'caudal'"></app-caudal-sensor>
+              </ng-container>
+            </div>
+          </ng-container>
+
+        </div>
       </div>
     </div>
-    
   </div>
 </div>
+

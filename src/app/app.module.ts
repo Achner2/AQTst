@@ -32,6 +32,11 @@ import { StatusComponent } from './Components/status/status.component';
 import { GraphicComponent } from './Components/pages/graphic/graphic.component';
 import { DsComponent } from './Components/pages/ds/ds.component';
 
+//new
+import { CaudalSensorComponent } from './Components/cylinderSensors/caudal-sensor/caudal-sensor.component';
+import { CylinderChartComponent } from './Components/cylinderSensors/nivel-chart/cylinder-chart.component';
+
+
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
 @NgModule({
@@ -51,7 +56,11 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
         InformesComponent,
         StatusComponent,
         GraphicComponent,
-        DsComponent
+        DsComponent,
+        //
+        CaudalSensorComponent,
+        CylinderChartComponent
+        
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     bootstrap: [AppComponent],

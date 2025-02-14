@@ -1,18 +1,40 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MeasurementService } from '../../Services/metricService/measurement.service';
 import { Client, Stomp } from '@stomp/stompjs';
+
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-modals',
   templateUrl: './modals.component.html',
   styleUrls: ['./modals.component.css']
+  
 })
 export class ModalsComponent implements OnInit, OnDestroy {
+  showAlternateGraphs = false;
   private stompClient: Client | null = null;
   showEquipmentInfo: boolean = false;
   isModalOpen = false;
   lastLecture: string = this.getCurrentTime();
   serialNumber: string = '08000015';
+
+  mainGraphs = ["ph", "temperatura", "cloro", "turbidez", "color", "flujo"]
+  alternateGraphs = ["cylinder", "caudal"]
+  isTransitioning = false
+
+  get currentGraphs() {
+    return this.showAlternateGraphs ? this.alternateGraphs : this.mainGraphs
+  }
+
+  toggleGraphs() {
+    this.isTransitioning = true
+    setTimeout(() => {
+      this.showAlternateGraphs = !this.showAlternateGraphs
+      setTimeout(() => {
+        this.isTransitioning = false
+      }, 50)
+    }, 500)
+  }
+
   // Arrays separated by sensor type
   phMeasurements: any[] = [];
   cloroMeasurements: any[] = [];
