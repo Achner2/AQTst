@@ -86,6 +86,7 @@ export class CaudSensorComponent {
 
   getCurrentTime() {
     const now = new Date();
-    return now.toLocaleString();
+    return now.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
+
 }

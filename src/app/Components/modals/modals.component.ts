@@ -18,7 +18,9 @@ export class ModalsComponent implements OnInit, OnDestroy {
   serialNumber: string = '08000015';
 
   mainGraphs = ["ph", "temperatura", "cloro", "turbidez", "color", "flujo"]
-  alternateGraphs = ["cylinder", "caudal"]
+  alternateGraphs = ["reloj","turbideztwo","colortwo","clorotwo","phtwo","cylinder","caudal"]
+
+  //alternateGraphs = ["cylinder", "caudal", "reloj" ,"clorotwo"]
   isTransitioning = false
 
   get currentGraphs() {
@@ -35,23 +37,19 @@ export class ModalsComponent implements OnInit, OnDestroy {
     }, 500)
   }
 
-  // Arrays separated by sensor type
   phMeasurements: any[] = [];
   cloroMeasurements: any[] = [];
   temperaturaMeasurements: any[] = [];
   turbidezMeasurements: any[] = [];
   flujoMeasurements: any[] = [];
   colorMeasurements: any[] = [];
-  // WebSocket connection status
   isWebSocketConnected = false;
   componentNumber = 6;
   messageCounter = 0;
   constructor(
     private readonly measurementService: MeasurementService
   ) {}
-  ngOnInit(): void {
-    // No automatic data fetch on init
-  }
+  ngOnInit(): void {}
   ngOnDestroy(): void {
     this.disconnectWebSocket();
   }
@@ -102,7 +100,6 @@ export class ModalsComponent implements OnInit, OnDestroy {
     this.stompClient = Stomp.over(socket);
     this.stompClient.onConnect = () => {
       this.isWebSocketConnected = true;
-      // Visual indication of successful connection
       Swal.fire({
         icon: 'success',
         title: 'Conexión con Aqutest Establecida',
@@ -112,7 +109,6 @@ export class ModalsComponent implements OnInit, OnDestroy {
         showConfirmButton: false,
         timer: 3000
       });
-      // Subscribe to the measurement alert topic
       this.stompClient?.subscribe('/topic/measurementAlert', (message) => {
 
         this.messageCounter ++;
@@ -121,12 +117,10 @@ export class ModalsComponent implements OnInit, OnDestroy {
           this.messageCounter = 0
 
         }
-        // When a message is received, fetch latest measurements again
       });
     };
     this.stompClient.onStompError = (error) => {
       this.isWebSocketConnected = false;
-      // Visual indication of connection failure
       Swal.fire({
         icon: 'error',
         title: 'Error de Conexión',
@@ -145,7 +139,6 @@ export class ModalsComponent implements OnInit, OnDestroy {
       this.stompClient.deactivate();
       this.stompClient = null;
       this.isWebSocketConnected = false;
-      // Optional: Visual indication of disconnection
       Swal.fire({
         icon: 'info',
         title: 'Conexión Cerrada',

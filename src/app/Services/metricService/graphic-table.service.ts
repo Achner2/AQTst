@@ -24,7 +24,6 @@ export class GraphicTableService {
     .set('pageSize', pageSize.toString());
   return this.http.get<MeasurementResponse>(`${this.baseUrl}/TableHistoryBySerialAndComponent`, { params });
 }
-// Método adicional para obtener los datos de sensores
 getSensorData(sensorType: string): Observable<any[]> {
   const params = new HttpParams().set('sensorType', sensorType);
   return this.http.get<any[]>(`${this.baseUrl}/SensorData`, { params });

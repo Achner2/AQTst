@@ -26,17 +26,13 @@ export class PhSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-{ minValue: '1', maxValue: '5.7', label: 'Muy Bajo', code: '#dafab6' },  // Verde blanquecino muy suave  
-{ minValue: '5.7', maxValue: '6.0', label: 'Bajo', code: '#bee78d' },    // Verde pastel claro  
-{ minValue: '6.0', maxValue: '8.5', label: 'Normal', code: '#b3dc82' },  // Verde pastel más intenso  
-{ minValue: '8.5', maxValue: '9.0', label: 'Alto', code: '#95c65a' },    // Verde natural más notorio  
-{ minValue: '9.0', maxValue: '14', label: 'Muy Alto', code: '#85BB43' }  // Verde de referencia sólido  
-
-        
-        
+      { minValue: '1', maxValue: '5.7', label: 'Muy Bajo', code: '#dafab6' },
+      { minValue: '5.7', maxValue: '6.0', label: 'Bajo', code: '#bee78d' }, 
+      { minValue: '6.0', maxValue: '8.5', label: 'Normal', code: '#b3dc82' },  
+      { minValue: '8.5', maxValue: '9.0', label: 'Alto', code: '#95c65a' }, 
+      { minValue: '9.0', maxValue: '14', label: 'Muy Alto', code: '#85BB43' }
       ]
     },
-    
     pointers: {
         pointer: [{ value: '7' }] 
     },
@@ -44,15 +40,13 @@ export class PhSensorComponent implements OnChanges {
     },
 };
 
-
-
   currentPh: number = 7;
   measurementType: string = 'Lectura normal';
   lastUpdate: string = this.formatDate(new Date().toISOString());
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && this.data.length > 0) {
-      const latestMeasurement = this.data[0]; // Tomamos la medición más reciente
+      const latestMeasurement = this.data[0];
       this.updatePointerValue(latestMeasurement.measurementValue.toString());
       this.measurementType = latestMeasurement.alertName;
       this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);
@@ -61,8 +55,9 @@ export class PhSensorComponent implements OnChanges {
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleString('es-CO', { timeZone: 'UTC' });
+    return date.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
+  
 
   updatePointerValue(value: string) {
     this.currentPh = parseFloat(value);

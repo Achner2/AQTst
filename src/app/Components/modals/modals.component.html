@@ -59,7 +59,7 @@
       
       <div class="relative overflow-hidden">
         <div
-          class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-500 ease-in-out"
+          class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 transition-all duration-500 ease-in-out"
           [ngClass]="{
             'translate-x-0 opacity-100': !isTransitioning,
             'translate-x-full opacity-0': isTransitioning && !showAlternateGraphs,
@@ -76,12 +76,16 @@
                 <app-turbidez-sensor *ngSwitchCase="'turbidez'" [data]="turbidezMeasurements"></app-turbidez-sensor>
                 <app-colors-sensor *ngSwitchCase="'color'" [data]="colorMeasurements"></app-colors-sensor>
                 <app-flujo-sensor *ngSwitchCase="'flujo'" [data]="flujoMeasurements"></app-flujo-sensor>
+                <app-chart *ngSwitchCase="'reloj'" [data]="temperaturaMeasurements"></app-chart>
+                <app-cloro-gauge-component *ngSwitchCase="'clorotwo'" [data]="cloroMeasurements"></app-cloro-gauge-component>
+                <app-turbidez-gauge *ngSwitchCase="'turbideztwo'" [data]="turbidezMeasurements"></app-turbidez-gauge>
+                <app-color-gauge *ngSwitchCase="'colortwo'" [data]="cloroMeasurements"></app-color-gauge> 
+                <app-ph-gauge *ngSwitchCase="'phtwo'" [data]="phMeasurements"></app-ph-gauge>
                 <app-cylinder-chart *ngSwitchCase="'cylinder'"></app-cylinder-chart>
-                <app-caudal-sensor *ngSwitchCase="'caudal'"></app-caudal-sensor>
+                <app-caudal-sensor *ngSwitchCase="'caudal'"></app-caudal-sensor>           
               </ng-container>
             </div>
           </ng-container>
-
         </div>
       </div>
     </div>

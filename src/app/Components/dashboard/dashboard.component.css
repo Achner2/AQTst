@@ -121,7 +121,7 @@ body {
   }
    
   .main-content {
-    padding-top: 7rem;
+    padding-top: 5rem;
     padding-left: 1rem;
     padding-right: 1rem;
     min-height: 100vh;
@@ -171,6 +171,28 @@ body {
   .cardsModal{
     background-color: #67acfa2d;
   }
+
+
+  .main-content {
+    display: flex;
+    gap: 1rem; /* Espacio entre columnas */
+}
+
+.containerDS {
+    flex: 0.7; /* Ocupa menos espacio */
+}
+
+.other-content {
+    flex: 0.4;
+}
+
+.other-content2 {
+  flex: 0.4;
+}
+
+
+
+  
 
   
   @media (min-width: 768px) {

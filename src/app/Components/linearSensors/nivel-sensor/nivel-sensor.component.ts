@@ -51,7 +51,7 @@ export class NivelSensorComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && this.data.length > 0) {
-      const latestMeasurement = this.data[0]; // Tomamos la última medición recibida
+      const latestMeasurement = this.data[0];
       this.updatePointerValue(latestMeasurement.measurementValue.toString());
       this.status = latestMeasurement.measurementTypeName;
       this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);

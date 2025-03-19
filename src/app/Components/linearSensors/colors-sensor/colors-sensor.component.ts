@@ -6,7 +6,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ['./colors-sensor.component.css']
 })
 export class ColorsSensorComponent implements OnChanges {
-  @Input() data: any[] = []; // Recibimos los datos desde el componente padre
+  @Input() data: any[] = []; 
 
   dataSource = {
     chart: {
@@ -25,11 +25,11 @@ export class ColorsSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-        { minValue: '-1', maxValue: '0', label: 'Muy Bajo', code: '#DAFAB6' },  // Verde blanquecino muy suave  
-        { minValue: '0', maxValue: '1', label: 'Bajo', code: '#BEE78D' },       // Verde pastel claro  
-        { minValue: '1', maxValue: '15', label: 'Normal', code: '#B3DC82' },    // Verde pastel más intenso  
-        { minValue: '15', maxValue: '18', label: 'Alto', code: '#95C65A' },     // Verde natural más notorio  
-        { minValue: '18', maxValue: '20', label: 'Muy Alto', code: '#85BB43' }  // Verde de referencia sólido  
+        { minValue: '-1', maxValue: '0', label: 'Muy Bajo', code: '#DAFAB6' },   
+        { minValue: '0', maxValue: '1', label: 'Bajo', code: '#BEE78D' },      
+        { minValue: '1', maxValue: '15', label: 'Normal', code: '#B3DC82' },  
+        { minValue: '15', maxValue: '18', label: 'Alto', code: '#95C65A' },  
+        { minValue: '18', maxValue: '20', label: 'Muy Alto', code: '#85BB43' } 
          
       ],
       
@@ -47,7 +47,7 @@ export class ColorsSensorComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && this.data.length > 0) {
-      const latestMeasurement = this.data[0]; // Tomamos la última medición recibida
+      const latestMeasurement = this.data[0]; 
       this.updatePointerValue(latestMeasurement.measurementValue.toString());
       this.status = latestMeasurement.alertName;
       this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);
@@ -61,11 +61,11 @@ export class ColorsSensorComponent implements OnChanges {
 
   getCurrentTime(): string {
     const now = new Date();
-    return now.toLocaleString('es-CO', { timeZone: 'UTC' });
+    return now.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleString('es-CO', { timeZone: 'UTC' });
+    return date.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
 }

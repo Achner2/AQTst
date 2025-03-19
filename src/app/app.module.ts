@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 //fusioncharts
@@ -35,6 +35,24 @@ import { DsComponent } from './Components/pages/ds/ds.component';
 //new
 import { CaudalSensorComponent } from './Components/cylinderSensors/caudal-sensor/caudal-sensor.component';
 import { CylinderChartComponent } from './Components/cylinderSensors/nivel-chart/cylinder-chart.component';
+import { RadialGaugeComponent } from './Components/cylinderSensors/radial-gauge/radial-gauge.component';
+import { CloroGaugeComponentComponent } from './Components/cylinderSensors/cloro-gauge-component/cloro-gauge-component.component';
+import { TurbidezGaugeComponent } from './Components/cylinderSensors/turbidez-gauge/turbidez-gauge.component';
+import { ColorGaugeComponent } from './Components/cylinderSensors/color-gauge/color-gauge.component';
+import { PhGaugeComponent } from './Components/cylinderSensors/ph-gauge/ph-gauge.component';
+import { EquipmentsComponent } from './Components/pages/equipments/equipments.component';
+import { NgxParticlesModule } from '@tsparticles/angular';
+import { TableAlertsComponent } from './Components/pages/table-alerts/table-alerts.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { NotificationComponent } from './Components/pages/notification/notification.component';
+import { EquipmentsFilterComponent } from './Components/pages/equipments-filter/equipments-filter.component'
+
+
+
 
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
@@ -57,9 +75,18 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
         StatusComponent,
         GraphicComponent,
         DsComponent,
-        //
         CaudalSensorComponent,
-        CylinderChartComponent
+        CylinderChartComponent,
+        RadialGaugeComponent,
+        CloroGaugeComponentComponent,
+        TurbidezGaugeComponent,
+        ColorGaugeComponent,
+        PhGaugeComponent,
+        EquipmentsComponent,
+        TableAlertsComponent,
+        NotificationComponent,
+        EquipmentsFilterComponent,
+        
         
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -74,7 +101,12 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
         FormsModule,
         HighchartsChartModule,
         SyncfusionLinearGaugeModule,
+        NgxParticlesModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatButtonModule,                
+        ReactiveFormsModule
     ],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideAnimationsAsync()]
 })
 export class AppModule { }

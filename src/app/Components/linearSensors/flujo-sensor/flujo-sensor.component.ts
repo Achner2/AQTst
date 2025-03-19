@@ -6,7 +6,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ['./flujo-sensor.component.css']
 })
 export class FlujoSensorComponent implements OnChanges {
-  @Input() data: any[] = []; // Recibimos los datos desde el componente padre
+  @Input() data: any[] = []; 
 
   dataSource = {
     chart: {
@@ -28,8 +28,8 @@ export class FlujoSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-        { minValue: '0', maxValue: '0.5', label: 'Sin Flujo', code: '#DAFAB6' },   // Verde blanquecino muy suave  
-        { minValue: '0.5', maxValue: '1', label: 'Con Flujo', code: '#95C65A' }    // Verde natural más notorio  
+        { minValue: '0', maxValue: '0.5', label: 'Sin Flujo', code: '#DAFAB6' },  
+        { minValue: '0.5', maxValue: '1', label: 'Con Flujo', code: '#95C65A' }
          
       ],
     },
@@ -44,7 +44,7 @@ export class FlujoSensorComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && this.data.length > 0) {
-      const latestMeasurement = this.data[0]; // Tomamos la última medición recibida
+      const latestMeasurement = this.data[0];
       this.updateFlow(latestMeasurement.measurementValue);
       this.status = latestMeasurement.alertName;
       this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);
@@ -68,11 +68,11 @@ export class FlujoSensorComponent implements OnChanges {
 
   getCurrentTime(): string {
     const now = new Date();
-    return now.toLocaleString('es-CO', { timeZone: 'UTC' });
+    return now.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleString('es-CO', { timeZone: 'UTC' });
+    return date.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
 }

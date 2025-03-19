@@ -25,11 +25,11 @@ export class TurbidezSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-        { minValue: '-1', maxValue: '0', label: 'Muy Bajo', code: '#DAFAB6' },   // Verde blanquecino muy suave  
-        { minValue: '0', maxValue: '0.1', label: 'Bajo', code: '#BEE78D' },      // Verde pastel claro  
-        { minValue: '0.1', maxValue: '1.3', label: 'Normal', code: '#B3DC82' },  // Verde pastel más intenso  
-        { minValue: '1.3', maxValue: '1.79', label: 'Alto', code: '#95C65A' },   // Verde natural más notorio  
-        { minValue: '1.79', maxValue: '2.00', label: 'Muy Alto', code: '#85BB43' } // Verde de referencia sólido  
+        { minValue: '-1', maxValue: '0', label: 'Muy Bajo', code: '#DAFAB6' }, 
+        { minValue: '0', maxValue: '0.1', label: 'Bajo', code: '#BEE78D' }, 
+        { minValue: '0.1', maxValue: '1.3', label: 'Normal', code: '#B3DC82' }, 
+        { minValue: '1.3', maxValue: '1.79', label: 'Alto', code: '#95C65A' }, 
+        { minValue: '1.79', maxValue: '2.00', label: 'Muy Alto', code: '#85BB43' } 
          
     ]},
     pointers: {
@@ -54,12 +54,12 @@ export class TurbidezSensorComponent implements OnChanges {
 
   getCurrentTime(): string {
     const now = new Date();
-    return now.toLocaleString('es-CO', { timeZone: 'UTC' });
+    return now.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleString('es-CO', { timeZone: 'UTC' });
+    return date.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
 
   updatePointerValue(value: string) {

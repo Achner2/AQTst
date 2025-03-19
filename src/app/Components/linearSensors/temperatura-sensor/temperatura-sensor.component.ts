@@ -24,13 +24,12 @@ export class TemperaturaSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-        { minValue: '0', maxValue: '10', label: 'Muy Frío', code: '#DAFAB6' },   // Verde blanquecino muy suave  
-        { minValue: '10', maxValue: '20', label: 'Frío', code: '#BEE78D' },      // Verde pastel claro  
-        { minValue: '20', maxValue: '25', label: 'Normal', code: '#B3DC82' },    // Verde pastel más intenso  
-        { minValue: '25', maxValue: '35', label: 'Caliente', code: '#95C65A' },  // Verde natural más notorio  
-        { minValue: '35', maxValue: '100', label: 'Muy Caliente', code: '#85BB43' } // Verde de referencia sólido  
-        
-        
+        { minValue: '0', maxValue: '10', label: 'Muy Frío', code: '#DAFAB6' },  
+        { minValue: '10', maxValue: '20', label: 'Frío', code: '#BEE78D' }, 
+        { minValue: '20', maxValue: '25', label: 'Normal', code: '#B3DC82' },
+        { minValue: '25', maxValue: '35', label: 'Caliente', code: '#95C65A' },
+        { minValue: '35', maxValue: '100', label: 'Muy Caliente', code: '#85BB43' }
+      
       ],
     },
     pointers: {
@@ -45,10 +44,10 @@ export class TemperaturaSensorComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && this.data.length > 0) {
-      const latestMeasurement = this.data[0]; // Tomamos la última medición recibida
+      const latestMeasurement = this.data[0];
       this.updateTemperature(latestMeasurement.measurementValue);
       this.alertName = latestMeasurement.alertName;
-      this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent); // Asegúrate de usar la propiedad correcta
+      this.lastUpdate = this.formatDate(latestMeasurement.dateMeasurementComponent);
     }
   }
 
@@ -78,6 +77,6 @@ export class TemperaturaSensorComponent implements OnChanges {
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleString('es-CO', { timeZone: 'UTC' });
+    return date.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
 }

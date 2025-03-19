@@ -25,11 +25,11 @@ export class CloroSensorComponent implements OnChanges {
     },
     colorRange: {
       color: [
-        { minValue: '0', maxValue: '0.2', label: 'Muy Bajo', code: '#DAFAB6' },  // Verde blanquecino muy suave  
-        { minValue: '0.2', maxValue: '0.3', label: 'Bajo', code: '#BEE78D' },    // Verde pastel claro  
-        { minValue: '0.3', maxValue: '2.8', label: 'Normal', code: '#B3DC82' },  // Verde pastel más intenso  
-        { minValue: '2.8', maxValue: '3.0', label: 'Alto', code: '#95C65A' },    // Verde natural más notorio  
-        { minValue: '3.0', maxValue: '5', label: 'Muy Alto', code: '#85BB43' }   // Verde de referencia sólido  
+        { minValue: '0', maxValue: '0.2', label: 'Muy Bajo', code: '#DAFAB6' },  
+        { minValue: '0.2', maxValue: '0.3', label: 'Bajo', code: '#BEE78D' },    
+        { minValue: '0.3', maxValue: '2.8', label: 'Normal', code: '#B3DC82' }, 
+        { minValue: '2.8', maxValue: '3.0', label: 'Alto', code: '#95C65A' },    
+        { minValue: '3.0', maxValue: '5', label: 'Muy Alto', code: '#85BB43' } 
         
       ],      
     },
@@ -61,11 +61,11 @@ export class CloroSensorComponent implements OnChanges {
 
   getCurrentTime(): string {
     const now = new Date();
-    return now.toLocaleString('es-CO', { timeZone: 'UTC' });
+    return now.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleString('es-CO', { timeZone: 'UTC' });
+    return date.toLocaleString('es-CO', { timeZone: 'America/Bogota' });
   }
 }

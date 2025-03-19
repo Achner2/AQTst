@@ -1,16 +1,39 @@
 .gauge-container {
-    width: 100%;
+  width: 100%;
+  height: 200px;
+  padding: 0;
+  position: relative;
+}
+
+.card {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .gauge-container {
     height: 200px;
-    position: relative;
+  }
+}
+
+@media (max-width: 640px) {
+  .gauge-container {
+    height: 180px;
   }
   
   .card {
-    max-width: 100%;
-    margin: 0 auto;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gauge-container {
+    height: 210px;
+    padding-bottom: 10px;
   }
   
-  @media (max-width: 768px) {
-    .gauge-container {
-      height: 210px;
-    }
+  .card {
+    padding: 5px;
+  }
 }

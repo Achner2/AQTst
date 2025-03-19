@@ -10,31 +10,29 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 })
 export class CaudalSensorComponent implements OnInit {
   chart!: am4charts.XYChart3D;
-  currentFlow: number = 35; // Valor inicial del caudal en metros
-  status: string = "Caudal normal"; // Estado inicial
-  lastUpdate: string = new Date().toLocaleString(); // Última actualización
+  currentFlow: number = 35; 
+  status: string = "Caudal normal";  
+  lastUpdate: string = new Date().toLocaleString();  
 
-  private dataInterval: any; // Para almacenar el setInterval
+  private dataInterval: any;  
 
   constructor() { }
 
   ngOnInit(): void {
-    // Aplicar el tema animado
+ 
     am4core.useTheme(am4themes_animated);
 
-    // Crear instancia del gráfico
+ 
     this.chart = am4core.create("chartdiv2", am4charts.XYChart3D);
     this.chart.titles.create().text = "";
 
-    // Datos iniciales
-    this.chart.data = [{
+     this.chart.data = [{
       "category": "Caudal",
       "value1": this.currentFlow,
       "value2": 100 - this.currentFlow
     }];
 
-    // Ejes
-    let categoryAxis = this.chart.xAxes.push(new am4charts.CategoryAxis());
+     let categoryAxis = this.chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "category";
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.grid.template.strokeOpacity = 0;
@@ -53,8 +51,7 @@ export class CaudalSensorComponent implements OnInit {
       }
     });
 
-    // Series (barras de caudal)
-    let series1 = this.chart.series.push(new am4charts.ConeSeries());
+     let series1 = this.chart.series.push(new am4charts.ConeSeries());
     series1.dataFields.valueY = "value1";
     series1.dataFields.categoryX = "category";
     series1.columns.template.width = am4core.percent(80);
@@ -62,8 +59,7 @@ export class CaudalSensorComponent implements OnInit {
     series1.columns.template.strokeOpacity = 1;
     series1.columns.template.strokeWidth = 2;
 
-    // Cambiar el color según el caudal
-    series1.columns.template.adapter.add("fill", (fill, target) => {
+     series1.columns.template.adapter.add("fill", (fill, target) => {
       let value = target.dataItem ? (target.dataItem as any).valueY : 0;
       if (value > 75) {
         return am4core.color("#3089d7");
@@ -77,11 +73,11 @@ export class CaudalSensorComponent implements OnInit {
     series1.columns.template.adapter.add("stroke", (stroke, target) => {
       let value = target.dataItem ? (target.dataItem as any).valueY : 0;
       if (value > 75) {
-        return am4core.color("#3089d7"); // Azul para caudal alto
+        return am4core.color("#3089d7");  
       } else if (value > 50) {
-        return am4core.color("#d7d730"); // Amarillo para caudal medio
+        return am4core.color("#d7d730");  
       } else {
-        return am4core.color("#d75130"); // Rojo para caudal bajo
+        return am4core.color("#d75130");  
       }
     });
 
@@ -102,7 +98,7 @@ export class CaudalSensorComponent implements OnInit {
   }
 
   updateData(): void {
-    this.currentFlow = Math.random() * 100; // Valor aleatorio del caudal
+    this.currentFlow = Math.random() * 100; 
     this.chart.data = [{
       "category": "Caudal",
       "value1": this.currentFlow,
