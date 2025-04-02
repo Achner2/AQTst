@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, HostListener } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { TableResponseService } from '../../../Services/tableResponse/table-response.service';
@@ -18,6 +18,11 @@ export class TableAlertsComponent implements OnInit {
   isSidebarOpen: boolean = false;
   isLoading: boolean = false;
   showFilters: boolean = false;
+  
+  // Propiedades para el nuevo selector de equipos
+  searchTerm: string = '';
+  filteredEquipments: string[] = [];
+  showDropdown: boolean = false;
   
   availableComponents: string[] = [];
   equipments: Equipment[] = [];
@@ -58,7 +63,9 @@ export class TableAlertsComponent implements OnInit {
     directionComponent: null,
     channelComponent: null,
     includeAllAlerts: false,
-    excludeAlertCode00: true
+    excludeAlertCode00: true,
+    componentName: null 
+
   };
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -85,6 +92,7 @@ export class TableAlertsComponent implements OnInit {
       next: (data) => {
         this.equipments = data;
         this.equipmentSerials = data.map(eq => eq.serial);
+        this.filteredEquipments = [...this.equipmentSerials]; // Inicializar equipos filtrados
         this.isLoadingEquipments = false;
       },
       error: (error) => {
@@ -94,6 +102,44 @@ export class TableAlertsComponent implements OnInit {
     });
   }
 
+
+  
+
+  // Método para filtrar equipos basado en el término de búsqueda
+  filterEquipments(): void {
+    if (!this.searchTerm) {
+      this.filteredEquipments = [...this.equipmentSerials];
+    } else {
+      this.filteredEquipments = this.equipmentSerials.filter(
+        serial => serial.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
+
+  // Método para seleccionar un equipo
+  selectEquipment(serial: string | null): void {
+    this.filters.serialEquipment = serial;
+    this.searchTerm = serial || '';
+    this.showDropdown = false;
+    this.currentPage = 0;
+    this.loadData();
+  }
+
+
+
+
+
+  // Detector de clics fuera del dropdown para cerrarlo
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    // Verificar si el clic fue fuera del dropdown
+    const target = event.target as HTMLElement;
+    if (!target.closest('.relative')) {
+      this.showDropdown = false;
+    }
+  }
+
+  // Método obsoleto que mantenemos por compatibilidad
   onSerialSelected(event: Event): void {
     const select = event.target as HTMLSelectElement;
     this.filters.serialEquipment = select.value || null;
@@ -108,8 +154,6 @@ export class TableAlertsComponent implements OnInit {
   isColumnVisible(column: string): boolean {
     return this.columnas.includes(column);
   }
-
-  
 
   toggleColumn(column: string): void {
     if (this.isColumnVisible(column)) {
@@ -130,7 +174,7 @@ export class TableAlertsComponent implements OnInit {
       
       if (!inserted) {
         this.columnas.push(column);
-      }0
+      }
     }
   }
 
@@ -154,6 +198,9 @@ export class TableAlertsComponent implements OnInit {
         }
       });
   }
+
+  
+
 
   mapMeasurementsToTableItems(measurements: Measurement[]): AlertTableItem[] {
     return measurements.map(item => ({
@@ -249,6 +296,7 @@ export class TableAlertsComponent implements OnInit {
       includeAllAlerts: false,
       excludeAlertCode00: true
     };
+    this.searchTerm = ''; // Limpiar también el término de búsqueda
     this.currentPage = 0;
     this.loadData();
   }

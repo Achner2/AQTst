@@ -51,7 +51,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { NotificationComponent } from './Components/pages/notification/notification.component';
-import { EquipmentsFilterComponent } from './Components/pages/equipments-filter/equipments-filter.component';
 import { LinearChartd3Component } from './Components/cylinderSensors/linear-chartd3/linear-chartd3.component';
 import { LinearChartHigchartsComponent } from './Components/pages/linear-chart-higcharts/linear-chart-higcharts.component'
 
@@ -82,7 +81,6 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
         EquipmentsComponent,
         TableAlertsComponent,
         NotificationComponent,
-        EquipmentsFilterComponent,
         LinearChartd3Component,
         LinearChartHigchartsComponent,
         

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { EquipmentService } from '../../Services/equipmentService/equipment.service';
 import { Equipment } from '../../interfaces/Equipment';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -12,12 +14,15 @@ export class DashboardComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts;
   isSidebarOpen = false;
   isLoading = false;
-  selectedEquipment: string | null = null; 
+  selectedEquipment: Equipment | null = null;
 
   // Equipos
   allEquipments: Equipment[] = [];
   filteredEquipments: Equipment[] = [];
   selectedSerial = '';
+  
+  // Componentes del equipo seleccionado
+  equipmentComponents: any[] = [];
 
   // Control de gráficos
   showAlternateGraphs = false;
@@ -37,7 +42,8 @@ export class DashboardComponent implements OnInit {
   colorMeasurements: any[] = [];
   flujoMeasurements: any[] = [];
 
-  constructor(private readonly equipmentService: EquipmentService) {}
+  constructor(private readonly equipmentService: EquipmentService, private cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.loadEquipments();
@@ -50,10 +56,6 @@ export class DashboardComponent implements OnInit {
         this.allEquipments = equipments;
         this.filteredEquipments = equipments;
         this.isLoading = false;
-
-        if (equipments.length > 0) {
-          this.loadEquipmentData(equipments[0].serial);
-        }
       },
       error: (error) => {
         console.error('Error cargando equipos:', error);
@@ -62,16 +64,40 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  toggleSidebar(): void { this.isSidebarOpen = !this.isSidebarOpen; }
+  toggleSidebar(): void { 
+    this.isSidebarOpen = !this.isSidebarOpen; 
+  }
+
+  onEquipmentChange(): void {
+    if (this.selectedSerial) {
+      this.loadEquipmentData(this.selectedSerial);
+    } else {
+      this.resetSelections();
+    }
+  }
+
+  dropdownOpen = false;
+
+toggleDropdown() {
+  this.dropdownOpen = !this.dropdownOpen;
+}
+
+
+  resetSelections(): void {
+    this.selectedComponents = {};
+    this.equipmentComponents = [];
+    this.clearMeasurements();
+  }
 
   loadEquipmentData(serial: string): void {
-    this.selectedSerial = serial;
     this.isLoading = true;
 
     this.equipmentService.getEquipmentBySerial(serial).subscribe({
       next: (equipment) => {
         this.isLoading = false;
         if (equipment) {
+          this.selectedEquipment = equipment;
+          this.equipmentComponents = equipment.components || [];
           this.processComponentData(equipment);
         }
       },
@@ -111,42 +137,52 @@ export class DashboardComponent implements OnInit {
   }
 
   toggleComponentSelection(component: string): void {
-    // Si se está desactivando un componente, simplemente cambia su estado
-    if (this.selectedComponents[component]) {
-      this.selectedComponents[component] = false;
+    if (!component) return;
+  
+    this.selectedComponents[component] = !this.selectedComponents[component];
+  
+    if (!this.selectedComponents[component]) {
+      this.clearComponentMeasurement(component);
     } else {
-      // Si se está activando, verifica que no exceda el máximo permitido
       const currentSelectedCount = Object.values(this.selectedComponents).filter(Boolean).length;
-      
-      if (currentSelectedCount < this.maxSelectedComponents) {
-        this.selectedComponents[component] = true;
-      } else {
-        // Opcional: Mostrar un mensaje de alerta o notificación
+      if (currentSelectedCount > this.maxSelectedComponents) {
+        this.selectedComponents[component] = false;
         console.log(`Máximo de ${this.maxSelectedComponents} componentes permitidos`);
+        return;
       }
     }
-    
-    // Cargar datos de componentes seleccionados
+  
     this.updateSelectedComponentsData();
+    this.cdRef.detectChanges(); // Forzar actualización de la UI
   }
+  
+
+  clearComponentMeasurement(component: string): void {
+    switch (component) {
+      case 'ph': this.phMeasurements = []; break;
+      case 'temperatura': this.temperaturaMeasurements = []; break;
+      case 'cloro': this.cloroMeasurements = []; break;
+      case 'turbidez': this.turbidezMeasurements = []; break;
+      case 'color': this.colorMeasurements = []; break;
+      case 'flujo': this.flujoMeasurements = []; break;
+    }
+  }
+  
+  
 
   updateSelectedComponentsData(): void {
     this.clearMeasurements();
   
-    if (this.selectedSerial) {
-      this.equipmentService.getEquipmentBySerial(this.selectedSerial).subscribe(equipment => {
-        if (equipment && equipment.components) {
-          Object.keys(this.selectedComponents).forEach(componentKey => {
-            if (this.selectedComponents[componentKey]) {
-              const component = equipment.components?.find(comp => 
-                this.mapComponentName(comp.name.toLowerCase()) === componentKey
-              );
-              
-              if (component) {
-                this.assignMeasurementData(componentKey, component);
-              }
-            }
-          });
+    if (this.selectedSerial && this.selectedEquipment) {
+      Object.keys(this.selectedComponents).forEach(componentKey => {
+        if (this.selectedComponents[componentKey]) {
+          const component = this.selectedEquipment?.components?.find(comp => 
+            this.mapComponentName(comp.name.toLowerCase()) === componentKey
+          );
+          
+          if (component) {
+            this.assignMeasurementData(componentKey, component);
+          }
         }
       });
     }
@@ -171,13 +207,6 @@ export class DashboardComponent implements OnInit {
       case 'turbidez': this.turbidezMeasurements = data; break;
       case 'color': this.colorMeasurements = data; break;
       case 'flujo': this.flujoMeasurements = data; break;
-    }
-  }
-
-  onFilterChange(selectedSerial: string) {
-    this.selectedEquipment = selectedSerial;
-    if (selectedSerial) {
-      this.loadEquipmentData(selectedSerial);
     }
   }
 
