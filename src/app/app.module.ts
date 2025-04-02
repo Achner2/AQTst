@@ -9,14 +9,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
+
+
+
 //fusioncharts
 import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
 import Widgets from 'fusioncharts/fusioncharts.widgets';
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import { FusionChartsModule } from 'angular-fusioncharts';
+
+
 //3d threejs
-import { AqumodelComponent } from './Components/aquModels/aqumodel/aqumodel.component';
 import { ModalsComponent } from './Components/modals/modals.component';
 import { LinearGaugeModule as SyncfusionLinearGaugeModule } from '@syncfusion/ej2-angular-lineargauge';
 import { PhSensorComponent } from './Components/linearSensors/ph-sensor/ph-sensor.component';
@@ -32,25 +36,24 @@ import { StatusComponent } from './Components/status/status.component';
 import { GraphicComponent } from './Components/pages/graphic/graphic.component';
 import { DsComponent } from './Components/pages/ds/ds.component';
 
+
 //new
 import { CaudalSensorComponent } from './Components/cylinderSensors/caudal-sensor/caudal-sensor.component';
-import { CylinderChartComponent } from './Components/cylinderSensors/nivel-chart/cylinder-chart.component';
-import { RadialGaugeComponent } from './Components/cylinderSensors/radial-gauge/radial-gauge.component';
-import { CloroGaugeComponentComponent } from './Components/cylinderSensors/cloro-gauge-component/cloro-gauge-component.component';
 import { TurbidezGaugeComponent } from './Components/cylinderSensors/turbidez-gauge/turbidez-gauge.component';
-import { ColorGaugeComponent } from './Components/cylinderSensors/color-gauge/color-gauge.component';
-import { PhGaugeComponent } from './Components/cylinderSensors/ph-gauge/ph-gauge.component';
 import { EquipmentsComponent } from './Components/pages/equipments/equipments.component';
 import { NgxParticlesModule } from '@tsparticles/angular';
 import { TableAlertsComponent } from './Components/pages/table-alerts/table-alerts.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+
+
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { NotificationComponent } from './Components/pages/notification/notification.component';
-import { EquipmentsFilterComponent } from './Components/pages/equipments-filter/equipments-filter.component'
-
+import { EquipmentsFilterComponent } from './Components/pages/equipments-filter/equipments-filter.component';
+import { LinearChartd3Component } from './Components/cylinderSensors/linear-chartd3/linear-chartd3.component';
+import { LinearChartHigchartsComponent } from './Components/pages/linear-chart-higcharts/linear-chart-higcharts.component'
 
 
 
@@ -61,7 +64,6 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
     declarations: [
         AppComponent,
         DashboardComponent,
-        AqumodelComponent,
         ModalsComponent,
         PhSensorComponent,
         CloroSensorComponent,
@@ -76,16 +78,13 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
         GraphicComponent,
         DsComponent,
         CaudalSensorComponent,
-        CylinderChartComponent,
-        RadialGaugeComponent,
-        CloroGaugeComponentComponent,
         TurbidezGaugeComponent,
-        ColorGaugeComponent,
-        PhGaugeComponent,
         EquipmentsComponent,
         TableAlertsComponent,
         NotificationComponent,
         EquipmentsFilterComponent,
+        LinearChartd3Component,
+        LinearChartHigchartsComponent,
         
         
     ],

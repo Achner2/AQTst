@@ -47,27 +47,6 @@
   </aside>
 
   <main class="main-content flex flex-col">
-    <div class="w-2/3">
-      <app-equipments-filter (filterChange)="onFilterChange($event)"></app-equipments-filter>
-      <div *ngIf="isLoading" class="text-center my-2">
-        <p class="text-gray-600">Cargando datos...</p>
-      </div>
-    </div>
-    
-    <div class="w-2/6" *ngIf="selectedEquipment">
-      <div class="bg-white p-1 rounded-lg shadow">
-        <div class="flex flex-wrap gap-2">
-          <div *ngFor="let component of availableComponents" 
-               class="inline-flex items-center px-2 py-1 rounded-md cursor-pointer"
-               [ngClass]="{'bg-blue-500 text-white': selectedComponents[component], 'bg-gray-200 text-gray-800': !selectedComponents[component]}"
-               (click)="toggleComponentSelection(component)">
-            {{ component }}
-            <span *ngIf="selectedComponents[component]" class="ml-2">✓</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="flex flex-col w-1/3">
       <app-ph-sensor *ngIf="selectedComponents['ph']" [data]="phMeasurements"></app-ph-sensor>
       <app-temperatura-sensor *ngIf="selectedComponents['temperatura']" [data]="temperaturaMeasurements"></app-temperatura-sensor>
@@ -79,6 +58,10 @@
 
     <div>
     </div>
+    <div class="w-full h-5/6 flex flex-wrap justify-center gap-3">
+      <app-linear-chartd3 class="w-full h-full " [data]="phMeasurements" ></app-linear-chartd3>
+      <app-linear-chartd3 class="w-full h-full " [data]="temperaturaMeasurements" ></app-linear-chartd3>
+      <app-linear-chartd3 class="w-full h-full " [data]="cloroMeasurements" ></app-linear-chartd3>
+    </div>
   </main>
 </div>
-

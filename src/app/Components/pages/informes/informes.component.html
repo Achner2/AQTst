@@ -1,248 +1,77 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jszip"></script>
-<script src="https://cdn.jsdelivr.net/npm/pdfmake/build/pdfmake.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pdfmake/build/vfs_fonts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
-
-
-
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
-
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-
-
 <div class="container mt-4">
-  <div class="title-container fontGood">
-    Informe de Metricas
+  <div class="title-container text-center mb-4">
+    <h2 class="fw-bold text-primary">Informe de Métricas</h2>
   </div>
-  <app-graphic></app-graphic>
-    <br>
-    <div class="card-body w-100 mx-auto">
-        <h3 class="text-center">PH</h3>
-        <div id="measurementTablePHContainer">
-          <button (click)="exportarExcel('measurementTablePH')"  class="btn btn-excel btn-export" title="Exportar Excel"> <i class="fas fa-file-excel"></i></button>
-          <button (click)="exportarPDF('measurementTablePH')" class="btn btn-pdf btn-export" title="Exportar PDF"> <i class="fas fa-file-pdf"></i></button>
-          <button (click)="imprimirTabla('measurementTablePH')" class="btn btn-imprimir btn-export" title="Imprimir"> <i class="fas fa-print"></i></button>
+  
+  <!-- Filtro de Tablas -->
+  <div class="row mt-3 mb-4">
+    <div class="col-md-6 mx-auto">
+      <div class="card shadow-lg border-0 rounded">
+        <div class="card-header bg-primary text-white text-center">
+          <h5 class="mb-0">Filtro de Tablas</h5>
         </div>
-      <table id="measurementTablePH" class="table table-striped table-bordered responsive nowrap" cellspacing="0" style="width:100%">
-        <thead>
-          <tr>
-            <th>Serial</th>
-            <th>Componente</th>
-            <th>Variable</th>
-            <th>Unidades</th>
-            <th>Fecha Recepción</th>
-            <th>Fecha Medición</th>
-            <th>Valor</th>
-            <th>Estado</th>
-            <th>Tipo de Medición</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-    <br>
-    <br>
-    <div class="card-body w-100 mx-auto">
-        <h3 class="text-center">Cloro</h3>
-        <div id="measurementTableCloroContainer">
-          <button (click)="exportarExcel('measurementTableCloro')"  class="btn btn-excel btn-export" title="Exportar Excel"> <i class="fas fa-file-excel"></i></button>
-          <button (click)="exportarPDF('measurementTableCloro')" class="btn btn-pdf btn-export" title="Exportar PDF"> <i class="fas fa-file-pdf"></i></button>
-          <button (click)="imprimirTabla('measurementTableCloro')" class="btn btn-imprimir btn-export" title="Imprimir"> <i class="fas fa-print"></i></button>
+        <div class="card-body">
+          <label for="tableFilter" class="form-label fw-semibold">Seleccione las métricas a mostrar:</label>
+          <select id="tableFilter" class="form-select mt-2" multiple [(ngModel)]="selectedMetrics">
+            <option *ngFor="let sensor of sensors" [value]="sensor.name">{{ sensor.name }}</option>
+          </select>
+          <div class="d-flex justify-content-between mt-3">
+            <button class="btn btn-primary px-4" (click)="applyMetricFilter()">
+              <i class="fas fa-filter me-2"></i> Aplicar Filtro
+            </button>
+            <button class="btn btn-outline-secondary px-4" (click)="resetMetricFilter()">
+              <i class="fas fa-sync-alt me-2"></i> Mostrar Todas
+            </button>
+          </div>
         </div>
-      <table id="measurementTableCloro" class="table table-striped table-bordered responsive nowrap" cellspacing="0" style="width:100%">
-        <thead>
-          <tr>
-            <th>Serial</th>
-            <th>Componente</th>
-            <th>Variable</th>
-            <th>Unidades</th>
-            <th>Fecha Recepción</th>
-            <th>Fecha Medición</th>
-            <th>Valor</th>
-            <th>Estado</th>
-            <th>Tipo de Medición</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-    <br>
-    <br>
-    <div class="card-body w-100 mx-auto">
-        <h3 class="text-center">Temperatura</h3>
-        <div id="measurementTableTemperaturaContainer">
-          <button (click)="exportarExcel('measurementTableTemperatura')"  class="btn btn-excel btn-export" title="Exportar Excel"> <i class="fas fa-file-excel"></i></button>
-          <button (click)="exportarPDF('measurementTableTemperatura')" class="btn btn-pdf btn-export" title="Exportar PDF"> <i class="fas fa-file-pdf"></i></button>
-          <button (click)="imprimirTabla('measurementTableTemperatura')" class="btn btn-imprimir btn-export" title="Imprimir"> <i class="fas fa-print"></i></button>
-        </div>
-      <table id="measurementTableTemperatura" class="table table-striped table-bordered responsive nowrap" cellspacing="0" style="width:100%">
-        <thead>
-          <tr>
-            <th>Serial</th>
-            <th>Componente</th>
-            <th>Variable</th>
-            <th>Unidades</th>
-            <th>Fecha Recepción</th>
-            <th>Fecha Medición</th>
-            <th>Valor</th>
-            <th>Estado</th>
-            <th>Tipo de Medición</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-    <br>
-    <br>
-    <div class="card-body w-100 mx-auto">
-        <h3 class="text-center">Nivel</h3>
-        <div id="measurementTableNivelContainer">
-          <button (click)="exportarExcel('measurementTableNivel')"  class="btn btn-excel btn-export" title="Exportar Excel"> <i class="fas fa-file-excel"></i></button>
-          <button (click)="exportarPDF('measurementTableNivel')" class="btn btn-pdf btn-export" title="Exportar PDF"> <i class="fas fa-file-pdf"></i></button>
-          <button (click)="imprimirTabla('measurementTableNivel')" class="btn btn-imprimir btn-export" title="Imprimir"> <i class="fas fa-print"></i></button>
-        </div>
-      <table id="measurementTableNivel" class="table table-striped table-bordered responsive nowrap" cellspacing="0" style="width:100%">
-        <thead>
-          <tr>
-            <th>Serial</th>
-            <th>Componente</th>
-            <th>Variable</th>
-            <th>Unidades</th>
-            <th>Fecha Recepción</th>
-            <th>Fecha Medición</th>
-            <th>Valor</th>
-            <th>Estado</th>
-            <th>Tipo de Medición</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-    <br>
-    <br>
-    <div class="card-body w-100 mx-auto">
-        <h3 class="text-center">Flujo</h3>
-        <div id="measurementTableFlujoContainer">
-          <button (click)="exportarExcel('measurementTableFlujo')"  class="btn btn-excel btn-export" title="Exportar Excel"> <i class="fas fa-file-excel"></i></button>
-          <button (click)="exportarPDF('measurementTableFlujo')" class="btn btn-pdf btn-export" title="Exportar PDF"> <i class="fas fa-file-pdf"></i></button>
-          <button (click)="imprimirTabla('measurementTableFlujo')" class="btn btn-imprimir btn-export" title="Imprimir"> <i class="fas fa-print"></i></button>
-        </div>
-      <table id="measurementTableFlujo" class="table table-striped table-bordered responsive nowrap" cellspacing="0" style="width:100%">
-        <thead>
-          <tr>
-            <th>Serial</th>
-            <th>Componente</th>
-            <th>Variable</th>
-            <th>Unidades</th>
-            <th>Fecha Recepción</th>
-            <th>Fecha Medición</th>
-            <th>Valor</th>
-            <th>Estado</th>
-            <th>Tipo de Medición</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  <br>
-  <br>
-    <div class="card-body w-100 mx-auto">
-      <h3 class="text-center">Caudal</h3>
-      <div id="measurementTableCaudalContainer">
-        <button (click)="exportarExcel('measurementTableCaudal')"  class="btn btn-excel btn-export" title="Exportar Excel"> <i class="fas fa-file-excel"></i></button>
-        <button (click)="exportarPDF('measurementTableCaudal')" class="btn btn-pdf btn-export" title="Exportar PDF"> <i class="fas fa-file-pdf"></i></button>
-        <button (click)="imprimirTabla('measurementTableCaudal')" class="btn btn-imprimir btn-export" title="Imprimir"> <i class="fas fa-print"></i></button>
       </div>
-      <table id="measurementTableCaudal" class="table table-striped table-bordered responsive nowrap" cellspacing="0" style="width:100%">
-        <thead>
-          <tr>
-            <th>Serial</th>
-            <th>Componente</th>
-            <th>Variable</th>
-            <th>Unidades</th>
-            <th>Fecha Recepción</th>
-            <th>Fecha Medición</th>
-            <th>Valor</th>
-            <th>Estado</th>
-            <th>Tipo de Medición</th>
-          </tr>
-        </thead>
-      </table>
     </div>
-    <br>
-    <br>
-    <div class="card-body w-100 mx-auto">
-        <h3 class="text-center">Color</h3>
-        <div id="measurementTableColorContainer">
-          <button (click)="exportarExcel('measurementTableColor')"  class="btn btn-excel btn-export" title="Exportar Excel"> <i class="fas fa-file-excel"></i></button>
-          <button (click)="exportarPDF('measurementTableColor')" class="btn btn-pdf btn-export" title="Exportar PDF"> <i class="fas fa-file-pdf"></i></button>
-          <button (click)="imprimirTabla('measurementTableColor')" class="btn btn-imprimir btn-export" title="Imprimir"> <i class="fas fa-print"></i></button>
+  </div>
+  
+  <div class="row mb-4" *ngIf="showGraph">
+    <div class="col-12">
+      <div class="card shadow-lg border-0 rounded">
+        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Gráfico</h5>
+          <div>
+            <label for="sensorSelect" class="me-2 text-white">Sensor:</label>
+            <select id="sensorSelect" class="form-select form-select-sm d-inline-block" style="width: auto;" [(ngModel)]="selectedSensor" (change)="filtrarDatos()">
+              <option *ngFor="let sensor of visibleSensors" [value]="sensor.name">{{ sensor.name }}</option>
+            </select>
+          </div>
         </div>
-      <table id="measurementTableColor" class="table table-striped table-bordered responsive nowrap" cellspacing="0" style="width:100%">
-        <thead>
-          <tr>
-            <th>Serial</th>
-            <th>Componente</th>
-            <th>Variable</th>
-            <th>Unidades</th>
-            <th>Fecha Recepción</th>
-            <th>Fecha Medición</th>
-            <th>Valor</th>
-            <th>Estado</th>
-            <th>Tipo de Medición</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-    <br>
-    <br>
-    <div class="card-body w-100 mx-auto">
-      <h3 class="text-center">Turbidez</h3>
-      <div id="measurementTableTurbidezContainer">
-        <button (click)="exportarExcel('measurementTableTurbidez')"  class="btn btn-excel btn-export" title="Exportar Excel"> <i class="fas fa-file-excel"></i></button>
-        <button (click)="exportarPDF('measurementTableTurbidez')" class="btn btn-pdf btn-export" title="Exportar PDF"> <i class="fas fa-file-pdf"></i></button>
-        <button (click)="imprimirTabla('measurementTableTurbidez')" class="btn btn-imprimir btn-export" title="Imprimir"> <i class="fas fa-print"></i></button>
+        <div class="card-body">
+          <div id="chartdiv" style="width: 100%; height: 450px;"></div>
+        </div>
       </div>
-      <table id="measurementTableTurbidez" class="table table-striped table-bordered responsive nowrap" cellspacing="0" style="width:100%">
-        <thead>
-          <tr>
-            <th>Serial</th>
-            <th>Componente</th>
-            <th>Variable</th>
-            <th>Unidades</th>
-            <th>Fecha Recepción</th>
-            <th>Fecha Medición</th>
-            <th>Valor</th>
-            <th>Estado</th>
-            <th>Tipo de Medición</th>
-          </tr>
-        </thead>
-      </table>
     </div>
+  </div>
+  
+  <div *ngFor="let sensor of visibleSensors" class="card shadow-lg border-0 rounded mx-auto mt-4 p-3 w-100">
+    <h3 class="text-center text-dark fw-bold">{{ sensor.name }}</h3>
+    <div class="d-flex justify-content-center gap-3 my-3">
+      <button (click)="exportarExcel(sensor.id)" class="btn btn-success btn-sm" title="Exportar a Excel">
+        <i class="fas fa-file-excel"></i>
+      </button>
+      <button (click)="exportarPDF(sensor.id)" class="btn btn-danger btn-sm" title="Exportar a PDF">
+        <i class="fas fa-file-pdf"></i>
+      </button>
+      <button (click)="imprimirTabla(sensor.id)" class="btn btn-dark btn-sm" title="Imprimir">
+        <i class="fas fa-print"></i>
+      </button>
+    </div>
+    <table [id]="sensor.id" class="table table-hover table-bordered table-responsive-sm">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Serial</th>
+          <th>Valor</th>
+          <th>Estado</th>
+          <th *ngIf="sensor.name === 'PH' || sensor.name === 'Cloro'">Componente</th>
+          <th *ngIf="sensor.name !== 'PH'">Variable</th>
+          <th>Fecha Medición</th>
+          <th>Fecha Recepción</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>

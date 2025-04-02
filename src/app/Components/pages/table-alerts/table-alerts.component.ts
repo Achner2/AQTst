@@ -26,20 +26,20 @@ export class TableAlertsComponent implements OnInit {
 
   availableColumns = [
     { value: 'Serial', name: 'Serial' },
+    { value: 'Valor', name: 'Valor' },
     { value: 'Componente', name: 'Componente' },
     { value: 'Variable', name: 'Variable' },
     { value: 'Unidades', name: 'Unidades' },
     { value: 'FechaRecepcion', name: 'Fecha Recepción' },
     { value: 'Fechaemedicion', name: 'Fecha Medición' },
-    { value: 'Valor', name: 'Valor' },
     { value: 'Estado', name: 'Estado' },
     { value: 'TipoMedicion', name: 'Tipo Medición' },
     { value: 'Icono', name: 'Icono' }
   ];
 
   columnas: string[] = [
-    'Serial', 'Componente', 'Variable', 'Unidades', 'FechaRecepcion',
-    'Fechaemedicion', 'Valor', 'Estado', 'TipoMedicion', 'Icono'
+    'Serial', 'Componente','Valor' ,'Unidades', 'FechaRecepcion',
+    'Fechaemedicion', 'Estado', 'TipoMedicion', 'Icono'
   ];
   
   alertas = new MatTableDataSource<AlertTableItem>([]);

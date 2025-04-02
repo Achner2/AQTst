@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PhGaugeComponent } from './ph-gauge.component';
+import { LinearChartd3Component } from './linear-chartd3.component';
 
-describe('PhGaugeComponent', () => {
-  let component: PhGaugeComponent;
-  let fixture: ComponentFixture<PhGaugeComponent>;
+describe('LinearChartd3Component', () => {
+  let component: LinearChartd3Component;
+  let fixture: ComponentFixture<LinearChartd3Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PhGaugeComponent]
+      declarations: [LinearChartd3Component]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PhGaugeComponent);
+    fixture = TestBed.createComponent(LinearChartd3Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
